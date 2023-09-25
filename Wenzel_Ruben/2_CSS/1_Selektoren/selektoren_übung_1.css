@@ -1,0 +1,32 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    font-size: 30px;
+    color: blue;
+    background-color: red;
+    padding: 5px;
+}
+section.Section1 h2 { 
+    color: green;
+    border: 2px solid black;
+    padding: 10px;
+}
+section.Section2 h2 {
+    color: green;
+    border: 5px dotted green;
+    padding: 10px;
+}
+#p1 {
+    color: aliceblue;
+}
+#p2 {
+    color: gray;
+}
+#p3 {
+    color: gold;
+}
+section p {
+    padding: 200px;
+}
