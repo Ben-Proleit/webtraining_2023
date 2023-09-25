@@ -1,0 +1,40 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    font-size: 30px;
+    color: #436EEE;
+    background-color: #dadada;
+    padding: 15px
+}
+
+h2{
+    color: #3dcd58;
+    border: 5px;
+    border-style: dotted;
+    border-color: #3dcd58;
+    padding: 10px;
+}
+
+.section1 h2{
+    border: 2px; 
+    border-style: solid;
+    border-color: black;
+}
+
+#p1, #p2, #p3{
+    margin-right: 200px;
+}
+
+#p1{
+    color: red;
+}
+
+#p2{
+    color: rebeccapurple
+}
+
+#p3{
+    color: #ffcc00;
+}
