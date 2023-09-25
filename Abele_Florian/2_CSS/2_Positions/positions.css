@@ -1,0 +1,29 @@
+div{
+  border-width: 5;
+  border-color: black;
+  border-style: solid;
+  background-color: rgb(73, 184, 173);
+  width: 500;
+  height: 150;
+  margin: 5;
+}
+
+
+#d2{
+  background-color: aqua;
+  position: sticky;
+  top: 20px;
+}
+
+#d3{
+  background-color: paleturquoise;
+  position: relative;
+  left: 250;
+  z-index: -5;
+}
+
+#d4{
+  background-color: lightblue;
+  position: absolute;
+  left: 250;
+}
