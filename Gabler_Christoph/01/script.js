@@ -4,19 +4,32 @@ function delay(ms) {
 
 document.addEventListener("DOMContentLoaded", async function(){
   console.log("Document loaded.");
-  var color1 = [255, 0, 0];
-  var color2 = [0, 255, 0];
+  
+  var letters = document.getElementById("letters").children;
+  var offset = parseInt((255 * 3) / (letters.length + 1));
+
+  var colors = [];
   var cSpeed = 50;
 
+  //initialize all colors
+  for(var i = 0; i < letters.length + 1; i++){
+    colors[i] = getStartColor(i * offset);
+  }
+  //initialize the background color
+  colors[letters.length] = [0, 0, 255];
+
+  //console.log(colors);
+  //return;
+
   while(true){
-    color1 = calculateColor(color1, cSpeed);
-    color2 = calculateColor(color2, cSpeed);
-
-    var color1_text = getColorAsText(color1);
-    document.getElementById("cycletext").style.color = color1_text;
-
-    var color2_text = getColorAsText(color2);
-    document.getElementById("background").style.backgroundColor = color2_text;
+    //calculate the color for every letter
+    for(var i = 0; i < letters.length; i++){
+      colors[i] = calculateColor(colors[i], cSpeed);
+      letters[i].style.color = getColorAsText(colors[i]);
+    }
+    //calculate the background color
+    colors[letters.length] = calculateColor(colors[letters.length], cSpeed);
+    document.getElementById("background").style.backgroundColor = getColorAsText(colors[letters.length]);
     
     //console.log(color);
     await delay(10);
@@ -58,4 +71,18 @@ function getColorAsText(color){
     return;
   }
   return "#" + addZero(color[0].toString(16)) + addZero(color[1].toString(16)) + addZero(color[2].toString(16));
+}
+
+function getStartColor(offset){
+  if(offset <= 0){
+    return [255, 0, 0];
+  }else if(offset > 0 && offset <= 255){
+    return [offset, 255 - offset, 0];
+  }else if(offset > 255 && offset <= 510){
+    var newoffset = 510 - offset;
+    return [0, newoffset, 255 - newoffset];
+  }else if(offset > 510){
+    var newoffset = 255 * 3 - offset;
+    return [255 - newoffset, 0, newoffset];
+  }
 }
