@@ -1,0 +1,23 @@
+body, html{
+  height: 100%;
+  width: 100%;
+}
+p{
+  font-size: 10em;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.center-vertical{
+  height: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.center-horizontal{
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: center;
+}
