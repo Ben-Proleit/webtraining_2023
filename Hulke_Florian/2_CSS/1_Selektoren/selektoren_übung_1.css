@@ -1,0 +1,40 @@
+* {
+  font-family: fantasy;
+}
+
+h1 {
+  font-size: 30px;
+  color: blue;
+  background-color: lightskyblue;
+  padding: 15px;
+}
+
+.section1 h2 {
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
+}
+
+section h2 {
+  color: green;
+  border-width: 5px;
+  border-style: dotted;
+  border-color: green;
+  padding: 10px;
+}
+
+#p1 {
+  color: black;
+}
+
+#p2 {
+  color: red;
+}
+
+#p3 {
+  color: gold;
+}
+
+body section p {
+  margin-right: 200px;
+}
