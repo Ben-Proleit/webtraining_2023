@@ -1,0 +1,80 @@
+.heading {
+  color: #ffcc00;
+}
+
+#heading2 {
+  color: #073a73;
+}
+
+h1,
+h2 {
+  color: #ffcc00;
+}
+
+.nachfahrenselektor p {
+  color: #ffcc00;
+}
+
+.kindselektor>p {
+  color: #ffcc00;
+}
+
+.nachbarselektor+p {
+  color: #ffcc00;
+}
+
+.geschwisterselektor~p {
+  color: #ffcc00;
+}
+
+
+.pseudo-test {
+  width: 100px;
+  height: 100px;
+  background-color: #ffcc00;
+}
+
+.pseudo-test:hover {
+  border: 5px solid #073a73;
+}
+
+.pseudo-test:active {
+  border: none;
+  filter: blur(20px);
+}
+
+span:nth-of-type(2) {
+  color: #ffcc00;
+}
+
+span:first-of-type {
+  color: #ffcc00;
+}
+
+[web] {
+  background-color: aqua;
+}
+
+[web="attribute"] {
+  background-color: aqua;
+}
+
+[web~="attribute"] {
+  background-color: aqua;
+}
+
+[web|="attribute"] {
+  background-color: aqua;
+}
+
+[web^="attr"] {
+  background-color: aqua;
+}
+
+[web$="te"] {
+  background-color: aqua;
+}
+
+[web*="tribute"] {
+  background-color: aqua;
+}
