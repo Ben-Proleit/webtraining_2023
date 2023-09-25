@@ -1,10 +1,15 @@
 <html>
     <head>
         <title>Das ist eine Website</title>
+        <link rel="stylesheet" href="Aufgabe3.css">
     </head>
     <body>
         <div> 
             <h1> Test 1</h1>
+            <div id="d1">
+                
+
+            </div>
             <h2> Test 2</h2>
             <h3> Test 3</h3>
         </div>
@@ -86,5 +91,6 @@
                 </fieldset>
               </form>
         </div>
+        <div id="Footer"></div>
     </body> 
 </html>

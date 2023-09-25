@@ -30,3 +30,18 @@ section.Section2 h2 {
 section p {
     padding: 200px;
 }
+div {
+    height: 100px;
+    width: 100%;
+    background-color: green;
+    position: sticky;
+    top: 0px;
+}
+footer {
+    position: fixed;
+    background-color: yellow;
+    height: 40px;
+    width: 100%;
+    bottom: 0%;
+    z-index: -5;
+}

@@ -1,0 +1,17 @@
+#d1{
+    position:sticky;
+    height: 100px;
+    right: 0px;
+    left: 0px;
+    top: 0px;
+    background-color:aqua;
+}
+
+#Footer{
+    position:fixed;
+    height: 40px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    background-color: aqua;
+}
