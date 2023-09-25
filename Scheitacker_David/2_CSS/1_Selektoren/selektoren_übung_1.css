@@ -1,0 +1,61 @@
+
+
+body{
+    font-family:'Times New Roman', Times, serif;
+}
+
+h1{
+    font-size: 30px;
+    color: blue;
+    background-color: rgb(138, 138, 135);
+    margin-left: 15px;
+}
+
+.section1Class h1{
+    color:green;
+    border: 2px;
+    border-style: solid;
+    border-color: black;
+    padding: 10px;
+}
+
+.section1Class h2{
+    color:green;
+    border: 2px;
+    border-style: solid;
+    border-color: black;
+    padding: 10px;
+}
+
+
+.section2Class h1{
+    color:green;
+    border: 5px;
+    border-style: dotted;
+    border-color: green;
+    padding: 10px;
+}
+
+.section2Class h2{
+    color:green;
+    border: 5px;
+    border-style: dotted;
+    border-color: green;
+    padding: 10px;
+}
+
+body section p{
+    margin-left: 200px;
+}
+
+#para1{
+    background-color: brown;
+}
+
+#para2{
+    background-color: paleturquoise;
+}
+
+#para3{
+    background-color:lavender;
+}
