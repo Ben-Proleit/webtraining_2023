@@ -1,0 +1,40 @@
+* {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+h1 {
+  font-size: 30px;
+  color: blue;
+  background-color: chartreuse;
+  padding: 15px;
+}
+
+h2 {
+  color: green;
+  border-radius: 5px;
+  border-style: dotted;
+  border-color: green;
+  padding: 10px;
+}
+
+.clr h2 {
+  border-radius: 2px;
+  border-style: solid;
+  border-color: black;
+}
+
+#c1 {
+  color: red;
+}
+
+#c2 {
+  color: blue;
+}
+
+#c3 {
+  color: orange;
+}
+
+p {
+  padding-right: 200px;
+}
