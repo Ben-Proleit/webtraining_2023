@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+header {
+  width: 100%;
+  height: 75px;
+  background-color: #073a73;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div {
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+hr {
+  height: 2px;
+  width: calc(100% - 40px);
+  border: none;
+  background-color: #073a73;
+  border-radius: 10px;
+}
