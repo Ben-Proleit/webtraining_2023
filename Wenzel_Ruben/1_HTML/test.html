@@ -1,0 +1,132 @@
+<html>
+    <head>
+        <title>Webschulung RWN</title>
+        <meta name="description" content="Description"/>
+        <meta name="autor" content="Ruben Wenzel">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+
+        <!-- Browseroptimisation -->
+        <header>
+            <h1>Tags</h1>
+        </header>
+        <main>
+            <!-- Testheader -->
+            <div>
+                <h1>Header 1</h1>
+                <h2>Header 2</h2>
+                <h2>Header 3</h3>
+            </div>
+            <!-- Linebreak -->
+            <hr>    
+
+            <div>
+                <p>p1</p>
+                <p>p2</p>
+            </div>
+
+            <div>
+                <span>span1</span>
+                <span>span2</span>
+            </div>
+
+            <hr>
+
+            <div>
+                <!-- Anchor blank= new tab-->
+                <a href="https:\\www.google.de" target="_blank">GOOGLE!</a>
+            </div>
+            <!-- #region List-->
+            <div>
+                <!-- Unorderd - List -->
+                <ul>
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                </ul>
+            </div>
+
+            <!-- Orderd List -->
+            <div>
+                <ol type="A">
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                </ol>
+            </div>
+            <!-- #endregion List-->
+
+            <!-- #region Table -->
+            <div>
+                <table>
+                    <!-- Table row -->
+                    <tr>
+                        <!-- Table Header -->
+                        <th>Company</th>
+                        <th>City</th>
+                        <th>Country</th>
+                    </tr>
+                    <tr>
+                        <!-- Tbale Data -->
+                        <td>Proleit</td>
+                        <td>Herzogenaurach</td>
+                        <td>Deutschland</td>
+                    </tr>
+                    <tr>
+                        <td>Siemens</td>
+                        <td>Berlin</td>
+                        <td>Deutschland</td>
+                    </tr>
+                </table>
+            </div>
+            <!-- #endregion table -->
+
+            <hr>
+
+            <div>
+                <details>
+                    <summary>Summery</summary>
+                    <p>some more details</p>
+                </details>
+            </div>
+
+            <div>
+                <!-- Adds an diffrent Html file into the current html file -->
+                <iframe src="iframe.html" frameborder="1"></iframe>
+            </div>
+
+            <hr>
+
+            <!-- #region checkbox -->
+            <div>
+                <!-- multiselect enabled -->
+                <label for="testInput">Name: </label>
+                <input type="text" name="testInput" placeholder="Testuser">
+                <br>
+                <label for="passin">Password: </label>
+                <input type="password" name="passin" id="" placeholder="testpw">
+                <br>
+                <label for="numin">Number </label>
+                <input type="number" name="numin" id="" placeholder="testnum">
+                <br><br>
+                <label for="c1">HTML</label>
+                <input type="checkbox" value="HTML" name="c1" id="">
+                <label for="c2">CSS</label>
+                <input type="checkbox" value="CSS" name="c2" id="">
+                <label for="c2">JS</label>
+                <input type="checkbox" value="JS" name="c3" id="">
+                <br><br>
+                <!-- Just one selectable at the same time -->
+                <label for="r1">HTML</label>
+                <input type="radio" value="HTML" name="radio" id="r1">
+                <label for="r1">CSS</label>
+                <input type="radio" value="CSS" name="radio" id="r2">
+                <label for="r1">JS</label>
+                <input type="radio" value="JS" name="radio" id="r3">
+            </div>
+            <!-- #endregion checkbox  -->
+
+        </main>
+    </body>
+</html>
