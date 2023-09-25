@@ -1,0 +1,18 @@
+#heading{
+  border-bottom: 2px solid white;
+  padding: 1em;
+  position: fixed;
+  background-color: black;
+  top: 0px;
+  width: 100%;
+  z-index: 1;
+}
+
+#backbutton{
+  padding: 0.5em;
+  border: 1px solid white;
+  background: transparent;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
