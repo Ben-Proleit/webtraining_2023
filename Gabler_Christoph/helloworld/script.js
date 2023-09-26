@@ -4,7 +4,21 @@ function delay(ms) {
 
 document.addEventListener("DOMContentLoaded", async function(){
   console.log("Document loaded.");
-  
+
+  //the time until all animations should be started
+  let startTime = 1.0;
+
+  let rgbAnimated = document.getElementsByClassName("animate-rgb-foreground");
+  let totalRGBElements = rgbAnimated.length + 1;
+  for(var i = 0; i < rgbAnimated.length; i++){
+    //calculate the individual start delay
+    var startDelay = (startTime / totalRGBElements) * (i + 1);
+    console.log(startDelay);
+    //start the animation delayed
+    rgbAnimated[i].style.animationDelay = startDelay + "s";
+  }
+
+  /*
   var letters = document.getElementById("letters").children;
   var offset = parseInt((255 * 3) / (letters.length + 1));
 
@@ -34,8 +48,10 @@ document.addEventListener("DOMContentLoaded", async function(){
     //console.log(color);
     await delay(10);
   }
+  */
 });
 
+/*
 function addZero(input){
   if(input.length == 1){
     return "0" + input;
@@ -86,3 +102,5 @@ function getStartColor(offset){
     return [255 - newoffset, 0, newoffset];
   }
 }
+
+*/
