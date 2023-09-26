@@ -1,0 +1,19 @@
+footer{
+  position: sticky;
+  bottom: 0px;
+  height: 40px;
+  width: 100%;
+  background-color: teal;
+}
+
+#headerBox{
+  height: 100px;
+  background-color: teal;
+  border-width: 30px;
+  border-style: double;
+  border-radius: 5;
+  border-color: blueviolet;
+  position: sticky;
+  top: 0px;
+  margin: 20px;
+}

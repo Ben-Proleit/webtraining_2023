@@ -1,0 +1,15 @@
+#nachfahren-selektor #target{
+    color: red;
+}
+
+#kind-selektor > div > #target{
+    color: red;
+}
+
+#helper + #target{
+    color: red;
+}
+
+#geschwister-selektor p ~ #target{
+    color: red;
+}

@@ -1,0 +1,30 @@
+div {
+  width: 50%;
+  height: 100px;
+  margin: 20px;
+  background-color: #073a73;
+  color: #ffcc00;
+  font-size: 30px;
+  line-height: 100px;
+  text-align: center;
+}
+
+#container {
+  border: 5px solid #ffcc00;
+  
+
+  position: static;
+
+  /* position: relative;
+  left: 200px; */
+
+  /* position: absolute;
+  top: 200px;
+  left: 400px; */
+
+  /* z-index: -2; */
+
+  /* position: fixed;
+  top: 200px;
+  left: 400px; */
+}
