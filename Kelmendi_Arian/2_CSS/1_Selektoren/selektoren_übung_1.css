@@ -1,3 +1,7 @@
+/* Variablen */
+
+
+
 * {
     font-family: Arial, Helvetica, sans-serif
 }
@@ -25,7 +29,7 @@ section.section2 h2 {
 }
 
 #p2 {
-    color: #ffcc00;
+    color: var(--proleit-yellow);
 }
 
 #p3 {
