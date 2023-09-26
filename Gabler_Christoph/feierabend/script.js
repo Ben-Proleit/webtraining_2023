@@ -5,7 +5,7 @@ function delay(ms) {
 document.addEventListener("DOMContentLoaded", async function(){
   console.log("Document loaded.");
 
-  //TODO: implement countdown
+  //start countdown
   startCountdown();
 });
 
@@ -51,7 +51,7 @@ function setNixiDigit(digit, number){
   //split the string into first and second digit
   let firstDigit = parseInt(strNumber[0]);
   let secondDigit = parseInt(strNumber[1]);
-  //TODO: set the first digit
+  //set the first digit
   document.querySelector("#" + digit + "1 > .nr" + firstDigit).classList.add("nixiActive");
   document.querySelector("#" + digit + "2 > .nr" + secondDigit).classList.add("nixiActive");
 }
