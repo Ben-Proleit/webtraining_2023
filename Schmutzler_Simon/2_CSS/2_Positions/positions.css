@@ -1,0 +1,33 @@
+#target {
+
+    position:sticky;
+    background-color: #73AD21;
+    border: 3px solid #73AD21;
+    width: 100%;
+    height: 100px;
+}
+
+#footer{
+    position:fixed;
+    background-color: yellow;
+    border: 3px solid yellow;
+    width: 100%;
+    height: 40px;
+}
+
+
+div {
+    width: 50%;
+    height: 100px;
+    margin: 20px;
+    background-color: #073a73;
+    color: #ffcc00;
+    font-size: 30px;
+    line-height: 100px;
+    text-align: center;
+  }
+
+  .grid{
+    display: grid;
+    
+  }

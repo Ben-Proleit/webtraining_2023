@@ -1,0 +1,178 @@
+@keyframes test {
+    0%{
+        background-color: aqua;
+        transform: scale(0.5,0.5);
+    }
+    12.5%{
+        background-color: red;
+
+    }
+    25%{
+        background-color: green;
+    }
+    37.5%
+    {
+        background: yellow;
+        transform: rotate(60deg);
+    }
+    50%
+    {
+        background-color: hotpink;
+        transform: scale(2,2);
+    }
+    62.5%
+    {
+        background-color: white;
+    }
+    75%
+    {
+        background-color: blueviolet;
+    }
+    87.5%
+    {
+        background-color: brown;
+        transform: rotate(315deg);
+    }
+    100%
+    {
+        background-color: orange;
+        transform: rotate(360deg);
+    }
+    
+}
+
+body{
+    animation-name: test;
+    animation-duration: 30s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 30px;
+    column-gap: 100px;
+}
+
+
+#grid1{
+    height: 200px;
+    width: 200px;
+    background-color: aquamarine;
+    animation-name: test;
+    animation-duration: 10s;
+    animation-delay: 1s ;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    transform: rotate(360deg);
+}
+
+#grid2{
+    height: 200px;
+    width: 200px;
+    background-color: aquamarine;
+    animation-name: test;
+    animation-duration: 10s;
+    animation-delay: 2s ;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#grid3{
+    height: 200px;
+    width: 200px;
+    background-color: aquamarine;
+    animation-name: test;
+    animation-duration: 10s;
+    animation-delay: 3s ;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    transform: rotate(360deg);
+}
+
+#grid4{
+    height: 200px;
+    width: 200px;
+    background-color: aquamarine;
+    animation-name: test;
+    animation-duration: 10s;
+    animation-delay: 4s ;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    transform: rotate(360deg);
+}
+
+#grid5{
+    height: 200px;
+    width: 200px;
+    background-color: aquamarine;
+    animation-name: test;
+    animation-duration: 10s;
+    animation-delay: 5s ;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    transform: rotate(360deg);
+}
+
+#grid6{
+    height: 200px;
+    width: 200px;
+    background-color: aquamarine;
+    animation-name: test;
+    animation-duration: 10s;
+    animation-delay: 6s ;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    transform: rotate(360deg);
+}
+
+#grid7{
+    height: 200px;
+    width: 200px;
+    background-color: aquamarine;
+    animation-name: test;
+    animation-duration: 10s;
+    animation-delay: 7s ;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    transform: rotate(360deg);
+}
+
+#grid8{
+    height: 200px;
+    width: 200px;
+    background-color: aquamarine;
+    animation-name: test;
+    animation-duration: 10s;
+    animation-delay: 8s ;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    transform: rotate(360deg);
+}
+
+#grid9{
+    height: 200px;
+    width: 200px;
+    background-color: aquamarine;
+    animation-name: test;
+    animation-duration: 10s;
+    animation-delay: 9s ;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    transform: rotate(360deg);
+}
