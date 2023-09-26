@@ -1,0 +1,33 @@
+header + div {
+  top: 0;
+  height: 100px;
+  width: 100%;
+  background-color: blue;
+  position: sticky;
+}
+
+footer {
+  bottom: 0;
+  height: 40px;
+  width: 100%;
+  background-color: red;
+  position: fixed;
+}
+
+body {
+  margin: 0;
+}
+
+li {
+  font-size: xx-large;
+}
+
+ul {
+  margin-bottom: 40px;
+}
+
+footer > div {
+  color: aliceblue;
+  margin-top: 10px;
+  text-align: center;
+}
