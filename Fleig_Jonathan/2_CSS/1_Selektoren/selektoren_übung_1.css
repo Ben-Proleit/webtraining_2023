@@ -1,0 +1,30 @@
+/* hauptüberschrift 1 style */
+h1 {
+ color: blue;
+ font-size: 30px;   
+ background-color: aqua;
+ padding: 15px;
+}
+
+/*schriftart dokument */
+*{
+    font-family: fantasy;
+}
+
+/* unterüberschriften 1. sektion style*/
+section:first-of-type> h2 {
+    color: green;
+    border: 2px, stil solid, color(black);
+    padding: 10px;
+}
+
+section:nth-child(2)
+{
+    color: green;
+    border: 5px solid orange;
+}
+
+#para1, #para2, #para3 {
+    color: red;
+    margin: 200px;
+}
