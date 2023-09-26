@@ -1,23 +1,29 @@
-body, html{
-  height: 100%;
-  width: 100%;
-}
-p{
-  font-size: 10em;
-  font-family: Arial, Helvetica, sans-serif;
+#heading{
+  margin-bottom: 2em;
+  font-size: 3em;
 }
 
-.center-vertical{
-  height: 100%;
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: column;
-  justify-content: center;
+.item{
+  margin: 1em;
+  margin-bottom: 3em;
+  padding-left: 1em;
+  padding-right: 1em;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
 }
 
-.center-horizontal{
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: row;
-  justify-content: center;
+.item:hover{
+  cursor: pointer;
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+}
+
+.item span{
+  font-size: 2em;
+}
+
+.icon{
+  width: 2em;
+  height: 2em;
+  margin-right: 10px;
 }

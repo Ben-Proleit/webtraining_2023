@@ -1,0 +1,40 @@
+* {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+h1 {
+    font-size: 30px;
+    color: blue;
+    background-color: bisque;
+    padding: 15px;
+}
+h2{
+    border: 5px;
+    border-style: dotted;
+    padding: 10px;
+    color:green;
+    border-color:green;
+   
+}
+
+.section1 h2{
+    border: 2px;
+    border-style: solid;
+    border-color: black;
+   
+}
+#p1, #p2, #p3{
+    margin-right: 200px;
+}
+
+#p1{
+    color: red;
+}
+
+#p2{
+    color: hotpink;
+}
+
+#p3{
+    color: #ffcc00;
+}

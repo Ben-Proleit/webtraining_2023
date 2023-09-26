@@ -2,6 +2,7 @@
 
 <head>
   <title>Hi</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
 </head>
 
 <body>
@@ -98,10 +99,14 @@
     <input type="password" id="PassIn" placeholder="PW"/><br/>
 
     <label for="NumberIn">Alter: </label>
-    <input type="number" id="NumberIn"/><br/>
+    <input type="number" id="NumberIn" min="0" max="969"/><br/>
 
     <label for="Lieblingsfarbe">Lieblingsfarbe: </label>
     <input type="color" id="Lieblingsfarbe"/><br/>
+
+    <label for="Range">Zufriedenheitsskala: </label>
+    <input type="range" id="Range" min="-100" max="10" value="0"/>
+    <span id="rangeValue"></span><br/>
 
     <hr/>
 
@@ -135,4 +140,4 @@
   </div>
 </body>
 
-</html
+</html>

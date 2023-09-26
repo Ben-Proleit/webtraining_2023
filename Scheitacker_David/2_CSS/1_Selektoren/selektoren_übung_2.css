@@ -1,0 +1,9 @@
+
+#nachfahren-selektor #target,
+#kind-selektor > div > #target,
+#nachbar-selektor #helper + #target,
+#geschwister-selektor p ~ #target
+{
+    color:red;
+}
+

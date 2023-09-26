@@ -1,0 +1,38 @@
+*{
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+h1{
+  font-size: 30px;
+  color: lightblue;
+  background-color: hotpink;
+  padding: 15px;
+}
+
+.section_1>h2,section>h2 {
+  color: green;
+  padding: 10px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
+}
+
+section>h2{
+  border-width: 5px;
+  border-style: dotted;
+  border-color: green;
+}
+
+#p1{
+  color: palevioletred;
+}
+#p2{
+  color: purple;
+}
+#p3{
+  color: crimson;
+}
+
+.section_1>p, [testAttribute]{
+  margin-right: 200px;
+}

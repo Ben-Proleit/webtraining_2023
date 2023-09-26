@@ -1,0 +1,43 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1{
+    box-sizing:border-box;
+    font-size: 30px;
+    background-color: #3dcd58;
+    padding: 15px;
+}
+
+
+
+.section h2{
+    border-color: black;
+    border-radius: 2px;
+    border-style: solid;
+    padding: 10px;
+}
+
+h2{
+    color: green;
+    border-radius: 5px;
+    border-style: dotted;
+    border-color: green;
+}
+
+#p1{
+    background-color:aqua;
+}
+
+#p2 {
+    background-color: blueviolet;
+}
+
+#p3{
+    background-color: brown;
+}
+
+section p{
+    margin-right: 200px;
+}
+
