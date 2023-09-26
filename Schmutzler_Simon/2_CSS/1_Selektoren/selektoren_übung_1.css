@@ -1,0 +1,44 @@
+*{
+    background-color: #444444;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1{
+    font-size: 30px;  
+    color: white; 
+    background-color: hotpink;
+    padding: 15px;
+}
+
+section:first-of-type h2{
+    color:green;
+    border: 2px;
+    border-style: solid;
+    border-color: black;
+    padding: 10px;
+}
+
+section:nth-child(2) h2{
+    color:blueviolet;
+    border: 5px dotted green;
+    padding: 10px;
+
+}
+
+#abs1, #abs2, #abs3 {
+    margin-right: 200px;
+
+}
+
+#abs1 {
+    color:aqua;
+  }
+
+#abs2 {
+    color: sandybrown
+  }
+
+#abs3 {
+    color: yellowgreen;
+  }
+

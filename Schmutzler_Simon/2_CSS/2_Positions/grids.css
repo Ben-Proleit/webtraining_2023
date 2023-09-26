@@ -1,0 +1,28 @@
+:root{
+
+    
+}
+
+.grid{    
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 50px);
+    row-gap: 10px;
+    column-gap: 10px;
+}
+
+.grid div{
+    background-color: red;
+    display: flex;
+    flex-direction: row;
+    justify-content: 	center;
+    align-items: center;
+}
+
+.grid .grid2{
+    background-color: yellow;
+    grid-column-start: 4;
+    grid-column-end: 2;
+    grid-row-end: 2;
+    grid-row-start: 2;
+}
