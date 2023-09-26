@@ -23,6 +23,76 @@ p, span{
   justify-content: center;
 }
 
+@keyframes rgb-background {
+  12.5%{
+    background-color: red;
+  }
+  25%{
+    background-color: orange;
+  }
+  37.5%{
+    background-color: yellow;
+  }
+  50%{
+    background-color: green;
+  }
+  62.5%{
+    background-color: blue;
+  }
+  75%{
+    background-color: indigo;
+  }
+  87.5%{
+    background-color: violet;
+  }
+  100%{
+    background-color: white;
+  }
+}
+
+.animate-rgb-background{
+  animation-name: rgb-background;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes rgb-foreground {
+  12.5%{
+    color: red;
+  }
+  25%{
+    color: orange;
+  }
+  37.5%{
+    color: yellow;
+  }
+  50%{
+    color: green;
+  }
+  62.5%{
+    color: blue;
+  }
+  75%{
+    color: indigo;
+  }
+  87.5%{
+    color: violet;
+  }
+  100%{
+    color: white;
+  }
+}
+
+.animate-rgb-foreground{
+  animation-name: rgb-foreground;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
 @media screen and (max-width:993px){
   p{
     font-size: 3em;
