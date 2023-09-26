@@ -1,0 +1,42 @@
+:root {
+  background-color: black;
+  color: white;
+  font-family: "Open-Dyslexic", sans-serif;
+}
+
+h1 {
+  text-align: center;
+}
+
+body > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 60px);
+}
+
+@keyframes flashWhite {
+  0% {
+    background-color: black;
+    /* transform: rotate(0deg); */
+  }
+  100% {
+    background-color: white;
+    /* transform: rotate(90deg); */
+  }
+}
+
+.partylight {
+  height: 250px;
+  width: 250px;
+  align-self: center;
+  border-width: 10px;
+  border-color: gray;
+  border-style: solid;
+  border-radius: 25%;
+
+  animation-name: flashWhite;
+  animation-duration: 1ms;
+  animation-iteration-count: infinite;
+}
