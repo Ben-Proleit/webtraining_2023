@@ -1,4 +1,4 @@
-<html>
+<html lang="de">
 
   <head>
     <title>Hi</title>
@@ -19,7 +19,7 @@
 
       <!-- Ich bin ein toller Kommentar :3 -->
       <div>
-        <h1>Überschrift 1</h1>
+        <a name="top"><h1>Überschrift 1</h1></a>
         <h2>Überschrift 2</h2>
         <h3>Überschrift 3</h3>
       </div>
@@ -63,9 +63,10 @@
 
         <table>
           <tr>
-            <th>Firma</th>
-            <th>Bewertung</th>
-            <th>ID</th>
+            <!-- für Reihen-Überschrift: scope="row"-->
+            <th scope="col">Firma</th>
+            <th scope="col">Bewertung</th>
+            <th scope="col">ID</th>
           </tr>
           <tr>
             <td>ProLeiT</td>
@@ -140,6 +141,10 @@
           <option value="Ruben">Ruben</option>
           <option value="Verena">Verena</option>
         </select>
+      </div>
+
+      <div>
+        <button>Klick mich, bitte.</button> <a href="#top">Zum Anfang</a>
       </div>
     </main>
 

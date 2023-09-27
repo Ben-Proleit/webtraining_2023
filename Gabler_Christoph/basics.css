@@ -127,6 +127,14 @@ a{
   margin-right: 5em;
 }
 
+.h100{
+  height: 100%;
+}
+
+.w100{
+  width: 100%;
+}
+
 #background{
   background-color: black;
 }
