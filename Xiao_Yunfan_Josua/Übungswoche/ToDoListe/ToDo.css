@@ -1,22 +1,37 @@
 body {
-  background-color: lightgray;
+  background-color: black;
+  color: whitesmoke;
   font-family: Verdana;
 }
+
+textarea {
+  background-color: black;
+  color: whitesmoke;
+  resize: none;
+}
+
+/* button {
+  background-color: black;
+  color: whitesmoke;
+} */
 
 #ToDo > div {
   display: grid;
   grid-template-columns: 1fr 5% 5% 5%;
   grid-template-rows: auto;
-  gap: 10px 5px;
-  /* border-style: solid;
-  border-width: 2px;
-  border-color: black; */
 }
 
-textarea {
-  resize: none;
-}
-
-.Editable {
+/* .Editable {
   disable: false;
+} */
+
+button.edit > img {
+  src: "Pencil.png";
 }
+
+.kill > img {
+  src: "TrashBin.png";
+}
+
+/* .completed > img {
+} */
