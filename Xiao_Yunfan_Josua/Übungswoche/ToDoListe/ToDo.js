@@ -1,25 +1,35 @@
 var ToDoListe = new Array();
+var ListID = 0;
 
 function einträgeHinzufügen() {
-  console.log("Test");
   ToDoListe = document.getElementById("ToDo");
   console.log(ToDoListe);
   const div = ToDoListe.appendChild(document.createElement("div"));
+  div.setAttribute("id", ListID);
+
   div.appendChild(document.createElement("textarea"));
-  div
-    .appendChild(document.createElement("button"))
-    .setAttribute("class", "edit");
-  div
-    .appendChild(document.createElement("button"))
-    .setAttribute("class", "kill");
-  div
-    .appendChild(document.createElement("button"))
-    .setAttribute("class", "completed");
+  const edit = div.appendChild(document.createElement("button"));
+  const kill = div.appendChild(document.createElement("button"));
+  const completed = div.appendChild(document.createElement("button"));
+
+  edit.setAttribute("class", "edit");
+  kill.setAttribute("class", "kill");
+  completed.setAttribute("class", "completed");
+  ListID++;
+
+  edit.appendChild(document.createElement("img"));
+  kill.appendChild(document.createElement("img"));
+  completed.appendChild(document.createElement("img"));
 }
 
-function eintragLöschen() {
-  console.log("Test2");
+function eintragLöschen(id) {
+  console.log(id);
+  //  let deathRow = document.getElementById(id)
+  //  try {
+  //     ToDoListe.removeChild
+  //  }
 }
+// document.getElementsByClassName("kill").onclick = eintragLöschen(id);
 
 function eintragBearbeiten() {
   console.log("Test3");
