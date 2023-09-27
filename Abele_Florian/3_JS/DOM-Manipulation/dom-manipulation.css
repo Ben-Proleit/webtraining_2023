@@ -1,5 +1,6 @@
 table {
   width: 100%;
+  /* width: 600px; */
 }
 
 tr {
@@ -8,5 +9,7 @@ tr {
 }
 
 .jsStyle{
-  margin: 20px;
+  --tableMargin: 20px;
+  margin: var(--tableMargin);
+  width: calc(100% - var(--tableMargin) * 2);
 }

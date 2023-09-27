@@ -25,7 +25,7 @@ Task2();
 
 function Task3(){
   var table = document.getElementsByTagName('table')[0];
-  table.className = 'jsStyle'
+  table.classList.add('jsStyle')
 
   console.log(table.className)
 }
@@ -81,3 +81,10 @@ function newPerson(){
 
 }
 newPerson()
+
+function linker(){
+  const link = document.getElementsByTagName("a").item(0);
+  link?.setAttribute("href", "https://github.com/AbeleProleit");
+  link?.setAttribute("target", "_blank");
+}
+linker()
