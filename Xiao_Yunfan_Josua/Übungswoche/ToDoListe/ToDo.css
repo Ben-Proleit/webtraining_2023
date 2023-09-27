@@ -28,7 +28,10 @@ div > div:focus-within {
 
 #Button > button {
   font-size: 15px;
-  align-content: center;
+}
+
+#Button > button:hover {
+  background-color: var(--contrast);
 }
 
 #ToDo > div {
@@ -37,18 +40,27 @@ div > div:focus-within {
   grid-template-rows: auto;
 }
 
-.Editable {
+/* .Editable {
   disable: false;
-}
+} */
 
+/* Add Images to Buttons */
 button.edit > img {
   content: url("Pencil.png");
 }
 
-.kill > img {
+button.kill > img {
   content: url("TrashBin.png");
 }
 
-.completed > img {
+button.completed > img {
   content: url("CheckMark.png");
+}
+
+/* Add Hover changes */
+#ToDo button:hover {
+  background-color: var(--contrast);
+  border: 1px;
+  border-style: solid;
+  border-color: black;
 }
