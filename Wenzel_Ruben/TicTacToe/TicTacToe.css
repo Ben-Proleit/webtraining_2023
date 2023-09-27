@@ -1,0 +1,12 @@
+Button{
+    background-color: white;
+    flex-wrap: wrap;
+    margin:  5px;
+}
+
+div{
+    display: grid;
+    height: 500px;
+    width: 500px;
+    grid-template: 1fr 1fr 1fr/ 1fr 1fr 1fr
+}
