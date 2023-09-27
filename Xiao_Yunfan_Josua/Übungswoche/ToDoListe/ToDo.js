@@ -7,16 +7,21 @@ function einträgeHinzufügen() {
   div.setAttribute("id", ListID);
 
   //create area and buttons
-  div.appendChild(document.createElement("textarea"));
+  const text = div.appendChild(document.createElement("textarea"));
   const edit = div.appendChild(document.createElement("button"));
   const kill = div.appendChild(document.createElement("button"));
   const completed = div.appendChild(document.createElement("button"));
 
-  //set button attributes
-  kill.setAttribute("onclick", "eintragLöschen(" + ListID + ");");
+  //set button Classes
+  text.setAttribute("edit", "false");
   edit.setAttribute("class", "edit");
   kill.setAttribute("class", "kill");
   completed.setAttribute("class", "completed");
+
+  //set Button Onclick
+  edit.setAttribute("onclick", "eintragBearbeiten(" + ListID + ");");
+  kill.setAttribute("onclick", "eintragLöschen(" + ListID + ");");
+  completed.setAttribute("onclick", "eintragErledigt(" + ListID + ");");
 
   //set button pictures
   edit.appendChild(document.createElement("img"));
@@ -34,14 +39,27 @@ function eintragLöschen(id) {
   body.removeChild(deathRow);
 }
 
-function eintragBearbeiten() {
-  console.log("Test3");
+function eintragBearbeiten(id) {
+  let workInProgress = document.getElementById(id);
+  let ta = workInProgress.getElementsByTagName("textarea").item(0);
+  let bool = ta.getAttribute("edit");
+  console.log(ta);
+  console.log(bool);
+  if (bool == "false") {
+    ta.setAttribute("readonly", "");
+    ta.setAttribute("Edit", "true");
+    console.log("bin drinn");
+  } else {
+    ta.removeAttribute("readonly", "");
+    ta.setAttribute("Edit", "false");
+    console.log("bin Draus");
+  }
 }
 
-function eintragErledigt() {
+function eintragErledigt(id) {
   console.log("Test4");
 }
 
-function eintragNichtErledigt() {
+function eintragNichtErledigt(id) {
   console.log("Test5");
 }
