@@ -1,0 +1,45 @@
+h1 {
+    display: flex;
+    color: #76a3ab;
+    font-size: 30;
+    font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-decoration: underline;
+    justify-content: center;
+}
+
+
+div.grid {
+    display: grid;
+    grid-template-columns: 170px 170px 170px;
+    grid-template-rows: 170px 170px 170px;
+    gap: 30px;
+    justify-content: center;
+}
+
+/* #466687 circle , #468758 cross  OR #112A46*/
+
+button {
+    border: none;
+}
+
+.field {
+    background-color: #cce2e6;
+}
+
+.field:hover {
+    background-color: #76a3ab;
+}
+
+
+div.circle{
+    background-color: #76a3ab;
+    border-radius: 50%;
+}
+
+div.square{
+    background-color: #76a3ab;
+}
+
+
+

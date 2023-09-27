@@ -1,0 +1,19 @@
+.class1 {
+    height: 100px;
+    max-width: none;
+    background-color: lightcoral;
+    position: sticky;
+    top: 0px;
+}
+
+div {
+    height: 200px;
+}
+
+footer {
+    height: 40px;
+    max-width: none;
+    position: sticky;
+    bottom: 0px;
+    background-color: green;
+}
