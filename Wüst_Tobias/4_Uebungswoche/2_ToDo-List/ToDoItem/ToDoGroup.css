@@ -1,0 +1,36 @@
+.todogroup {
+  background-color: blue;
+}
+
+
+.groupsummary {
+  display: grid;
+  grid-template-columns: 15% 70% 15%;
+  grid-template-rows: 40px;
+  margin: 10px;
+}
+
+.groupname {
+  margin-left: 10px;
+  align-self: center;
+  color: white; 
+  font-weight: bold;
+} 
+
+.groupselector {
+  align-self: center;
+  justify-self: center;
+}
+
+.groupselector a {
+  text-decoration: none;
+  color: white;
+}
+
+.grouppages {
+  align-self: center;
+  justify-self: right;
+  margin-right: 10px;
+  height: 70%;
+  width: 50%;
+}
