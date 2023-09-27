@@ -64,3 +64,11 @@ button.completed > img {
   border-style: solid;
   border-color: black;
 }
+
+/* Add Hover changes */
+#Done button:hover {
+  background-color: var(--contrast);
+  border: 1px;
+  border-style: solid;
+  border-color: black;
+}

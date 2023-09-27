@@ -55,7 +55,20 @@ function eintragBearbeiten(id) {
 }
 
 function eintragErledigt(id) {
-  console.log("Test4");
+  //get selected div-element
+  let ToDoListe = document.getElementById("ToDo");
+  const divOld = ToDoListe.appendChild(document.getElementById(id));
+
+  //get Done-List and add new div
+  let DoneListe = document.getElementById("Done");
+  let divNew = DoneListe.appendChild(document.createElement("div"));
+
+  //copy data into new created div, also the id
+  divNew.innerHTML = divOld.innerHTML;
+  divNew.setAttribute("id", id);
+
+  //delete selected div after copying all data
+  eintragLöschen(id);
 }
 
 function eintragNichtErledigt(id) {
