@@ -26,12 +26,13 @@ textarea {
 } */
 
 button.edit > img {
-  src: "Pencil.png";
+  content: url("Pencil.png");
 }
 
 .kill > img {
-  src: "TrashBin.png";
+  content: url("TrashBin.png");
 }
 
-/* .completed > img {
-} */
+.completed > img {
+  content: url("CheckMark.png");
+}
