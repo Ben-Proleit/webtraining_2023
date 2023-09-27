@@ -1,8 +1,9 @@
-table {
-  width: 100%;
-}
-
 tr {
   height: 30px;
   background-color: rgb(193, 225, 255);
+}
+
+.tableM {
+  margin: 20px 20px 20px 20px;
+  width: calc(100% - 40px);
 }

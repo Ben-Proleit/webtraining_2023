@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="ToDo.js" defer></script>
+    <link rel="stylesheet" href="ToDo.css" />
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <header>
+      <h1>Coole ToDo Liste</h1>
+    </header>
+    <hr />
+    <div id="Button">
+      <button type="submit" onclick="einträgeHinzufügen()">
+        <img src="Add.png" /> Hinzufügen
+      </button>
+    </div>
+    <hr />
+    <h2>ToDo</h2>
+    <div id="ToDo">
+      <div>
+        <textarea class="Editable" type="text"></textarea>
+        <button type="submit" class="edit">
+          <img />
+        </button>
+        <button type="submit" class="kill">
+          <img />
+        </button>
+        <button type="submit" class="completed">
+          <img />
+        </button>
+      </div>
+    </div>
+    <hr />
+    <h2>Done</h2>
+    <div id="Done"></div>
+  </body>
+</html>

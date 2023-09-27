@@ -1,0 +1,59 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: darkslategray;
+  height: 50px;
+}
+
+header span {
+  color: white;
+}
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%
+}
+
+.field {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 310px;
+  height: 310px;
+  column-gap: 5px;
+  row-gap: 5px;
+  background-color: black;
+}
+
+.fieldItem {
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.dot {
+  display: flex;
+  flex-wrap: wrap;
+  height: 90px;
+  width: 90px;
+  font-size: 70px;
+  align-content: center;
+  justify-content: center;
+}
+
+.playerdiv {
+  display: flex;
+  flex-direction: column;
+
+}
+.player {
+  height: 20px;
+  margin: 3px;
+}

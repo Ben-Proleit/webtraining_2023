@@ -1,41 +1,49 @@
-@keyframes test {
+@keyframes Test {
   0% {
-    background-color: #073a73;
+    background-color: #ffcc00;
+  }
+  25% {
+    background-color: blueviolet;
   }
   50% {
-    background-color: #fc0;
+    background-color: green;
+  }
+  75% {
+    background-color: red;
   }
   100% {
-    background-color: #35cd58;
+    background-color: violet;
   }
 }
-
 body {
-  animation-name: test;
-  animation-duration: 2s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  animation: Test 5s ease-in-out 0s infinite alternate;
 }
 
-div {
+#Control {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /*Links rechts*/
+  height: 600px;
+}
+
+#Box {
   height: 200px;
   width: 200px;
   background-color: aquamarine;
-  align-self: center;
+
   transition-property: all;
   transition-duration: 1s;
   transition-timing-function: ease-in-out;
 }
 
-div:hover {
+#Box:hover {
   transform: rotate(360deg) scale(2);
   background-color: orange;
   transition-property: all;
   transition-duration: 1s;
   transition-timing-function: ease-in-out;
 }
+
+
+!!!Baustell nix funkzen Box!!!

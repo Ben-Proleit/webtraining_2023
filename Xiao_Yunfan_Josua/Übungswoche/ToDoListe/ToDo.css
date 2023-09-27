@@ -1,0 +1,54 @@
+:root {
+  --background: #222;
+  --contrast: #ffa500;
+}
+
+body {
+  background-color: var(--background);
+  color: whitesmoke;
+  font-family: Verdana;
+}
+
+textarea {
+  background-color: var(--background);
+  color: whitesmoke;
+  resize: none;
+  font-size: 14px;
+}
+
+div > div:focus-within {
+  border: 3px;
+  border-color: var(--contrast);
+  border-style: solid;
+}
+
+/* textarea:read-only {
+  background-color: gray;
+} */
+
+#Button > button {
+  font-size: 15px;
+  align-content: center;
+}
+
+#ToDo > div {
+  display: grid;
+  grid-template-columns: 1fr 5% 5% 5%;
+  grid-template-rows: auto;
+}
+
+.Editable {
+  disable: false;
+}
+
+button.edit > img {
+  content: url("Pencil.png");
+}
+
+.kill > img {
+  content: url("TrashBin.png");
+}
+
+.completed > img {
+  content: url("CheckMark.png");
+}

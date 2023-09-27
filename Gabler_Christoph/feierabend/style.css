@@ -1,11 +1,7 @@
 #heading{
   border-bottom: 2px solid white;
-  padding: 1em;
-  position: fixed;
-  background-color: black;
-  top: 0px;
-  width: 100%;
-  z-index: 1;
+  padding: 0.8em;
+  height: 40px;
 }
 
 #backbutton{
@@ -18,33 +14,69 @@
 }
 
 @font-face {
+  font-family: great-vibes;
+  src: url(Great_Vibes/GreatVibes-Regular.ttf);
+}
+
+.greatVibes{
+  font-family: great-vibes;
+}
+
+#timerDescription{
+  color: rgb(165, 165, 165);
+  /* margin-bottom: 1em; */
+}
+
+@font-face {
   font-family: major-mono-display;
   src: url(Major_Mono_Display/MajorMonoDisplay-Regular.ttf);
+}
+
+.nixiClock{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 5px 1fr;
+}
+
+.nixiTubes{
+  grid-area: 1 / 1 / 3 / 2;
 }
 
 .nixiTube{
   padding: 0 1em 0 1em;
   display: grid;
   grid-template-columns: 5px 1fr 5px;
-  grid-template-rows: 40px 1fr 20px;
+  grid-template-rows: 20px 1fr 0px;
 }
 
 .nixiCase{
-  border: 1px solid gray;
-  border-radius: 30px 30px 0 0;
+  border: 3px solid rgb(97, 97, 97);
+  border-radius: 60px 60px 0 0;
   grid-area: 2 / 2 / 3 / 3;
 }
 
 .nixiNumber{
   color: rgba(40, 40, 40, 0.5);
   font-family: major-mono-display;
-  font-size: 15em;
+  font-size: 15rem;
   font-weight: 100;
   grid-area: 1 / 1 / 4 / 4;
 }
 
 .nixiActive{
   color: #ff5500;
-  text-shadow: #ff5500 0 0 100px, #ff5500 0 0 100px, #ff5500 0 0 100px, #ff5500 0 0 100px;
+  -webkit-text-stroke: 3px #973200;
+  text-shadow: #ff5500 0 0 100px, #ff5500 0 0 100px, #ff5500 0 0 100px;
   z-index: 2;
+}
+
+#woodBase{
+  grid-area: 2 / 1 / 4 / 2;
+  background-image: url("wood_texture.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100px;
+  border: 0px solid;
+  border-radius: 6px;
 }

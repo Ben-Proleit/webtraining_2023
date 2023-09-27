@@ -19,6 +19,7 @@ header {
 
 .menubar {
     position: sticky;
+    display: flex;
     top: 0px;
     background-color: #3dcd58;
     height: 100px;
@@ -34,10 +35,11 @@ header {
 }
 
 a {
-    padding: 1.7%;
+    padding: 10px;
     text-decoration: none;
     display: inline-block;
     color: white;
+    align-self: flex-end;
 }
 
 a:hover {
