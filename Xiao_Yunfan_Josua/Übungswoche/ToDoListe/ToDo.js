@@ -40,19 +40,17 @@ function eintragLöschen(id) {
 }
 
 function eintragBearbeiten(id) {
+  //get div, get textarea, guck status
   let workInProgress = document.getElementById(id);
   let ta = workInProgress.getElementsByTagName("textarea").item(0);
   let bool = ta.getAttribute("edit");
-  console.log(ta);
-  console.log(bool);
+  //statuswechsel
   if (bool == "false") {
     ta.setAttribute("readonly", "");
     ta.setAttribute("Edit", "true");
-    console.log("bin drinn");
   } else {
     ta.removeAttribute("readonly", "");
     ta.setAttribute("Edit", "false");
-    console.log("bin Draus");
   }
 }
 
