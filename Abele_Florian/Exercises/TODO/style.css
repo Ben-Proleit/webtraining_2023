@@ -1,0 +1,52 @@
+:root{
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+/* 
+main{
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+} */
+
+.lightGirl{
+  background-color: #ffeffe;
+}
+.fuckedUpEnby{
+  background-color: yellow;
+}
+.darkBoy{
+  background-color: #666;
+  color: azure;
+}
+
+.btnDelete{
+  --btnSize: 25px;
+  background-image: url(./media/trashcan.svg);
+  background-repeat: no-repeat;
+  background-size: calc(var(--btnSize)*1.1);
+  background-position-x: -2px;
+  width: var(--btnSize);
+  height: var(--btnSize);
+}
+
+.listItem{
+  --lIWidth: 500px;
+  position: relative;
+  left: calc(50% - var(--lIWidth)/2);
+  width: var(--lIWidth);
+  margin: 10px 0px;
+
+  /* background-color: hotpink; */
+  
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: center;
+  justify-content: center;
+}
+
+
+/*
+.darkBoy{
+  background-color: #666;
+} */
