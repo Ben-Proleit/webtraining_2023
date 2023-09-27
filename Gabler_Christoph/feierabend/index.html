@@ -4,19 +4,116 @@
     <title>Feierabend?</title>
     <meta name="descriptition" content="Test webpage"/>
     <meta name="author" content="CGB">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../basics.css"/>
     <link rel="stylesheet" href="style.css"/>
-    <!--<script type="text/javascript" src="script.js" defer></script>-->
+    <script type="text/javascript" src="script.js" defer></script>
   </head>
   <body id="background">
-    <div id="heading" class="d-flex flex-nowrap flex-row justify-between">
+    <div id="heading" class="d-flex justify-between align-center">
       <a href="../index.html">
-        <button id="backbutton">I Wui Z'ruck!</button>
+        <button id="backbutton" class="f2 greatVibes">I Wui Z'ruck!</button>
       </a>
-      <span class="f3 mr2">Do sicht mer, wann der Feierabend los gehnga dad.</span>
+      <span class="f4 greatVibes">Do sicht mer, wann der Feierabend los gehnga dad.</span>
     </div>
-    <div class="d-flex flex-row flex-nowrap justify-center">
-      
+    <div class="d-flex flex-column justify-center align-center mt6">
+      <!-- The label for describing the timer -->
+      <label id="timerDescription" class="f6 greatVibes">Feierabend in</label>
+      <!-- The entire nixie clock with the wooden base -->
+      <div class="nixiClock">
+        <div class="d-flex justify-center nixiTubes">
+          <div id="hour1" class="nixiTube flex-noshrink">
+            <div class="nixiCase"></div>
+            <span class="nixiNumber nr0">0</span>
+            <span class="nixiNumber nr1">1</span>
+            <span class="nixiNumber nr2">2</span>
+            <span class="nixiNumber nr3">3</span>
+            <span class="nixiNumber nr4">4</span>
+            <span class="nixiNumber nr5">5</span>
+            <span class="nixiNumber nr6">6</span>
+            <span class="nixiNumber nr7">7</span>
+            <span class="nixiNumber nr8">8</span>
+            <span class="nixiNumber nr9">9</span>
+          </div>
+          <div id="hour2" class="nixiTube flex-noshrink">
+            <div class="nixiCase"></div>
+            <span class="nixiNumber nr0">0</span>
+            <span class="nixiNumber nr1">1</span>
+            <span class="nixiNumber nr2">2</span>
+            <span class="nixiNumber nr3">3</span>
+            <span class="nixiNumber nr4">4</span>
+            <span class="nixiNumber nr5">5</span>
+            <span class="nixiNumber nr6">6</span>
+            <span class="nixiNumber nr7">7</span>
+            <span class="nixiNumber nr8">8</span>
+            <span class="nixiNumber nr9">9</span>
+          </div>
+          <div class="nixiTube flex-noshrink">
+            <div class="nixiCase"></div>
+            <span class="nixiNumber nixiActive">:</span>
+          </div>
+          <div id="minute1" class="nixiTube flex-noshrink">
+            <div class="nixiCase"></div>
+            <span class="nixiNumber nr0">0</span>
+            <span class="nixiNumber nr1">1</span>
+            <span class="nixiNumber nr2">2</span>
+            <span class="nixiNumber nr3">3</span>
+            <span class="nixiNumber nr4">4</span>
+            <span class="nixiNumber nr5">5</span>
+            <span class="nixiNumber nr6">6</span>
+            <span class="nixiNumber nr7">7</span>
+            <span class="nixiNumber nr8">8</span>
+            <span class="nixiNumber nr9">9</span>
+          </div>
+          <div id="minute2" class="nixiTube flex-noshrink">
+            <div class="nixiCase"></div>
+            <span class="nixiNumber nr0">0</span>
+            <span class="nixiNumber nr1">1</span>
+            <span class="nixiNumber nr2">2</span>
+            <span class="nixiNumber nr3">3</span>
+            <span class="nixiNumber nr4">4</span>
+            <span class="nixiNumber nr5">5</span>
+            <span class="nixiNumber nr6">6</span>
+            <span class="nixiNumber nr7">7</span>
+            <span class="nixiNumber nr8">8</span>
+            <span class="nixiNumber nr9">9</span>
+          </div>
+          <div class="nixiTube flex-noshrink">
+            <div class="nixiCase"></div>
+            <span class="nixiNumber nixiActive">:</span>
+          </div>
+          <div id="second1" class="nixiTube flex-noshrink">
+            <div class="nixiCase"></div>
+            <span class="nixiNumber nr0">0</span>
+            <span class="nixiNumber nr1">1</span>
+            <span class="nixiNumber nr2">2</span>
+            <span class="nixiNumber nr3">3</span>
+            <span class="nixiNumber nr4">4</span>
+            <span class="nixiNumber nr5">5</span>
+            <span class="nixiNumber nr6">6</span>
+            <span class="nixiNumber nr7">7</span>
+            <span class="nixiNumber nr8">8</span>
+            <span class="nixiNumber nr9">9</span>
+          </div>
+          <div id="second2" class="nixiTube flex-noshrink">
+            <div class="nixiCase"></div>
+            <span class="nixiNumber nr0">0</span>
+            <span class="nixiNumber nr1">1</span>
+            <span class="nixiNumber nr2">2</span>
+            <span class="nixiNumber nr3">3</span>
+            <span class="nixiNumber nr4">4</span>
+            <span class="nixiNumber nr5">5</span>
+            <span class="nixiNumber nr6">6</span>
+            <span class="nixiNumber nr7">7</span>
+            <span class="nixiNumber nr8">8</span>
+            <span class="nixiNumber nr9">9</span>
+          </div>
+        </div>
+        <div id="woodBase" class="glow">
+          <div class="darken w100 h100"></div>
+        </div>
+      </div>
     </div>
   </body>
 </html>

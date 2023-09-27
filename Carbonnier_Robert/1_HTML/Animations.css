@@ -1,0 +1,41 @@
+@keyframes test {
+    0% {
+        background-color: blue;
+    }
+    50%{
+        background-color: yellow;
+    }
+    100% {
+        background-color: red;
+    }
+}
+
+body {
+    animation-name: test;
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div{
+    background-color: blueviolet;
+    height: 200px;
+    width: 200px;
+
+}
+
+div:hover {
+    transform: rotate(360deg) scale(2.0);;
+    transition-property: all;
+    transition-duration: 1s;
+    transition-timing-function: ease-in-out;
+}
+
+div:active{
+    background-color: aliceblue;
+}

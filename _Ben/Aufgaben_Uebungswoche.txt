@@ -1,0 +1,61 @@
+Mögliche Übungsaufgaben:
+
+  - TicTacToe
+  - Memory
+  - ToDo Liste
+  - (Verwaltungstool (Mobile))
+  - Mini-Shop mit Warenkorb
+
+Spezifikationen:
+
+  TicTacToe
+  
+    Es soll ein typisches 3x3 TicTacToe-Spielfeld geben bei dem die Spieler abwechselnd
+    ein Feld auswählen können. Sobald einer der Spieler gewinnt soll der Sieg in einer
+    Statistik festgehalten werden, diese Statistik soll ebenfalls auf der Seite zu sehen
+    sein.
+    Optional: Die Spieler können beim Starten der Seite ihre Namen eingeben.
+
+
+  Memory
+
+    Es soll ein beliebig großes Memory-Spielfeld erstellt werden, die Spieler können
+    abwechselnd 2 Karten aufdecken bis sie einmal falsch liegen, dann ist der andere
+    Spieler an der Reihe. Die Siegstatistik soll ebenfalls auf der Seite zu sehen sein.
+    Optional: Die Spieler können beim Starten der Seite ihre Namen eingeben.
+
+
+  ToDo-Liste
+
+    Es soll eine Website erstellt werden, bei der der Benutzer die Möglichkeit hat
+    eine ToDo-Liste zu erstellen. Die Liste soll auch nach 'erledigt' und 'nicht erledigt'
+    aufgeteilt werden. Es soll die folgenden Möglichkeiten geben:
+      - Einträge hinzufügen
+      - Einträge entfernen
+      - Einträge bearbeiten
+      - Einträge als 'erledigt' kennzeichnen
+      - Einträge als 'nicht erledigt' kennzeichnen
+    Optional: Der Benutzer kann mehrere Listen haben und diese auch benennnen um seine
+    ToDos besser strukturieren zu können.
+
+  
+  (Verwaltungstool
+
+    Es soll eine Seite erstellt werden, bei der bestimmte Datensätze bearbeitet werden
+    können. Das ganze soll nach dem Master-Detail Pattern geschehen. Außerdem soll die
+    Seite für den Gebrauch auf einem Mobilgerät optimiert werden.
+    Der Benutzer soll eine Liste mit allen vorhandenen Datensätzen angezeigt bekommen,
+    aus dieser Liste kann er ein Objekt auswählen und bekommt die entsprechenden Details
+    auf einer neuen Seite angezeigt. Diese Details soll er nun bei Bedarf bearbeiten können.
+    Optional: Der Benutzer soll neue Objekte zur Liste hinzufügen können und auch Objekte
+    aus der Liste löschen können.)
+
+
+  Mini-Shop
+
+    Es soll eine Website erstellt werden, die Aufgebaut ist wie ein Online-Shop, dem
+    Benutzer sollen die versch. Artikel angezeigt werden. Es soll außerdem möglich sein
+    diese Artikel zu einem Warenkorb hinzuzufügen, den der Benutzer bei Bedarf
+    einsehen und bearbeiten können soll. Außerdem soll die Artikelliste mit einer
+    Suchfunktion und einer Sortierfunktion versehen werden. Der Warenkorb soll den
+    Gesamtpreis und die Anzahl der einzelnen Artikel beinhalten.

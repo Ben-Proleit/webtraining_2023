@@ -1,8 +1,13 @@
+:root {
+  --proleitYellow: #ffcc00;
+  --proleitBlau: #073a73;
+}
+
 header + div {
   top: 0;
   height: 100px;
   width: 100%;
-  background-color: blue;
+  background-color: var(--proleitBlau);
   position: sticky;
 }
 
@@ -10,7 +15,7 @@ footer {
   bottom: 0;
   height: 40px;
   width: 100%;
-  background-color: red;
+  background-color: var(--proleitYellow);
   position: fixed;
 }
 
