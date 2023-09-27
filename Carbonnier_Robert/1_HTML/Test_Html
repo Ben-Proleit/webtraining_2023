@@ -4,14 +4,11 @@
         <link rel="stylesheet" href="Aufgabe3.css">
     </head>
     <body>
+        <div id="d1"></div>
         <div> 
             <h1> Test 1</h1>
-            <div id="d1">
-                
 
-            </div>
-            <h2> Test 2</h2>
-            <h3> Test 3</h3>
+
         </div>
 
         <div>   
@@ -23,6 +20,8 @@
         </div>
 
         <div>
+            <h2> Test 2</h2>
+            <h3> Test 3</h3>
             <ol type="A">    
                 <li>Test 1</li>
                 <li>Test 2</li>
