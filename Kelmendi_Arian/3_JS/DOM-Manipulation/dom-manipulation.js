@@ -17,7 +17,7 @@ function Aufgabe2()
 
 function Aufgabe3()
 {
-    document.querySelector("table").setAttribute("class", "tableClass")
+    document.querySelector("table").classList.add("tableClass");
 }
 
 function Aufgabe4()
@@ -50,11 +50,11 @@ function Aufgabe6()
 {
     let rowToRemove = document.querySelector("tr:nth-of-type(5)");
 
-    console.log(rowToRemove);
+    console.debug(rowToRemove);
     let rowNumber = rowToRemove.getElementsByTagName("td")[3].innerText;
     rowToRemove.parentNode.removeChild(rowToRemove);
 
-    console.log(document.querySelector("td:last-of-type"));
+    console.debug(document.querySelector("td:last-of-type"));
 
     document.querySelector("tr:last-of-type td:last-of-type").innerText = rowNumber;
 }
@@ -71,6 +71,5 @@ Aufgabe2();
 Aufgabe3();
 Aufgabe4();
 Aufgabe5();
-Aufgabe6();
 Aufgabe6();
 Aufgabe7();
