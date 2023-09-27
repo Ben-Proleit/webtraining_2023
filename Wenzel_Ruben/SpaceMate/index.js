@@ -1,4 +1,3 @@
-
 //#region Classes
 
 // #region Player
@@ -69,11 +68,8 @@ let CanPlayerShoot = true;
 //The current Round
 let RoundCounter = 0;
 
-//Checks of a round is going on
-let IsRoundOver = true;
-
 //How far the enemy drop before straving
-let MaxEnemyMoveDistance = 20
+let MaxEnemyMoveDistance = 100
 let EnemyMoveDistance = MaxEnemyMoveDistance;
 
 
@@ -106,12 +102,14 @@ function _ready(){
 
 ///Gameloop
 function Process(){
-    if(IsRoundOver){StartNextRound();}
+    if(document.getElementsByClassName('Enemy').length == 0)
+        StartNextRound();
     MovePlayer();
-    MoveEnemys();    //TODO
+    MoveEnemys();
     MovePlayerBullets();
-    MoveEnemyBullets();  //TODO
-    UpdateUI();
+    MoveEnemyBullets();
+    UpdateUI();  
+    CheckIfIsHit(HTMLPlayerBulletList, HTMLEnemyList); 
 }
 
 //#endregion GameFunctions
@@ -134,6 +132,18 @@ function UpdateUI(){
 
 function getRandomInt(max){
     return Math.floor(Math.random() * max);
+}
+
+function CheckIfIsHit(peojectileList, objectList){
+    Array.from(peojectileList).forEach(projectile => {
+        Array.from(objectList).forEach(object => {
+            if(Math.abs((Number(projectile.style.top.replace('px', '')))-(Number(object.style.top.replace('px', '')))) < 10 && Math.abs((Number(projectile.style.left.replace('px', '')))-(Number(object.style.left.replace('px', '')))) < 10){
+                console.log(Math.abs(Number(projectile.style.top.replace('px', '')))  + '  ' +  Math.abs(Number(object.style.top.replace('px', ''))) + '   ' + Math.abs(Number(projectile.style.left.replace('px', '')))  + '  ' +  Math.abs(Number(object.style.left.replace('px', ''))))
+                projectile.remove();
+                object.remove();
+            }
+        });
+    });
 }
 
 //#endregion General Functions
@@ -174,7 +184,7 @@ function Fire(){
     CreateObject(PLAYER.x, PLAYER.y, Elements.PlayerBullet, 'Projectile');   
     //tests an timer to stop constant fireing 
     CanPlayerShoot = false;
-    setTimeout(() => CanPlayerShoot = true, 200);
+    setTimeout(() => CanPlayerShoot = true, 50 + 200/RoundCounter);
 }
 
 //#region PlayerBullets
@@ -191,6 +201,10 @@ function MovePlayerBullets(){
 });
 }
 
+function ProjectileDie(projectile){
+
+}
+
 //#endregion PlayerBullets
 
 //#endregion Player
@@ -200,8 +214,8 @@ function MovePlayerBullets(){
 
 //Spawns enemys
 function SpawnEnemys(){
-    for(let enemy = 0; enemy < 20; enemy++){
-        CreateObject(getRandomInt(1600), 100, Elements.Enemy, 'Enemy');
+    for(let enemy = 0; enemy < RoundCounter*10; enemy++){
+        CreateObject(getRandomInt(1600), getRandomInt(400)-400, Elements.Enemy, 'Enemy');
     }
 }
 
@@ -209,28 +223,30 @@ function MoveEnemys(){
     Array.from(HTMLEnemyList).forEach(enemy => {
         if(!EnemyStrave){
             enemy.style.top = (Number((enemy.style.top).replace('px', '')) + EnemySpeed).toString() + 'px';
-            EnemyMoveDistance--;
-            if(EnemyMoveDistance <= 0){
-                EnemyStrave != EnemyStrave; //Swops movement from sode to down and reverse
-                EnemyMoveDistance = MaxEnemyMoveDistance;
-            }
+                      
         }
         else{
-            if(EnemyDirection)  //Reverse strave distance
-                enemyspeed = -EnemySpeed;
-            enemy.style.left = (Number((enemy.style.left).replace('px', '')) + enemyspeed).toString() + 'px';
-            EnemyMoveDistance--;
-            if(EnemyMoveDistance <= 0){
-                EnemyStrave != EnemyStrave; //Swops movement from sode to down and reverse
-                EnemyDirection != EnemyDirection;
-                EnemyMoveDistance = MaxEnemyMoveDistance;
+            let enemySideSpeed;
+            if(EnemyDirection){  //Reverse strave distance
+                enemySideSpeed = -EnemySpeed;
             }
-        }
+            else
+                enemySideSpeed = EnemySpeed;
+
+            enemy.style.left = (Number((enemy.style.left).replace('px', '')) + enemySideSpeed).toString() + 'px';
+        }        
         // console.log(Number((enemy.style.top).replace('px', '')));
         if (Number((enemy.style.top).replace('px', '')) > 900)
             enemy.remove();
     });
+    if(EnemyMoveDistance <= 0){
+        EnemyStrave = !EnemyStrave; //Swops movement from sode to down and reverse
+        EnemyMoveDistance = MaxEnemyMoveDistance;
+        if(EnemyStrave)
+            EnemyDirection = !EnemyDirection;
 
+    }
+    EnemyMoveDistance--;
 }
 
 function EnemyDie(){
@@ -253,7 +269,6 @@ function MoveEnemyBullets(){
 function StartNextRound(){
     RoundCounter++;
     document.getElementById('RoundCounter').innerText = 'You are in round: ' + RoundCounter;
-    IsRoundOver = false;
     SpawnEnemys();
 }
 
