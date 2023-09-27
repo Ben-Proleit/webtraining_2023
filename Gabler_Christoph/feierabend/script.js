@@ -10,12 +10,12 @@ document.addEventListener("DOMContentLoaded", async function(){
 });
 
 function startCountdown(){
-  //calculate the remaining seconds
-  let end = new Date();
-  end.setHours(17, 0, 0);
-  let remainingSeconds = parseInt((end - new Date()) / 1000);
   //start the timer
   var intervalID = setInterval(() => {
+    //calculate the remaining seconds
+    let end = new Date();
+    end.setHours(17, 0, 0);
+    let remainingSeconds = parseInt((end - new Date()) / 1000);
     //check if the interval has already elapsed
     if(remainingSeconds <= 0){
       updateNixieClock(0);
@@ -23,8 +23,6 @@ function startCountdown(){
     }else{
       updateNixieClock(remainingSeconds);
     }
-    //count down
-    remainingSeconds--;
   }, 1000);
 }
 

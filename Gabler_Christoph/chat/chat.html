@@ -1,0 +1,240 @@
+<div
+  class="d-flex flex-column flex-nowrap justify-content-start flex-shrink-0 px-3 pt-3 bg-light h-100 overflow-scroll scrollbar-hidden"
+  style="width: 250px;">
+  <div class="d-flex align-items-center link-dark text-decoration-none">
+    <div class="me-2 rounded p-1" style="background-color: #202020;">
+      <img class="bi" src="./src/favicon-32x32.png" width="32" height="32">
+    </div>
+    <span class="fs-4 fw-bold">Chat iT</span>
+  </div>
+  <div class="border-top my-3 mx-1"></div>
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item">
+      <a id="app-1" class="nav-link link-dark">
+        <img class="bi me-2 svg-background" width="16" height="16" src="./src/icons/trash.svg">
+        USERNAME
+      </a>
+    </li>
+  </ul>
+  <div class="float-end">
+    <div class="border-top my-3 mx-1"></div>
+    <div class="d-flex flex-row flex-nowrap justify-content-between">
+      <p class="text-dark">
+        @VERSION
+      </p>
+      <p id="status" class="text-uppercase text-danger small m-0">disconnected</p>
+    </div>
+  </div>
+</div>
+<div class="w-100 h-100 ps-5 bg-body-dark d-flex flex-nowrap flex-column justify-content-start home-content-wrap">
+  <!-- chat header -->
+  <div class="w-100 bg-body d-flex flex-row flex-nowrap justify-content-between py-2 ps-4 pe-2 home-content">
+    <p id="page-name" class="my-auto text-dark">Chatroom</p>
+    <div class="d-flex flex-row flex-nowrap justify-content-end">
+      <!-- quick settings -->
+      <button class="btn" onclick="toggleNotification();" data-bs-toggle="tooltip" data-bs-placement="bottom"
+        data-bs-title="Enable/Disable Notification sound">
+        <img id="silent" class="svg-background" src="./src/icons/bell-slash.svg" width="20px" height="20px">
+      </button>
+      <div class="border flex-grow-1 mx-3 my-2"></div>
+      <!-- username and sign out -->
+      <label id="username" class="my-auto me-2 text-secondary"></label>
+      <button class="btn btn-secondary text-light" onclick="href('logout.php');">Sign out</button>
+    </div>
+  </div>
+  <!-- all messages -->
+  <div class="flex-grow-1 overflow-auto bg-body text-dark mt-3 home-content d-flex flex-column justify-content-end">
+    <div id="messageHistory" class="w-100 px-4 py-3 overflow-auto"></div>
+  </div>
+  <!-- new message wrapper -->
+  <div class="w-100 bg-body d-flex flex-row flex-nowrap justify-content-between mt-3 p-3 home-content">
+    <input type="text" id="messageInput" class="form-control my-auto text-dark me-2" placeholder="Type yor message here"/>
+    <div class="d-flex flex-row flex-nowrap justify-content-end">
+      <!-- send message -->
+      <button class="btn btn-primary text-light" onclick="sendMessage();">Send</button>
+    </div>
+  </div>
+</div>
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div id="notification" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="./src/icons/bell.svg" class="rounded me-2 svg-background">
+      <strong id="notification-title" class="me-auto text-dark">Notification</strong>
+      <small id="notification-time" class="text-dark">time</small>
+      <button type="button" class="btn-close svg-background" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div id="notification-text" class="toast-body text-dark">
+      This is a toast message.
+    </div>
+  </div>
+</div>
+<script>
+  let activeScripts = [];
+  let onDisable = [];
+  let urlParameters = [];
+
+  document.addEventListener('DOMContentLoaded', () => {
+    //display the username
+    let username = sessionStorage.getItem("username");
+    if (username !== null && username.length > 0) {
+      document.getElementById("username").innerText = username;
+    }
+    //update the silence setting
+    updateSilent();
+    //enable tooltips
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
+    //listen for enter key press
+    document.onkeydown = function (event) {
+      if (event.key === "Enter") {
+        sendMessage();
+      }
+    };
+
+    //TODO: remove debug
+    addMessage("This is a foreign message.", "15:30", true, "Joe Waschl");
+    addMessage("This is your own message", "16:00");
+    addMessage("This is a foreign message.", "15:30", true, "Joe Waschl");
+    addMessage("This is a foreign message.", "15:30", true, "Joe Waschl");
+
+    //initialize the web socket
+    socket = new ModularHomeSocket();
+    //add on ready handler
+    socket.onReady = [];
+    socket.onReady = function () {
+      showConnected();
+      //TODO: get all active users
+      
+    };
+    socket.onClosed = [];
+    socket.onClosed = function () {
+      showDisconnected();
+    };
+    //add a message handler
+    socket.onPost = [];
+    socket.onPost = function (data) {
+      //check if the data contains a message
+      if (data["command"] !== undefined && data["command"] === "message new") {
+        //display the message
+        addMessage(data["arguments"][2], data["arguments"][0], true, data["arguments"][1]);
+        //show the notifiction
+        showNotification(data["arguments"][2], data["arguments"][1], data["arguments"][0]);
+      }
+    };
+    //connect to the server
+    socket.connect();
+  });
+
+  function sendMessage(){
+    //check if a message is defined
+    let messageInput = document.getElementById("messageInput");
+    let message = messageInput.value;
+    messageInput.value = "";
+    if(message != null && message.length > 0){
+      //get the current time
+      let now = new Date();
+      //send a message here
+      socket.requestCommand("message send", [message, now], (data) => {
+        //add the message to the screen
+        addMessage(message, now.toLocaleTimeString());
+      }, (code) => {
+        console.log("Could not send message. Code: " + code);
+      }, () => {
+        console.log("Timeout while sending message.");
+      });
+    }
+  }
+
+  function showConnected() {
+    let display = document.getElementById("status");
+    let displayClasses = display.classList;
+    //remove the danger attribute
+    if (displayClasses.contains("text-danger")) {
+      displayClasses.remove("text-danger");
+    }
+    //check if the success color is not yet applied
+    if (!displayClasses.contains("text-success")) {
+      displayClasses.add("text-success");
+    }
+    //set the connected text
+    display.innerText = "connected";
+  }
+
+  function showDisconnected() {
+    let display = document.getElementById("status");
+    let displayClasses = display.classList;
+    //remove the success attribute
+    if (displayClasses.contains("text-success")) {
+      displayClasses.remove("text-success");
+    }
+    //check if the danger color is not yet applied
+    if (!displayClasses.contains("text-danger")) {
+      displayClasses.add("text-danger");
+    }
+    //set the disconnected text
+    display.innerText = "disconnected";
+  }
+
+  function showNotification(message, plugin, time) {
+    //insert the current message
+    document.getElementById("notification-title").innerText = plugin;
+    document.getElementById("notification-time").innerText = time;
+    document.getElementById("notification-text").innerText = message;
+    //show the toast
+    let notification = document.getElementById("notification");
+    let toast = new bootstrap.Toast(notification);
+    toast.show();
+    //try to play a sound
+    let silent = localStorage.getItem("silent");
+    if (silent != null && silent.length > 0 && silent === "false") {
+      let sound = new Audio("./src/tos_chirp_2.mp3");
+      sound.play();
+    }
+  }
+
+  function toggleNotification() {
+    let silent = localStorage.getItem("silent");
+    if (silent != null && silent.length > 0 && silent === "false") {
+      //save the setting
+      localStorage.setItem("silent", "true");
+    } else {
+      //play test sound
+      let sound = new Audio("./src/1-second-of-silence.mp3");
+      sound.play();
+      //save the setting
+      localStorage.setItem("silent", "false");
+    }
+    //update the silent icon
+    updateSilent();
+  }
+
+  function updateSilent() {
+    let silent = localStorage.getItem("silent");
+    if (silent != null && silent.length > 0 && silent === "false") {
+      //show bell
+      document.getElementById("silent").src = "./src/icons/bell.svg";
+    } else {
+      //show silent bell
+      document.getElementById("silent").src = "./src/icons/bell-slash.svg";
+    }
+  }
+
+  function addMessage(text, time, foreign = false, user = "You"){
+    fetchHTML((foreign ? "foreign" : "own") + "Message.html", (data) => {
+      //prepare the new message
+      let html = data.replaceAll("@MESSAGE", text);
+      html = html.replaceAll("@TIME", time);
+      if(foreign){
+        html = html.replaceAll("@USER", user);
+      }
+      //append the message
+      let messageHistory = document.getElementById("messageHistory");
+      messageHistory.innerHTML += html;
+      //scroll to the bottom
+      messageHistory.scrollTo(0, messageHistory.scrollHeight);
+    }, (status) => {
+      console.log("Could not fetch message template. Code: " + status);
+    });
+  }
+</script>

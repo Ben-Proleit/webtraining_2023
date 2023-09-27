@@ -1,0 +1,26 @@
+.home-content-wrap {
+    height: 100vh;
+    box-shadow: .5em 0 5em 1em inset rgba(0, 0, 0, .15);
+}
+.home-content{
+    box-shadow: 0.1em 0.1em 0.2em 0.2em rgba(0, 0, 0, .02);
+}
+
+#messageHistory{
+  display: grid;
+  grid-template-columns: 100px 1fr 100px;
+}
+
+.foreignMessage{
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.ownMessage{
+  grid-column-start: 2;
+  grid-column-end: 4;
+}
+
+.softText{
+  color: var(--bs-border-color);
+}
