@@ -1,0 +1,70 @@
+body, html{
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: #666666;
+}
+
+.centerVertical{
+  height: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@keyframes rotate{
+  0% {transform: rotate(0deg);}
+  25%{transform: rotate(90deg);}
+  50%{transform: rotate(180deg);}
+  75%{transform: rotate(270deg);}
+  100% {transform: rotate(360deg);}
+}
+@keyframes rotateReverse{
+  0% {transform: rotate(0deg);}
+  25%{transform: rotate(-90deg);}
+  50%{transform: rotate(-180deg);}
+  75%{transform: rotate(-270deg);}
+  100% {transform: rotate(360deg);}
+}
+
+
+.centerHorizontal{
+  /* animation: rotate 9s linear 0s infinite forwards; */
+  /* animation-duration: 5s; */
+  
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: center;
+  /* width: fit-content; */
+}
+
+.centerHorizontal:hover{
+  justify-content: space-evenly;
+  animation: rotate 9s linear 0s infinite forwards;
+}
+
+
+.innerRotate{
+  animation: rotateReverse 10s linear 0s infinite forwards;
+}
+
+
+@keyframes colours {
+  0%{background-color: rgb(85, 207, 255);}
+  20%{background-color: rgb(255, 172, 251);}
+  40%{background-color: rgb(255, 255, 255);}
+  60%{background-color: rgb(255, 172, 251);}
+  100%{background-color: rgb(85, 207, 255);}
+}
+.content{
+  width: 250px;
+  height: 250px;
+  animation-name: colours;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  animation-direction: alternate;
+}
+

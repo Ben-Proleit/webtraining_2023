@@ -16,3 +16,35 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+@font-face {
+  font-family: major-mono-display;
+  src: url(Major_Mono_Display/MajorMonoDisplay-Regular.ttf);
+}
+
+.nixiTube{
+  padding: 0 1em 0 1em;
+  display: grid;
+  grid-template-columns: 5px 1fr 5px;
+  grid-template-rows: 40px 1fr 20px;
+}
+
+.nixiCase{
+  border: 1px solid gray;
+  border-radius: 30px 30px 0 0;
+  grid-area: 2 / 2 / 3 / 3;
+}
+
+.nixiNumber{
+  color: rgba(40, 40, 40, 0.5);
+  font-family: major-mono-display;
+  font-size: 15em;
+  font-weight: 100;
+  grid-area: 1 / 1 / 4 / 4;
+}
+
+.nixiActive{
+  color: #ff5500;
+  text-shadow: #ff5500 0 0 100px, #ff5500 0 0 100px, #ff5500 0 0 100px, #ff5500 0 0 100px;
+  z-index: 2;
+}
