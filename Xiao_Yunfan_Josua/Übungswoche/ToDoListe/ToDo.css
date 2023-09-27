@@ -30,6 +30,10 @@ div > div:focus-within {
   font-size: 15px;
 }
 
+#Button > button:hover {
+  background-color: var(--contrast);
+}
+
 #ToDo > div {
   display: grid;
   grid-template-columns: 1fr 5% 5% 5%;
@@ -54,6 +58,9 @@ button.completed > img {
 }
 
 /* Add Hover changes */
-button:hover {
+#ToDo button:hover {
   background-color: var(--contrast);
+  border: 1px;
+  border-style: solid;
+  border-color: black;
 }
