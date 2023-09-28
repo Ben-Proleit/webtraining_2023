@@ -34,9 +34,15 @@ function einträgeHinzufügen() {
 
 function eintragLöschen(id) {
   //Holt id des Kindes, Holt body, tötet kind
-  let deathRow = document.getElementById(id);
-  let body = document.getElementById("ToDo");
-  body.removeChild(deathRow);
+  try {
+    let deathRow = document.getElementById(id);
+    let body = document.getElementById("ToDo");
+    body.removeChild(deathRow);
+  } catch {
+    let deathRow = document.getElementById(id);
+    let body = document.getElementById("Done");
+    body.removeChild(deathRow);
+  }
 }
 
 function eintragBearbeiten(id) {
@@ -74,3 +80,7 @@ function eintragErledigt(id) {
 function eintragNichtErledigt(id) {
   console.log("Test5");
 }
+
+// function textÜbertragen{
+
+// }
