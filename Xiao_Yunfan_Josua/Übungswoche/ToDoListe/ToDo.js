@@ -121,6 +121,10 @@ function eintragErledigt(id) {
     targetDiv.setAttribute("id", id);
     let text = selectedDiv.getElementsByTagName("textarea").item(0).value;
     targetDiv.getElementsByTagName("textarea").item(0).value = text;
+    targetDiv
+      .getElementsByTagName("textarea")
+      .item(0)
+      .setAttribute("readonly", "");
   } else if (idBody == "Done") {
     let selectedDiv = DoneListe.appendChild(document.getElementById(id));
     let targetDiv = ToDoListe.appendChild(document.createElement("div"));
@@ -141,29 +145,4 @@ function Twerk() {
   const iframe = div.appendChild(document.createElement("iframe"));
   iframe.setAttribute("src", "iframe.html");
 }
-function killTwerk() {
-  let body = document.getElementsByTagName("body").item(0);
-}
 document.getElementById("secret").onmousedown = Twerk;
-document.getElementById("secret").onmouseup = killTwerk;
-
-// einträgeHinzufügen();
-
-// Legacy alter erledigt
-// function eintragNichtErledigt(id) {
-//   //get selected div-element
-//   let ToDoListe = document.getElementById("ToDo");
-//   let selectedDiv = ToDoListe.appendChild(document.getElementById(id));
-
-//   //get Done-List and add new div
-//   let DoneListe = document.getElementById("Done");
-//   let targetDiv = DoneListe.appendChild(document.createElement("div"));
-
-//   //copy data into new created div, also the id and textarea value
-//   targetDiv.innerHTML = selectedDiv.innerHTML;
-//   targetDiv.setAttribute("id", id);
-//   var text = selectedDiv.getElementsByTagName("textarea").item(0).value;
-//   targetDiv.getElementsByTagName("textarea").item(0).value = text;
-//   //delete selected div after copying all data
-//   eintragLöschen(id);
-// }
