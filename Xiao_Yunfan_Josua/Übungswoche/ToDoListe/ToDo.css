@@ -45,10 +45,6 @@ div > div:focus-within {
   text-decoration: line-through;
 }
 
-/* .Editable {
-  disable: false;
-} */
-
 /* Add Images to Buttons */
 button.edit > img {
   content: url("Pencil.png");

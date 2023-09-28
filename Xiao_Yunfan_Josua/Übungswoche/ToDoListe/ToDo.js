@@ -34,15 +34,9 @@ function einträgeHinzufügen() {
 
 function eintragLöschen(id) {
   //Holt id des Kindes, Holt body, tötet kind
-  try {
-    let deathRow = document.getElementById(id);
-    let body = document.getElementById("ToDo");
-    body.removeChild(deathRow);
-  } catch {
-    let deathRow = document.getElementById(id);
-    let body = document.getElementById("Done");
-    body.removeChild(deathRow);
-  }
+  let deathRow = document.getElementById(id);
+  let body = deathRow.parentElement;
+  body.removeChild(deathRow);
 }
 
 function eintragBearbeiten(id) {
