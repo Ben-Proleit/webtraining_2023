@@ -1,0 +1,82 @@
+#game-area {
+  display: grid;
+  grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
+  height: 500px;
+  width: 500px;
+}
+
+#game-area>button {
+  background-color: aqua;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 6px;
+  font-size: 50px;
+  font-weight: bold;
+  border: 1px solid black;
+}
+
+#game-area>button:hover {
+  background-color: bisque;
+}
+
+#game-screen {
+  width: 500px;
+}
+
+#game-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+
+.player-card {
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: antiquewhite;
+  margin: 5px;
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.player-card > div {
+  margin: 5px;
+}
+
+.token-x {
+  color: #0000ff;
+}
+
+.token-o {
+  color: #ff0000;
+}
+
+.player-card .token-x, .player-card .token-o {
+  border: 1px solid black;
+  border-radius: 100%;
+  background-color: white;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-row: 1 / span 2;
+  place-self: center;
+  font-weight: bold;
+  font-size: 25px;
+  font-family: arial;
+}
+
+#player-x-win, #player-o-win {
+  color: #00dd00;
+}
+
+#player-x-lose, #player-o-lose {
+  color: #ff0000;
+}
+
+#player-x-draw, #player-o-draw {
+  color: #aaaaaa;
+}

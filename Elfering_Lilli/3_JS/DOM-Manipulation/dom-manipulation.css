@@ -6,3 +6,11 @@ tr {
   height: 30px;
   background-color: rgb(193, 225, 255);
 }
+
+footer {
+  height: 40px;
+  max-width: none;
+  position: sticky;
+  bottom: 0px;
+  background-color: lavender;
+}

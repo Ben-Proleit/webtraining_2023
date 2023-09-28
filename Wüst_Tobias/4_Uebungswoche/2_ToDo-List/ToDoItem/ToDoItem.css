@@ -1,0 +1,37 @@
+.todoitem {
+  display: flex;
+  background-color: beige;
+  margin: 0.5%;
+}
+
+.itemsummary {
+  display: grid;
+  grid-template-columns: 85% 15%;
+  grid-template-rows: 30px;
+}
+
+.itemname {
+  align-self: center;
+  font-weight: 600;
+}
+
+.itemcontent {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 130px;
+}
+
+.itemdetails {
+  width: 95%;
+  height: 90%;
+  margin: 0px 1% 0px 1%;
+  border: 1px;
+  border-style: solid;
+  border-color: black;
+}
+
+.itemdate {
+  align-self: center;
+  justify-self: center;
+
+}

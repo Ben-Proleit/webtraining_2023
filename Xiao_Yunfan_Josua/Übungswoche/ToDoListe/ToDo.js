@@ -7,16 +7,21 @@ function einträgeHinzufügen() {
   div.setAttribute("id", ListID);
 
   //create area and buttons
-  div.appendChild(document.createElement("textarea"));
+  const text = div.appendChild(document.createElement("textarea"));
   const edit = div.appendChild(document.createElement("button"));
   const kill = div.appendChild(document.createElement("button"));
   const completed = div.appendChild(document.createElement("button"));
 
-  //set button attributes
-  kill.setAttribute("onclick", "eintragLöschen(" + ListID + ");");
+  //set button Classes
+  text.setAttribute("edit", "false");
   edit.setAttribute("class", "edit");
   kill.setAttribute("class", "kill");
   completed.setAttribute("class", "completed");
+
+  //set Button Onclick
+  edit.setAttribute("onclick", "eintragBearbeiten(" + ListID + ");");
+  kill.setAttribute("onclick", "eintragLöschen(" + ListID + ");");
+  completed.setAttribute("onclick", "eintragErledigt(" + ListID + ");");
 
   //set button pictures
   edit.appendChild(document.createElement("img"));
@@ -30,18 +35,48 @@ function einträgeHinzufügen() {
 function eintragLöschen(id) {
   //Holt id des Kindes, Holt body, tötet kind
   let deathRow = document.getElementById(id);
-  let body = document.getElementById("ToDo");
+  let body = deathRow.parentElement;
   body.removeChild(deathRow);
 }
 
-function eintragBearbeiten() {
-  console.log("Test3");
+function eintragBearbeiten(id) {
+  //get div, get textarea, guck status
+  let workInProgress = document.getElementById(id);
+  let ta = workInProgress.getElementsByTagName("textarea").item(0);
+  let bool = ta.getAttribute("edit");
+  //statuswechsel
+  if (bool == "false") {
+    ta.setAttribute("readonly", "");
+    ta.setAttribute("Edit", "true");
+  } else {
+    ta.removeAttribute("readonly", "");
+    ta.setAttribute("Edit", "false");
+  }
 }
 
-function eintragErledigt() {
-  console.log("Test4");
+function eintragErledigt(id) {
+  //get selected div-element
+  let ToDoListe = document.getElementById("ToDo");
+  const divOld = ToDoListe.appendChild(document.getElementById(id));
+
+  //get Done-List and add new div
+  let DoneListe = document.getElementById("Done");
+  let divNew = DoneListe.appendChild(document.createElement("div"));
+
+  //copy data into new created div, also the id and textarea value
+  divNew.innerHTML = divOld.innerHTML;
+  divNew.setAttribute("id", id);
+  var text = divOld.getElementsByTagName("textarea").item(0).value;
+  divNew.getElementsByTagName("textarea").item(0).value = text;
+
+  //delete selected div after copying all data
+  eintragLöschen(id);
 }
 
-function eintragNichtErledigt() {
+function eintragNichtErledigt(id) {
   console.log("Test5");
 }
+
+// function textÜbertragen{
+
+// }

@@ -1,0 +1,10 @@
+.mobile-content{
+    box-shadow: 0 0 0.3em 0.3em rgba(0, 0, 0, .1);
+}
+.mobile-icon{
+    object-fit: cover;
+    width: 4em;
+}
+.mobile-icon-text{
+    font-size: 0.8rem;
+}
