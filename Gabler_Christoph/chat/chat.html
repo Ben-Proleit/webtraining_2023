@@ -93,17 +93,13 @@
       }
     };
 
-    //TODO: remove debug
-    addMessage("This is a foreign message.", "15:30", true, "Joe Waschl");
-    addMessage("This is your own message", "16:00");
-    addMessage("This is a foreign message.", "15:30", true, "Joe Waschl");
-    addMessage("This is a foreign message.", "15:30", true, "Joe Waschl");
-
     //initialize the web socket
     socket = new ModularHomeSocket();
     //set on ready handler
     socket.onReady = function () {
       showConnected();
+      //subscribe for updates
+      socket.requestCommand("chatit subscribe", null);
       //TODO: load the last bunch of messages
     };
     //set on closed handler
@@ -134,8 +130,12 @@
       let now = new Date();
       //send a message here
       socket.requestCommand("chatit send message", [message, now], (data) => {
-        //add the message to the screen
-        addMessage(message, now.toLocaleTimeString());
+        if(typeof data === "boolean" && data){
+          //add the message to the screen
+          addMessage(message, now.toLocaleTimeString());
+        }else{
+          console.log("Server could not send message.");
+        }
       }, (code) => {
         console.log("Could not send message. Code: " + code);
       }, () => {
@@ -261,6 +261,7 @@
 
   function addMessage(text, time, foreign = false, user = "You"){
     fetchHTML((foreign ? "foreign" : "own") + "Message.html", (data) => {
+      text = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
       //prepare the new message
       let html = data.replaceAll("@MESSAGE", text);
       html = html.replaceAll("@TIME", time);

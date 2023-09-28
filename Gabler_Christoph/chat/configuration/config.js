@@ -3,9 +3,12 @@ const Config = {
   // * START OF CONFIGURATION * -----------------------
   //- Communication: ----------------------------------
   // The address and path of the websocket server
-  URL: "wss://192.168.241.36:2021/",
+  URL: "wss://hrzwkscgb02:8777/",
   // How long to wait for a message at maximum
-  REQUEST_TIMEOUT: 15000
+  REQUEST_TIMEOUT: 15000,
+  //Enable anybody to create a new user account
+  //Note: This has to be enabled in the Modular Home Server as well
+  PUBLIC_SERVER: true
   // * END OF CONFIGURATION * -------------------------
 }
 
@@ -19,7 +22,7 @@ function InitConfig(){
   if(Config.REQUEST_TIMEOUT === undefined){
       Object.assign(Config, {REQUEST_TIMEOUT: 15000});
   }
-  if(Config.CONNECTION_LOST_PAGE === undefined){
-      Object.assign(Config, {CONNECTION_LOST_PAGE: "offline.php"});
+  if(Config.PUBLIC_SERVER === undefined){
+    Object.assign(Config, {PUBLIC_SERVER: false});
   }
 }
