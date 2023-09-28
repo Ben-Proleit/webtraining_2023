@@ -24,3 +24,7 @@
 .softText{
   color: var(--bs-border-color);
 }
+
+.pointer{
+  cursor: pointer;
+}

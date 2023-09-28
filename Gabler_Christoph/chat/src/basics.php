@@ -21,6 +21,7 @@ function getStylesheet(): string{
     }
 }
 
+/*
 function getLanguage(): string{
     //try getting a preferred language from the url
     $lang = null;
@@ -121,3 +122,4 @@ function getAsset(string $language, string $asset): ?array{
     }
     return [$path, $targetName];
 }
+*/

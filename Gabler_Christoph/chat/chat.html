@@ -10,9 +10,9 @@
   <div class="border-top my-3 mx-1"></div>
   <ul class="nav nav-pills flex-column mb-auto">
     <li class="nav-item">
-      <a id="app-1" class="nav-link link-dark">
-        <img class="bi me-2 svg-background" width="16" height="16" src="./src/icons/trash.svg">
-        USERNAME
+      <a id="app-1" class="nav-link link-dark pointer">
+        <img class="bi me-2 svg-background" width="16" height="16" src="./src/icons/chat-left.svg">
+        Chatroom
       </a>
     </li>
   </ul>
@@ -31,6 +31,9 @@
   <div class="w-100 bg-body d-flex flex-row flex-nowrap justify-content-between py-2 ps-4 pe-2 home-content">
     <p id="page-name" class="my-auto text-dark">Chatroom</p>
     <div class="d-flex flex-row flex-nowrap justify-content-end">
+      <button class="btn me-1" onclick="toggleTheme();" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Enable/Disable Dark Mode">
+        <img id="theme" class="svg-background" width="20px" height="20px">
+      </button>
       <!-- quick settings -->
       <button class="btn" onclick="toggleNotification();" data-bs-toggle="tooltip" data-bs-placement="bottom"
         data-bs-title="Enable/Disable Notification sound">
@@ -69,10 +72,6 @@
   </div>
 </div>
 <script>
-  let activeScripts = [];
-  let onDisable = [];
-  let urlParameters = [];
-
   document.addEventListener('DOMContentLoaded', () => {
     //display the username
     let username = sessionStorage.getItem("username");
@@ -81,6 +80,8 @@
     }
     //update the silence setting
     updateSilent();
+    //update the theme setting
+    updateThemeIcon();
     //enable tooltips
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
@@ -100,22 +101,19 @@
 
     //initialize the web socket
     socket = new ModularHomeSocket();
-    //add on ready handler
-    socket.onReady = [];
+    //set on ready handler
     socket.onReady = function () {
       showConnected();
-      //TODO: get all active users
-      
+      //TODO: load the last bunch of messages
     };
-    socket.onClosed = [];
+    //set on closed handler
     socket.onClosed = function () {
       showDisconnected();
     };
-    //add a message handler
-    socket.onPost = [];
+    //set a message handler
     socket.onPost = function (data) {
       //check if the data contains a message
-      if (data["command"] !== undefined && data["command"] === "message new") {
+      if (data["command"] !== undefined && data["command"] === "chatit new message") {
         //display the message
         addMessage(data["arguments"][2], data["arguments"][0], true, data["arguments"][1]);
         //show the notifiction
@@ -135,7 +133,7 @@
       //get the current time
       let now = new Date();
       //send a message here
-      socket.requestCommand("message send", [message, now], (data) => {
+      socket.requestCommand("chatit send message", [message, now], (data) => {
         //add the message to the screen
         addMessage(message, now.toLocaleTimeString());
       }, (code) => {
@@ -219,6 +217,47 @@
       document.getElementById("silent").src = "./src/icons/bell-slash.svg";
     }
   }
+
+  function toggleTheme(){
+        //prepare the search params
+        let searchParams = window.location.search;
+        if(searchParams.length > 0){
+            //prepare the search params
+            searchParams = searchParams.replace("?theme=dark", "");
+            searchParams = searchParams.replace("&theme=dark", "");
+            searchParams = searchParams.replace("?theme=light", "");
+            searchParams = searchParams.replace("&theme=light", "");
+            //divide the search params
+            let dividedSearch = searchParams.split("#", 1);
+            //check if the get attributes were set
+            if(searchParams.includes('?')){
+                searchParams = dividedSearch[0] + "&theme=@theme";
+            }else{
+                searchParams = "?theme=@theme";
+            }
+            //reapply the second part of the search params
+            if(dividedSearch.length > 1){
+                searchParams += "#" + dividedSearch[1];
+            }
+        }else{
+            searchParams = "?theme=@theme";
+        }
+        //reload the layout
+        if(getCookie("theme") === "dark"){
+            searchParams = searchParams.replace("@theme", "light");
+        }else{
+            searchParams = searchParams.replace("@theme", "dark");
+        }
+        href(searchParams);
+    }
+
+    function updateThemeIcon(){
+        if(getCookie("theme") === "dark"){
+            document.getElementById("theme").src = "./src/icons/moon.svg";
+        }else{
+            document.getElementById("theme").src = "./src/icons/sun.svg";
+        }
+    }
 
   function addMessage(text, time, foreign = false, user = "You"){
     fetchHTML((foreign ? "foreign" : "own") + "Message.html", (data) => {
