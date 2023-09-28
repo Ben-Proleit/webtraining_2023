@@ -1,0 +1,42 @@
+@keyframes test {
+  0% {
+    background-color: #073a73;
+  }
+  50% {
+    background-color: #fc0;
+  }
+  100% {
+    background-color: #35cd58;
+  }
+}
+
+body {
+  animation-name: test;
+  animation-duration: 5s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div {
+  height: 200px;
+  width: 200px;
+  background-color: aquamarine;
+
+  transition-property: all;
+  transition-duration: 1s;
+  transition-timing-function: ease-in-out;
+}
+
+div:hover {
+  /* transform: skew(304deg, 2055deg);*/
+  transform: perspective(200px);
+  background-color: orange;
+  transition-property: all;
+  transition-duration: 5s;
+  transition-timing-function: ease-in-out;
+}
