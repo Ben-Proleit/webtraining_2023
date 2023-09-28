@@ -1,4 +1,6 @@
 var ListID = 0;
+var bearbeitet = 0;
+var Dad;
 
 function einträgeHinzufügen() {
   // get todo div, add a Textbox div, set div id,
@@ -34,9 +36,16 @@ function einträgeHinzufügen() {
 
 function eintragLöschen(id) {
   //Holt id des Kindes, Holt body, tötet kind
-  let deathRow = document.getElementById(id);
-  let body = deathRow.parentElement;
-  body.removeChild(deathRow);
+  if (bearbeitet == "1") {
+    let body = document.getElementById(Dad);
+    let deathRow = body.getElementsByClassName("toKill").item(0);
+    body.removeChild(deathRow);
+  } else {
+    let deathRow = document.getElementById(id);
+    let body = deathRow.parentElement;
+    body.removeChild(deathRow);
+  }
+  bearbeitet = 0;
 }
 
 function eintragBearbeiten(id) {
@@ -55,28 +64,54 @@ function eintragBearbeiten(id) {
 }
 
 function eintragErledigt(id) {
-  //get selected div-element
+  //vater festlegen & beide möglichen eltern holen
+  let cElement = document.getElementById(id);
+  console.log(cElement);
+  cElement.setAttribute("class", "toKill");
+  console.log(cElement);
+  let body = cElement.parentElement;
+  let idBody = body.getAttribute("id");
+  Dad = idBody;
+
   let ToDoListe = document.getElementById("ToDo");
-  const divOld = ToDoListe.appendChild(document.getElementById(id));
-
-  //get Done-List and add new div
   let DoneListe = document.getElementById("Done");
-  let divNew = DoneListe.appendChild(document.createElement("div"));
+  bearbeitet = 1;
+  if (idBody == "ToDo") {
+    let selectedDiv = ToDoListe.appendChild(document.getElementById(id));
+    let targetDiv = DoneListe.appendChild(document.createElement("div"));
 
-  //copy data into new created div, also the id and textarea value
-  divNew.innerHTML = divOld.innerHTML;
-  divNew.setAttribute("id", id);
-  var text = divOld.getElementsByTagName("textarea").item(0).value;
-  divNew.getElementsByTagName("textarea").item(0).value = text;
+    targetDiv.innerHTML = selectedDiv.innerHTML;
+    targetDiv.setAttribute("id", id);
+    let text = selectedDiv.getElementsByTagName("textarea").item(0).value;
+    targetDiv.getElementsByTagName("textarea").item(0).value = text;
+  } else if (idBody == "Done") {
+    let selectedDiv = DoneListe.appendChild(document.getElementById(id));
+    let targetDiv = ToDoListe.appendChild(document.createElement("div"));
 
+    targetDiv.innerHTML = selectedDiv.innerHTML;
+    targetDiv.setAttribute("id", id);
+    let text = selectedDiv.getElementsByTagName("textarea").item(0).value;
+    targetDiv.getElementsByTagName("textarea").item(0).value = text;
+  }
   //delete selected div after copying all data
   eintragLöschen(id);
 }
 
-function eintragNichtErledigt(id) {
-  console.log("Test5");
-}
+// Legacy alter erledigt
+// function eintragNichtErledigt(id) {
+//   //get selected div-element
+//   let ToDoListe = document.getElementById("ToDo");
+//   let selectedDiv = ToDoListe.appendChild(document.getElementById(id));
 
-// function textÜbertragen{
+//   //get Done-List and add new div
+//   let DoneListe = document.getElementById("Done");
+//   let targetDiv = DoneListe.appendChild(document.createElement("div"));
 
+//   //copy data into new created div, also the id and textarea value
+//   targetDiv.innerHTML = selectedDiv.innerHTML;
+//   targetDiv.setAttribute("id", id);
+//   var text = selectedDiv.getElementsByTagName("textarea").item(0).value;
+//   targetDiv.getElementsByTagName("textarea").item(0).value = text;
+//   //delete selected div after copying all data
+//   eintragLöschen(id);
 // }
