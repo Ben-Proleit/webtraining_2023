@@ -63,9 +63,11 @@ function eintragErledigt(id) {
   let DoneListe = document.getElementById("Done");
   let divNew = DoneListe.appendChild(document.createElement("div"));
 
-  //copy data into new created div, also the id
+  //copy data into new created div, also the id and textarea value
   divNew.innerHTML = divOld.innerHTML;
   divNew.setAttribute("id", id);
+  var text = divOld.getElementsByTagName("textarea").item(0).value;
+  divNew.getElementsByTagName("textarea").item(0).value = text;
 
   //delete selected div after copying all data
   eintragLöschen(id);
