@@ -1,6 +1,18 @@
 var ListID = 0;
 var bearbeitet = 0;
 var Dad;
+var doneArray = [];
+
+function loadEntries() {
+  const todosJson = localStorage.getItem("ToDoArray");
+  const test = JSON.parse(todosJson);
+
+  test.forEach((element) => {
+    einträgeHinzufügen();
+    textareaBeschreiben(element);
+  });
+}
+loadEntries();
 
 function einträgeHinzufügen() {
   // get todo div, add a Textbox div, set div id,
@@ -34,6 +46,13 @@ function einträgeHinzufügen() {
   ListID++;
 }
 
+function textareaBeschreiben(text) {
+  let ToDoListe = document.getElementById("ToDo");
+  let targetDiv = ToDoListe.appendChild(document.getElementById(ListID - 1));
+  targetDiv.getElementsByTagName("textarea").item(0).value = text;
+  doneArray[ListID - 1] = text;
+}
+
 function eintragLöschen(id) {
   //Holt id des Kindes, Holt body, tötet kind
   if (bearbeitet == "1") {
@@ -53,13 +72,31 @@ function eintragBearbeiten(id) {
   let workInProgress = document.getElementById(id);
   let ta = workInProgress.getElementsByTagName("textarea").item(0);
   let bool = ta.getAttribute("edit");
-  //statuswechsel
-  if (bool == "false") {
-    ta.setAttribute("readonly", "");
-    ta.setAttribute("Edit", "true");
-  } else {
-    ta.removeAttribute("readonly", "");
-    ta.setAttribute("Edit", "false");
+
+  //Check if Element is in ToDo list; only then make it editable
+  let parentID = workInProgress.parentElement.id;
+  if (parentID == "ToDo") {
+    //statuswechsel
+    if (bool == "false") {
+      ta.setAttribute("readonly", "");
+      ta.setAttribute("Edit", "true");
+
+      //in localstorage speichern
+      let text = document
+        .getElementById("ToDo")
+        .appendChild(document.getElementById(id))
+        .getElementsByTagName("textarea")
+        .item(0).value;
+      doneArray[id] = text;
+
+      const jsonText = JSON.stringify(doneArray);
+      console.log(jsonText);
+
+      localStorage.setItem("ToDoArray", jsonText);
+    } else {
+      ta.removeAttribute("readonly", "");
+      ta.setAttribute("Edit", "false");
+    }
   }
 }
 
@@ -109,6 +146,8 @@ function killTwerk() {
 }
 document.getElementById("secret").onmousedown = Twerk;
 document.getElementById("secret").onmouseup = killTwerk;
+
+// einträgeHinzufügen();
 
 // Legacy alter erledigt
 // function eintragNichtErledigt(id) {

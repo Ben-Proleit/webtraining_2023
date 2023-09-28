@@ -87,9 +87,8 @@ button.completed > img {
 }
 
 iframe {
-  height: 35%;
-  width: 40%;
-  position: fixed;
-  top: 30%;
+  height: 290px;
+  width: 484px;
+  position: relative;
   left: 30%;
 }
