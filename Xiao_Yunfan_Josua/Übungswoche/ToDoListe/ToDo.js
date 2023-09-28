@@ -97,6 +97,19 @@ function eintragErledigt(id) {
   eintragLöschen(id);
 }
 
+function Twerk() {
+  let body = document.getElementsByTagName("body").item(0);
+  let div = body.appendChild(document.createElement("div"));
+  div.setAttribute("id", "Thanos");
+  const iframe = div.appendChild(document.createElement("iframe"));
+  iframe.setAttribute("src", "iframe.html");
+}
+function killTwerk() {
+  let body = document.getElementsByTagName("body").item(0);
+}
+document.getElementById("secret").onmousedown = Twerk;
+document.getElementById("secret").onmouseup = killTwerk;
+
 // Legacy alter erledigt
 // function eintragNichtErledigt(id) {
 //   //get selected div-element

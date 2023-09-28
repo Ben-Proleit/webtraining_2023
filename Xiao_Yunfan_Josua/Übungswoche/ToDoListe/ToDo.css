@@ -79,6 +79,17 @@ button.completed > img {
   border-color: black;
 }
 
-.toKill {
-  margin: 0px;
+.Headline {
+  background: #222;
+  color: whitesmoke;
+  border-radius: 0px;
+  border: 0px #222;
+}
+
+iframe {
+  height: 35%;
+  width: 40%;
+  position: fixed;
+  top: 30%;
+  left: 30%;
 }
