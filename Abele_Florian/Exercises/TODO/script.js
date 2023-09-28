@@ -10,7 +10,16 @@ let tasks = [];
 const listItemIdHead = "listItem_";
 const taskList = document.getElementsByClassName("taskList")[0];
 
-taskList.appendChild(createListItemFromTask(new task(0, false, "do some styling")));
+var newTask = new task(0, false, "do some styling");
+tasks.push(newTask)
+taskList.appendChild(createListItemFromTask(newTask));
+
+for(var i = 0; i < 50; i++){
+  var newTask = new task(maxTaskId() + 1, false, "todo");
+  tasks.push(newTask);
+  taskList.appendChild(createListItemFromTask(newTask))  
+}
+
 
 addEmptyItemIfNeeded();
 
@@ -26,9 +35,11 @@ function createListItemFromTask(task) {
 
   listItemText = document.createElement("input");
   listItemText.type = "text";
+  listItemText.classList.add('listItemText')
   listItemText.value = task.taskText;
   listItemText.placeholder = "enter task here";
-  listItemText.setAttribute("onkeyup", "textInput(event, this)");
+  listItemText.setAttribute("onkeyup", "inputTextOnKeyUp(event, this)");
+  listItemText.setAttribute("onblur", "inputTextOnBlur(this)");
 
   listItemBtnDelete = document.createElement("button");
   listItemBtnDelete.classList.add("btnDelete");
@@ -38,8 +49,8 @@ function createListItemFromTask(task) {
   listItemDiv.appendChild(listItemText);
   listItemDiv.appendChild(listItemBtnDelete);
 
-  console.log(task);
-  console.log(listItemDiv);
+  // console.log(task);
+  // console.log(listItemDiv);
   return listItemDiv;
 }
 
@@ -81,11 +92,16 @@ function btnDeleteClick(btn) {
   taskList.removeChild(taskDiv);
 }
 
-function textInput(event, inputTxt) {
-  if (event.key != "Enter") {
-    return;
-  }
+function inputTextOnBlur(inputTxt){
+  textInput(inputTxt);
+}
 
+function inputTextOnKeyUp(event, inputTxt){
+  if(event.key == "Enter")
+    textInput(inputTxt);
+}
+
+function textInput(inputTxt) {
   parentId = inputTxt.parentElement.id;
   parentId = parentId.replace(listItemIdHead, "");
 
@@ -111,7 +127,7 @@ function addEmptyItemIfNeeded() {
 }
 
 function maxTaskId() {
-  var maxId = -1;
+var maxId = -1;
   tasks.forEach((task) => (maxId = maxId > task.id ? maxId : task.id));
   return maxId;
 }
