@@ -1,20 +1,20 @@
 :root{
   --colourBase: #ffeffe;
   --colourAccent1: #e59500;
-  --colourTextBase: #840032;
-  /* --colourTextBase: #02040f; */
+  --colourAccent2: #840032;
+  /* --colourAccent2: #02040f; */
   --colourTextComplementary: #002643;
   --transparencyBorder: rgba(0, 0, 0, 0.3);
   --transparencyBody: rgba(0, 0, 0, 0.1);
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   background-color: var(--colourBase);
-  color: var(--colourTextBase)
+  color: var(--colourAccent2)
 }
 
 h1.stickyHeader{
   z-index: 99;
   position: sticky;
-  top: 0px;
+  top: 0;
 }
 
 h1 > div{
@@ -22,14 +22,19 @@ h1 > div{
 } 
 
 h1 p{
-
-  width: 100%;
+  width: 75%;
   border-bottom: 5px solid var(--colourAccent1);
 }
 
+.taskList{
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+
 .listItem{
   --lIWidth: 80%;
-  height: 2em;
+  height: 1em;
   position: relative;
   left: calc(50% - var(--lIWidth)/2);
   width: var(--lIWidth);
@@ -40,6 +45,20 @@ h1 p{
   justify-content: center;
   align-items: center;
 }
+.listItem[completed]{
+  order: 1;
+}
+
+button{
+
+  border-radius: 4px;
+  border-bottom-left-radius: 1px;
+  border-style: solid;
+  background-color: var(--transparencyBody);
+}
+button:hover{
+  border-color: var(--colourAccent2);
+}
 
 .btnDelete{
   --btnSize: 25px;
@@ -49,14 +68,8 @@ h1 p{
   background-position-x: -2.5px;
   background-position-y: 1px;
 
-  background-color: var(--transparencyBody);
-
   width: var(--btnSize);
   height: var(--btnSize);
-
-  border-radius: 4px;
-  border-bottom-left-radius: 1px;
-  border-style: solid;
 }
 
 .listItemText{
@@ -75,7 +88,7 @@ h1 p{
 
 .listItemText[disabled]{
   text-decoration-line: line-through;
-  text-decoration-color: var(--colourAccent1);
+  text-decoration-color: var(--colourAccent2);
   text-decoration-thickness: 2px;
 }
 

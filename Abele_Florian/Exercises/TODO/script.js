@@ -10,16 +10,9 @@ let tasks = [];
 const listItemIdHead = "listItem_";
 const taskList = document.getElementsByClassName("taskList")[0];
 
-var newTask = new task(0, false, "do some styling");
-tasks.push(newTask)
-taskList.appendChild(createListItemFromTask(newTask));
-
-for(var i = 0; i < 50; i++){
-  var newTask = new task(maxTaskId() + 1, false, "todo");
-  tasks.push(newTask);
-  taskList.appendChild(createListItemFromTask(newTask))  
-}
-
+document.addEventListener('DOMContentLoaded', () => {
+  load();
+});
 
 addEmptyItemIfNeeded();
 
@@ -40,11 +33,15 @@ function createListItemFromTask(task) {
   listItemText.placeholder = "enter task here";
   listItemText.setAttribute("onkeyup", "inputTextOnKeyUp(event, this)");
   listItemText.setAttribute("onblur", "inputTextOnBlur(this)");
-
+  
   listItemBtnDelete = document.createElement("button");
   listItemBtnDelete.classList.add("btnDelete");
   listItemBtnDelete.setAttribute("onclick", "btnDeleteClick(this)");
-
+    
+  if(task.completionState == true){
+    listItemText.setAttribute('disabled', 'disabled')
+    listItemDiv.setAttribute('completed', 'completed')
+  }
   listItemDiv.appendChild(listItemCheckbox);
   listItemDiv.appendChild(listItemText);
   listItemDiv.appendChild(listItemBtnDelete);
@@ -72,10 +69,12 @@ function checkboxClick(checkbox) {
 
   if (task.completionState == true) {
     textField.setAttribute("disabled", "disabled");
+    taskDiv.setAttribute("completed", "completed")
   } else {
     textField.removeAttribute("disabled");
+    taskDiv.removeAttribute("completed")
   }
-
+  store();
 }
 
 function btnDeleteClick(btn) {
@@ -90,6 +89,8 @@ function btnDeleteClick(btn) {
 
   const taskList = document.getElementsByClassName("taskList")[0];
   taskList.removeChild(taskDiv);
+
+  store();
 }
 
 function inputTextOnBlur(inputTxt){
@@ -107,7 +108,7 @@ function textInput(inputTxt) {
 
   const taskEdt = tasks.find((task) => task.id == parentId);
   taskEdt.taskText = inputTxt.value;
-
+  store();
   addEmptyItemIfNeeded();
 }
 
@@ -130,4 +131,20 @@ function maxTaskId() {
 var maxId = -1;
   tasks.forEach((task) => (maxId = maxId > task.id ? maxId : task.id));
   return maxId;
+}
+
+
+function store(){
+  localStorage.setItem('tasks', JSON.stringify(tasks))
+}
+function load(){
+  tasks = JSON.parse(localStorage.getItem('tasks'))
+  console.log(tasks)
+
+  taskList.innerHTML = ''
+
+  tasks.forEach((task) => {
+    taskList.appendChild(createListItemFromTask(task))
+  })
+
 }
