@@ -6,10 +6,16 @@ var doneArray = [];
 function loadEntries() {
   const todosJson = localStorage.getItem("ToDoArray");
   const test = JSON.parse(todosJson);
+  localStorage.clear();
 
   test.forEach((element) => {
-    einträgeHinzufügen();
-    textareaBeschreiben(element);
+    if (element != null && element != "") {
+      einträgeHinzufügen();
+      textareaBeschreiben(element);
+      doneArray[ListID - 1] = element;
+    }
+    const jsonText = JSON.stringify(doneArray);
+    localStorage.setItem("ToDoArray", jsonText);
   });
 }
 loadEntries();
@@ -90,7 +96,6 @@ function eintragBearbeiten(id) {
       doneArray[id] = text;
 
       const jsonText = JSON.stringify(doneArray);
-      console.log(jsonText);
 
       localStorage.setItem("ToDoArray", jsonText);
     } else {
