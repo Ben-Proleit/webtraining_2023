@@ -1,7 +1,7 @@
 var ListID = 0;
 var bearbeitet = 0;
 var Dad;
-var doneArray = [];
+var ToDoArray = [];
 
 function loadEntries() {
   const todosJson = localStorage.getItem("ToDoArray");
@@ -12,9 +12,9 @@ function loadEntries() {
     if (element != null && element != "") {
       einträgeHinzufügen();
       textareaBeschreiben(element);
-      doneArray[ListID - 1] = element;
+      ToDoArray[ListID - 1] = element;
     }
-    const jsonText = JSON.stringify(doneArray);
+    const jsonText = JSON.stringify(ToDoArray);
     localStorage.setItem("ToDoArray", jsonText);
   });
 }
@@ -56,7 +56,7 @@ function textareaBeschreiben(text) {
   let ToDoListe = document.getElementById("ToDo");
   let targetDiv = ToDoListe.appendChild(document.getElementById(ListID - 1));
   targetDiv.getElementsByTagName("textarea").item(0).value = text;
-  doneArray[ListID - 1] = text;
+  ToDoArray[ListID - 1] = text;
 }
 
 function eintragLöschen(id) {
@@ -65,16 +65,13 @@ function eintragLöschen(id) {
     let body = document.getElementById(Dad);
     let deathRow = body.getElementsByClassName("toKill").item(0);
     body.removeChild(deathRow);
-    doneArray[id] = "";
-    const jsonText = JSON.stringify(doneArray);
-    localStorage.setItem("ToDoArray", jsonText);
   } else {
     let deathRow = document.getElementById(id);
     let body = deathRow.parentElement;
     body.removeChild(deathRow);
     if (document.getElementById("ToDo") == body) {
-      doneArray[id] = "";
-      const jsonText = JSON.stringify(doneArray);
+      ToDoArray[id] = "";
+      const jsonText = JSON.stringify(ToDoArray);
       localStorage.setItem("ToDoArray", jsonText);
     }
   }
@@ -101,9 +98,9 @@ function eintragBearbeiten(id) {
         .appendChild(document.getElementById(id))
         .getElementsByTagName("textarea")
         .item(0).value;
-      doneArray[id] = text;
+      ToDoArray[id] = text;
 
-      const jsonText = JSON.stringify(doneArray);
+      const jsonText = JSON.stringify(ToDoArray);
 
       localStorage.setItem("ToDoArray", jsonText);
     } else {
@@ -116,9 +113,7 @@ function eintragBearbeiten(id) {
 function eintragErledigt(id) {
   //vater festlegen & beide möglichen eltern holen
   let cElement = document.getElementById(id);
-  console.log(cElement);
   cElement.setAttribute("class", "toKill");
-  console.log(cElement);
   let body = cElement.parentElement;
   let idBody = body.getAttribute("id");
   Dad = idBody;
@@ -138,6 +133,10 @@ function eintragErledigt(id) {
       .getElementsByTagName("textarea")
       .item(0)
       .setAttribute("readonly", "");
+    //delete from local storage
+    ToDoArray[id] = "";
+    const jsonText = JSON.stringify(ToDoArray);
+    localStorage.setItem("ToDoArray", jsonText);
   } else if (idBody == "Done") {
     let selectedDiv = DoneListe.appendChild(document.getElementById(id));
     let targetDiv = ToDoListe.appendChild(document.createElement("div"));
@@ -146,6 +145,10 @@ function eintragErledigt(id) {
     targetDiv.setAttribute("id", id);
     let text = selectedDiv.getElementsByTagName("textarea").item(0).value;
     targetDiv.getElementsByTagName("textarea").item(0).value = text;
+    //write into local storage again
+    ToDoArray[id] = text;
+    const jsonText = JSON.stringify(ToDoArray);
+    localStorage.setItem("ToDoArray", jsonText);
   }
   //delete selected div after copying all data
   eintragLöschen(id);
