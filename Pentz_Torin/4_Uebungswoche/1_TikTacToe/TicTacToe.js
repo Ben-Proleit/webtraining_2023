@@ -1,10 +1,53 @@
-createButtons()
 var counter = 0
 var GameOver = false
+var colorPlayer1 = "red"
+var colorPlayer2 = "skyblue"
+var resultPlayer1 = 0
+var resultPlayer2 = 0
+var startingPlayer = 1
+var currentPlayer = startingPlayer
+
+createButtons()
+assignResult()
+SetInfoText("Its your turn player 1", colorPlayer1)
+SetPlayerColors()
+
+//#region Design
+function drawCircle() {
+    let circle = document.createElement("div")
+    circle.style.border = "2px " + colorPlayer1 + " solid"
+    circle.style.background = "transparent"
+    circle.style.borderWidth = "8px"
+    circle.style.borderRadius = "50%"
+    circle.style.width = "60%"
+    circle.style.height = "60%"
+    circle.style.margin = "10px"
+    circle.className = "Player1"
+    return circle
+}
+
+function drawSquare() {
+    let square = document.createElement("div")
+    square.style.border = "2px " + colorPlayer2 + " solid"
+    square.style.background = "transparent"
+    square.style.borderWidth = "8px"
+    square.style.width = "60%"
+    square.style.height = "60%"
+    square.style.margin = "10px"
+    square.className = "Player2"
+
+    return square
+}
+
+function SetPlayerColors() {
+    let res1 = document.getElementById("Result1")
+    res1.style.color = colorPlayer1
+    let res2 = document.getElementById("Result2")
+    res2.style.color = colorPlayer2
+}
 
 function createButtons() {
     const fields = document.getElementsByClassName("Field")
-    console.log(fields)
 
     for (let i = 0; i < fields.length; i++) {
         let currentButton
@@ -28,69 +71,56 @@ function createButton(colorBackground) {
     return button
 }
 
-function ButtonClick(sender) {
-    if (GameOver) return
+function DrawSymbol(button) {
 
-    let button = document.getElementById(sender.target.id)
-    if (button == null || button.children.length != 0)
-        return;
 
     let newElement
-    if (counter % 2 == 0)
+    if (counter % 2 == startingPlayer - 1)
         newElement = drawCircle()
     else
         newElement = drawSquare()
 
 
     button.appendChild(newElement)
-    //CenterElement(newElement)
+}
+//#endregion Design
 
-    if (checkWin(counter % 2)) {
-        console.log("Player" + counter % 2 + " has won! ")
+//#region Gamelogic
+function ButtonClick(sender) {
+    if (GameOver) return
+    let button = document.getElementById(sender.target.id)
+    if (button == null || button.children.length != 0)
+        return;
+    DrawSymbol(button)
+
+    let textcolor = currentPlayer == 1 ? colorPlayer1 : colorPlayer2
+
+    if (checkWin(currentPlayer)) {
+        console.log("Player" + currentPlayer + " won! ")
+        SetInfoText("Congrats! Player " + currentPlayer + " won! ", textcolor)
+        if (currentPlayer == 1)
+            resultPlayer1++
+        else
+            resultPlayer2++
+
+        assignResult()
+        GameOver = true
+        return
+    }
+
+
+    currentPlayer = (currentPlayer % 2) + 1
+    textcolor = currentPlayer == 1 ? colorPlayer1 : colorPlayer2
+    SetInfoText("Its your turn player " + currentPlayer, textcolor)
+
+    counter++
+    if (counter >= 9) {
+        SetInfoText("It's a draw ", "gray")
         GameOver = true
     }
-    counter++
+
 }
 
-function drawCircle() {
-    let circle = document.createElement("div")
-    circle.style.border = "2px red solid"
-    circle.style.background = "transparent"
-    circle.style.borderWidth = "8px"
-    circle.style.borderRadius = "50%"
-    circle.style.width = "60%"
-    circle.style.height = "60%"
-    circle.style.margin = "10px"
-    circle.className = "Player0"
-    return circle
-}
-
-function drawSquare() {
-    let square = document.createElement("div")
-    square.style.border = "2px skyblue solid"
-    square.style.background = "transparent"
-    square.style.borderWidth = "8px"
-    square.style.width = "60%"
-    square.style.height = "60%"
-    square.style.margin = "10px"
-    square.className = "Player1"
-
-    return square
-}
-
-function CenterElement(element) {
-    // Get references to the parent and child elements
-    var parent = element.parentNode
-    console.log(parent)
-
-    // Calculate the center position
-    var centerX = (parent.clientWidth - element.clientWidth) / 2;
-    var centerY = (parent.clientHeight - element.clientHeight) / 2;
-
-    // Set the child's position to be centered
-    element.style.left = centerX + "px";
-    element.style.top = centerY + "px";
-}
 
 function checkWin(playerNumber) {
     playerHistory = document.getElementsByClassName("Player" + playerNumber)
@@ -126,12 +156,31 @@ function checkWin(playerNumber) {
     return false
 }
 
-function resetGameEvent() {
-    buttons = document.getElementsByClassName("FieldButton")
+function SetInfoText(text, color = "green") {
+    let wininngText = document.getElementById("InfoText")
+    wininngText.innerText = text
+    wininngText.style.color = color
+}
 
+function resetGameEvent() {
+    //Reset Game Elements
+    buttons = document.getElementsByClassName("FieldButton")
     for (let i = 0; i < buttons.length; i++) {
         buttons[i].innerHTML = ""
     }
     counter = 0
     GameOver = false
+    //Change starting Player
+    startingPlayer = (startingPlayer % 2) + 1
+    currentPlayer = startingPlayer
+    let color = currentPlayer == 1 ? colorPlayer1 : colorPlayer2
+    SetInfoText("Its your turn player " + currentPlayer, color)
 }
+
+function assignResult() {
+    let res1 = document.getElementById("Result1")
+    res1.innerText = resultPlayer1
+    let res2 = document.getElementById("Result2")
+    res2.innerText = resultPlayer2
+}
+//#endregion Gamelogic

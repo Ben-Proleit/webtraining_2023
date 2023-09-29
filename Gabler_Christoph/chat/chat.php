@@ -3,6 +3,8 @@
   <head>
     <?php
     require "./src/standard/head.html";
+    require "./src/basics.php";
+    echo(getStylesheet());
     ?>
     <link rel="stylesheet" type="text/css" href="./style/chat.css"/>
   </head>

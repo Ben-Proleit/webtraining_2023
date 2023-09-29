@@ -1,3 +1,83 @@
+:root {
+  --schneider-green: #3DCD58;
+  --schneider-dark-green: #009530;
+  --schneider-dark-gray: #626469;
+  --schneider-light-gray: #9FA0A4;
+
+  --proleit-blue: #073a73;
+  --proleit-yellow: #ffcc00;
+  --proleit-red: #ca0032;
+}
+
+@keyframes red-pulsing-border {
+  from {
+    border: 1px solid #000000;
+    outline: 2px solid #00000000;
+  }
+  to {
+    border: 1px solid #ff0000;
+    outline: 2px solid #ff0000ff;
+  }
+}
+
+body {
+  background-image: url("assets/background.jpg");
+  background-size:  100%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body > div > div {
+  background-color: white;
+}
+
+h1 {
+  text-align: center;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  row-gap: 10px;
+}
+
+input {
+  min-height: 25px;
+  border: 2px solid black;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+
+
+button, input[type="button"], input[type="submit"] {
+  background-color: var(--schneider-green);
+  border: 2px solid var(--schneider-dark-gray);
+  border-radius: 10px;
+  color: white;
+  font-weight: bolder;
+  min-height: 27px;
+}
+
+button:hover, input[type="button"]:hover, input[type="submit"]:hover {
+  background-color: var(--schneider-dark-green);
+  animation-name: schneider-green-to-darkgreen;
+  animation-duration: 500ms;
+}
+
+form input[type="submit"] {
+  grid-column: 1 / span 2;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.center-helper {
+  display: flex;
+  columns: 1fr;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+}
+
 #game-area {
   display: grid;
   grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
@@ -5,23 +85,42 @@
   width: 500px;
 }
 
-#game-area>button {
+#game-area > button {
   background-color: aqua;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 6px;
-  font-size: 50px;
+  font-size: 90px;
   font-weight: bold;
   border: 1px solid black;
+
+  animation-name: none;
 }
 
-#game-area>button:hover {
+#game-area > button:hover {
   background-color: bisque;
 }
 
 #game-screen {
   width: 500px;
+  background-color: white;
+  padding: 50px;
+  border-radius: 20px;
+}
+
+#end-screen {
+  width: 300px;
+  padding: 20px;
+  border: 5px solid black;
+  border-radius: 20px;
+  margin-top: 30px;
+}
+
+#register-user-screen {
+  padding: 30px;
+  border: 5px solid black;
+  border-radius: 20px;
 }
 
 #game-header {
@@ -34,11 +133,24 @@
 .player-card {
   border: 1px solid black;
   border-radius: 10px;
+  color: black;
   background-color: antiquewhite;
   margin: 5px;
   display: grid;
   grid-template-columns: 60px 1fr;
   grid-template-rows: 1fr 1fr;
+}
+
+/* .current-player-card {
+  border: 2px solid red;
+} */
+
+.current-player-card .token-x, .current-player-card .token-o {
+  animation-name: red-pulsing-border;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
 }
 
 .player-card > div {

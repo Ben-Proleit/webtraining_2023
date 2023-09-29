@@ -10,8 +10,8 @@
   </head>
   <body class="lang" data-file="login">
     <?php
-    //print the login body
-    require "login.html";
+    //load body
+    require "register.html";
     //print footer
     require "./src/standard/footer.html";
     ?>

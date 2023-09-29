@@ -10,7 +10,9 @@ let tasks = [];
 const listItemIdHead = "listItem_";
 const taskList = document.getElementsByClassName("taskList")[0];
 
-taskList.appendChild(createListItemFromTask(new task(0, false, "do some styling")));
+document.addEventListener('DOMContentLoaded', () => {
+  load();
+});
 
 addEmptyItemIfNeeded();
 
@@ -26,20 +28,26 @@ function createListItemFromTask(task) {
 
   listItemText = document.createElement("input");
   listItemText.type = "text";
+  listItemText.classList.add('listItemText')
   listItemText.value = task.taskText;
   listItemText.placeholder = "enter task here";
-  listItemText.setAttribute("onkeyup", "textInput(event, this)");
-
+  listItemText.setAttribute("onkeyup", "inputTextOnKeyUp(event, this)");
+  listItemText.setAttribute("onblur", "inputTextOnBlur(this)");
+  
   listItemBtnDelete = document.createElement("button");
   listItemBtnDelete.classList.add("btnDelete");
   listItemBtnDelete.setAttribute("onclick", "btnDeleteClick(this)");
-
+    
+  if(task.completionState == true){
+    listItemText.setAttribute('disabled', 'disabled')
+    listItemDiv.setAttribute('completed', 'completed')
+  }
   listItemDiv.appendChild(listItemCheckbox);
   listItemDiv.appendChild(listItemText);
   listItemDiv.appendChild(listItemBtnDelete);
 
-  console.log(task);
-  console.log(listItemDiv);
+  // console.log(task);
+  // console.log(listItemDiv);
   return listItemDiv;
 }
 
@@ -61,10 +69,12 @@ function checkboxClick(checkbox) {
 
   if (task.completionState == true) {
     textField.setAttribute("disabled", "disabled");
+    taskDiv.setAttribute("completed", "completed")
   } else {
     textField.removeAttribute("disabled");
+    taskDiv.removeAttribute("completed")
   }
-
+  store();
 }
 
 function btnDeleteClick(btn) {
@@ -79,19 +89,26 @@ function btnDeleteClick(btn) {
 
   const taskList = document.getElementsByClassName("taskList")[0];
   taskList.removeChild(taskDiv);
+
+  store();
 }
 
-function textInput(event, inputTxt) {
-  if (event.key != "Enter") {
-    return;
-  }
+function inputTextOnBlur(inputTxt){
+  textInput(inputTxt);
+}
 
+function inputTextOnKeyUp(event, inputTxt){
+  if(event.key == "Enter")
+    textInput(inputTxt);
+}
+
+function textInput(inputTxt) {
   parentId = inputTxt.parentElement.id;
   parentId = parentId.replace(listItemIdHead, "");
 
   const taskEdt = tasks.find((task) => task.id == parentId);
   taskEdt.taskText = inputTxt.value;
-
+  store();
   addEmptyItemIfNeeded();
 }
 
@@ -111,7 +128,23 @@ function addEmptyItemIfNeeded() {
 }
 
 function maxTaskId() {
-  var maxId = -1;
+var maxId = -1;
   tasks.forEach((task) => (maxId = maxId > task.id ? maxId : task.id));
   return maxId;
+}
+
+
+function store(){
+  localStorage.setItem('tasks', JSON.stringify(tasks))
+}
+function load(){
+  tasks = JSON.parse(localStorage.getItem('tasks'))
+  console.log(tasks)
+
+  taskList.innerHTML = ''
+
+  tasks.forEach((task) => {
+    taskList.appendChild(createListItemFromTask(task))
+  })
+
 }

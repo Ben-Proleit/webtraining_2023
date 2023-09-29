@@ -5,23 +5,35 @@
         <script src="TicTacToe.js" defer></script>
     </head>
     <body>
-        <header>
-            <h1>TicTacToe</h1>
-        </header>
+        <header>TicTacToe by Lilli</header>
         <main>
-            <div>
-                <div class="grid">
-                    <button class="field A 1" id="fieldA1" onclick="fillField(this.id)"></button>
-                    <button class="field A 2" id="fieldA2" onclick="fillField(this.id)"></button>
-                    <button class="field A 3" id="fieldA3" onclick="fillField(this.id)"></button>
-                    <button class="field B 1" id="fieldB1" onclick="fillField(this.id)"></button>
-                    <button class="field B 2" id="fieldB2" onclick="fillField(this.id)"></button>
-                    <button class="field B 3" id="fieldB3" onclick="fillField(this.id)"></button>
-                    <button class="field C 1" id="fieldC1" onclick="fillField(this.id)"></button>
-                    <button class="field C 2" id="fieldC2" onclick="fillField(this.id)"></button>
-                    <button class="field C 3" id="fieldC3" onclick="fillField(this.id)"></button>
+            <div id="div1">
+                <div id="div2">
+                    <div>Enter your names</div>
+                    <input type="text" id="nameOne" placeholder="Player One">
+                    <input type="text" id="nameTwo" placeholder="Player Two" oninput="enableButton()">
+                    <button type="button" id="submitBtn" onclick="getPlayerNames()" disabled>SUBMIT</button>
+                </div>
+                <div class="grid" id="div3">
+                    <button class="field A eins" id="fieldA1" onclick="fillField(this.id)"></button>
+                    <button class="field A zwei" id="fieldA2" onclick="fillField(this.id)"></button>
+                    <button class="field A drei" id="fieldA3" onclick="fillField(this.id)"></button>
+                    <button class="field B eins" id="fieldB1" onclick="fillField(this.id)"></button>
+                    <button class="field B zwei" id="fieldB2" onclick="fillField(this.id)"></button>
+                    <button class="field B drei" id="fieldB3" onclick="fillField(this.id)"></button>
+                    <button class="field C eins" id="fieldC1" onclick="fillField(this.id)"></button>
+                    <button class="field C zwei" id="fieldC2" onclick="fillField(this.id)"></button>
+                    <button class="field C drei" id="fieldC3" onclick="fillField(this.id)"></button>
+                </div>
+                <div id="div4"></div>
+                <div id="div5"></div>
+                <div id="div6">
+                    <button type="button" id="startOverBtn" onclick="startOver()">START OVER</button>
+                    <button type="button" id="newPlayersBtn" onclick="newPlayers()">NEW PLAYERS</button>
+                    <div id="newPlayersBtnText">The "NEW PLAYERS" Button will also start over the game.</div>
                 </div>
             </div>
         </main>
+        <footer></footer>
     </body>
 </html>
