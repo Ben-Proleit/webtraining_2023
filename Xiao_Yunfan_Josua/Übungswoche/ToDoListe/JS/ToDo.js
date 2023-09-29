@@ -65,10 +65,18 @@ function eintragLöschen(id) {
     let body = document.getElementById(Dad);
     let deathRow = body.getElementsByClassName("toKill").item(0);
     body.removeChild(deathRow);
+    doneArray[id] = "";
+    const jsonText = JSON.stringify(doneArray);
+    localStorage.setItem("ToDoArray", jsonText);
   } else {
     let deathRow = document.getElementById(id);
     let body = deathRow.parentElement;
     body.removeChild(deathRow);
+    if (document.getElementById("ToDo") == body) {
+      doneArray[id] = "";
+      const jsonText = JSON.stringify(doneArray);
+      localStorage.setItem("ToDoArray", jsonText);
+    }
   }
   bearbeitet = 0;
 }
