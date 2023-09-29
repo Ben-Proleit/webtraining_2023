@@ -85,3 +85,10 @@ header button:active {
   justify-content: center;
 }
 
+.hide {
+  visibility: hidden;
+}
+
+.show {
+  visibility: visible;
+}

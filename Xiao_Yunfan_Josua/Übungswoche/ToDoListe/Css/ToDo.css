@@ -22,10 +22,6 @@ div > div:focus-within {
   border-style: solid;
 }
 
-/* textarea:read-only {
-  background-color: gray;
-} */
-
 #Button > button {
   font-size: 15px;
 }
@@ -34,10 +30,15 @@ div > div:focus-within {
   background-color: var(--contrast);
 }
 
-#ToDo > div,
-#Done > div {
+#ToDo > div {
   display: grid;
   grid-template-columns: 1fr 5% 5% 5%;
+  grid-template-rows: auto;
+}
+
+#Done > div {
+  display: grid;
+  grid-template-columns: 1fr 0.01% 5% 5%;
   grid-template-rows: auto;
 }
 
@@ -46,16 +47,21 @@ div > div:focus-within {
 }
 
 /* Add Images to Buttons */
+
 button.edit > img {
-  content: url("Pencil.png");
+  content: url("../Pics/Pencil.png");
 }
 
 button.kill > img {
-  content: url("TrashBin.png");
+  content: url("../Pics/TrashBin.png");
 }
 
 button.completed > img {
-  content: url("CheckMark.png");
+  content: url("../Pics/CheckMark.png");
+}
+
+#Done button.completed > img {
+  content: url("../Pics/Reload.png");
 }
 
 /* Add Hover changes */
@@ -72,4 +78,18 @@ button.completed > img {
   border: 1px;
   border-style: solid;
   border-color: black;
+}
+
+.Headline {
+  background: #222;
+  color: whitesmoke;
+  border-radius: 0px;
+  border: 0px #222;
+}
+
+iframe {
+  height: 290px;
+  width: 484px;
+  position: relative;
+  left: 30%;
 }

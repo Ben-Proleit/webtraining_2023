@@ -7,10 +7,22 @@ class task {
 }
 
 let tasks = [];
+
+const styles = ['style', 'style_dark' ];
+const styleDirectory = './stylisch/';
+const styleEnding = '.css';
+let currentStyle = localStorage.getItem('currentStyle');
+
+removeCss()
+var style = styleDirectory + styles[currentStyle % styles.length] + styleEnding;
+addCss(style);
+
 const listItemIdHead = "listItem_";
 const taskList = document.getElementsByClassName("taskList")[0];
 
-taskList.appendChild(createListItemFromTask(new task(0, false, "do some styling")));
+document.addEventListener('DOMContentLoaded', () => {
+  load();
+});
 
 addEmptyItemIfNeeded();
 
@@ -26,20 +38,26 @@ function createListItemFromTask(task) {
 
   listItemText = document.createElement("input");
   listItemText.type = "text";
+  listItemText.classList.add('listItemText')
   listItemText.value = task.taskText;
   listItemText.placeholder = "enter task here";
-  listItemText.setAttribute("onkeyup", "textInput(event, this)");
-
+  listItemText.setAttribute("onkeyup", "inputTextOnKeyUp(event, this)");
+  listItemText.setAttribute("onblur", "inputTextOnBlur(this)");
+  
   listItemBtnDelete = document.createElement("button");
   listItemBtnDelete.classList.add("btnDelete");
   listItemBtnDelete.setAttribute("onclick", "btnDeleteClick(this)");
-
+    
+  if(task.completionState == true){
+    listItemText.setAttribute('disabled', 'disabled')
+    listItemDiv.setAttribute('completed', 'completed')
+  }
   listItemDiv.appendChild(listItemCheckbox);
   listItemDiv.appendChild(listItemText);
   listItemDiv.appendChild(listItemBtnDelete);
 
-  console.log(task);
-  console.log(listItemDiv);
+  // console.log(task);
+  // console.log(listItemDiv);
   return listItemDiv;
 }
 
@@ -61,10 +79,12 @@ function checkboxClick(checkbox) {
 
   if (task.completionState == true) {
     textField.setAttribute("disabled", "disabled");
+    taskDiv.setAttribute("completed", "completed")
   } else {
     textField.removeAttribute("disabled");
+    taskDiv.removeAttribute("completed")
   }
-
+  store();
 }
 
 function btnDeleteClick(btn) {
@@ -79,19 +99,26 @@ function btnDeleteClick(btn) {
 
   const taskList = document.getElementsByClassName("taskList")[0];
   taskList.removeChild(taskDiv);
+
+  store();
 }
 
-function textInput(event, inputTxt) {
-  if (event.key != "Enter") {
-    return;
-  }
+function inputTextOnBlur(inputTxt){
+  textInput(inputTxt);
+}
 
+function inputTextOnKeyUp(event, inputTxt){
+  if(event.key == "Enter")
+    textInput(inputTxt);
+}
+
+function textInput(inputTxt) {
   parentId = inputTxt.parentElement.id;
   parentId = parentId.replace(listItemIdHead, "");
 
   const taskEdt = tasks.find((task) => task.id == parentId);
   taskEdt.taskText = inputTxt.value;
-
+  store();
   addEmptyItemIfNeeded();
 }
 
@@ -111,7 +138,56 @@ function addEmptyItemIfNeeded() {
 }
 
 function maxTaskId() {
-  var maxId = -1;
+var maxId = -1;
   tasks.forEach((task) => (maxId = maxId > task.id ? maxId : task.id));
   return maxId;
+}
+
+
+function store(){
+  localStorage.setItem('tasks', JSON.stringify(tasks))
+}
+function load(){
+  tasks = JSON.parse(localStorage.getItem('tasks'))
+  console.log(tasks)
+
+  taskList.innerHTML = ''
+
+  tasks.forEach((task) => {
+    taskList.appendChild(createListItemFromTask(task))
+  })
+
+}
+
+function toggleTheme(){
+  currentStyle++;
+  var styleIdx = currentStyle % styles.length;
+  var style = styleDirectory + styles[styleIdx] + styleEnding;
+  console.log(style)
+  console.log(styleIdx)
+
+  removeCss();
+  addCss(style);
+  localStorage.setItem('currentStyle', currentStyle % styles.length)
+}
+
+function removeCss(){
+  let head = document.head;
+  var linkElements = Array.from(head.getElementsByTagName('link'));
+                          // .find(element => element.type == 'text/css');
+  console.debug(linkElements);
+
+  linkElements.forEach(element =>{
+    if(element.type == 'text/css')
+      head.removeChild(element);
+  }) 
+}
+
+function addCss(fileName) {
+  let head = document.head;
+  let link = document.createElement("link");
+  link.type = "text/css";
+  link.rel = "stylesheet";
+  link.href = fileName;
+  head.appendChild(link);
 }
