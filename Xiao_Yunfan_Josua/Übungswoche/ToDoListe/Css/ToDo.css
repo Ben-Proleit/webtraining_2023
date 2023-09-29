@@ -60,6 +60,10 @@ button.completed > img {
   content: url("../Pics/CheckMark.png");
 }
 
+#Done > button.completed > img {
+  content: url("../Pics/Reload.png");
+}
+
 /* Add Hover changes */
 #ToDo button:hover {
   background-color: var(--contrast);
