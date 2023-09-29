@@ -17,6 +17,7 @@ KeyInputMap ={E68: false,E65: false,E87: false,E83: false,};
 
 //Gets called on join of a new player
 socket.on('updatePlayers', (backEndPlayers) => {
+    process()
     for( const id in backEndPlayers){
         const backendPlayer = backEndPlayers[id]
 
@@ -38,7 +39,7 @@ socket.on('updatePlayers', (backEndPlayers) => {
                 frontEndPlayers[id].y = backEndPlayers[id].y
                 frontEndPlayers[id].sequenceNumber = backEndPlayers[id].sequenceNumber
 
-                //Server re
+                //Server reconciliation
                 //Handle leftover inputs of the player
                 const lastBackendInputIndex = playerInputs.findIndex(input =>{
                     return backEndPlayers[id].sequenceNumber === input.sequenceNumber
@@ -50,10 +51,21 @@ socket.on('updatePlayers', (backEndPlayers) => {
                 playerInputs.forEach(input => {
                     clientSidePrediction(input.KeyInputMap)
                 })
+                // console.log(frontEndPlayers[id].x+ '   ' + frontEndPlayers[id].y)     
+
             }
             else{   //Other players
-                frontEndPlayers[id].x = backEndPlayers[id].x
-                frontEndPlayers[id].y = backEndPlayers[id].y                
+                // frontEndPlayers[id].x = backEndPlayers[id].x
+                // frontEndPlayers[id].y = backEndPlayers[id].y           
+                // console.log(frontEndPlayers[id].x+ '   ' + frontEndPlayers[id].y) 
+
+                // interpolate position with gsap 
+                gsap.to(frontEndPlayers[id], {
+                    x:backEndPlayers[id].x ,
+                    y:backEndPlayers[id].y ,
+                    duration: 0.015, //Tickrate des Servers
+                    ease: 'linear' //acceleration/deceleration
+                })
             }
         }
     }
@@ -93,8 +105,8 @@ onkeydown = onkeyup = function(e){
 }
 
 setInterval(() =>{
-    process()
-}, 15) //UpdateIntervall
+    // process()
+}, 1000) //UpdateIntervall
 
 //All the Inputs tracked, to be worked on
 const playerInputs = []

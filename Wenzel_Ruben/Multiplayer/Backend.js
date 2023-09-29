@@ -58,6 +58,7 @@ setInterval(() =>{
 
 function process(){
     io.emit('updatePlayers', backEndPlayers)
+    // console.log(backEndPlayers) 
 }
 
 server.listen(port, () => {
