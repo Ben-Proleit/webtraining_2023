@@ -60,7 +60,7 @@ button.completed > img {
   content: url("../Pics/CheckMark.png");
 }
 
-#Done > button.completed > img {
+#Done button.completed > img {
   content: url("../Pics/Reload.png");
 }
 
