@@ -1,0 +1,69 @@
+*{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+h1{
+    font-size: 40pt;
+    background-color:aquamarine;
+    color: rgb(54, 51, 51); 
+} 
+
+h2{
+    font-size: 20pt;
+    color: rgb(54, 51, 51); 
+    margin-left: 10pt;
+} 
+
+.grid {
+    display: grid;
+    width: 80%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3 1fr);
+    row-gap: 10px;
+  }
+  
+.grid11 {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    
+  }
+  
+.grid14 {
+    grid-column-start: 1;
+    grid-row-start: 4;
+  }
+
+.grid12 {
+    grid-column-start: 1;
+    grid-row-start: 2;
+  }
+
+.grid13 {
+    grid-column-start: 1;
+    grid-row-start: 3;
+  }
+
+.grid15 {
+    grid-column-start: 1;
+    grid-row-start: 5;
+  }
+
+.todo{
+    width: 400px;
+    margin-left: 10pt;
+}
+
+.button{
+    width: 100px;
+    margin-left: 10pt;
+}
+
+li{
+    margin-bottom: 20px;
+
+}
+
+.editButton{
+    width: 100px;
+    margin-left: 10pt;
+}
