@@ -65,9 +65,6 @@ function eintragLöschen(id) {
     let body = document.getElementById(Dad);
     let deathRow = body.getElementsByClassName("toKill").item(0);
     body.removeChild(deathRow);
-    ToDoArray[id] = "";
-    const jsonText = JSON.stringify(ToDoArray);
-    localStorage.setItem("ToDoArray", jsonText);
   } else {
     let deathRow = document.getElementById(id);
     let body = deathRow.parentElement;
@@ -116,9 +113,7 @@ function eintragBearbeiten(id) {
 function eintragErledigt(id) {
   //vater festlegen & beide möglichen eltern holen
   let cElement = document.getElementById(id);
-  console.log(cElement);
   cElement.setAttribute("class", "toKill");
-  console.log(cElement);
   let body = cElement.parentElement;
   let idBody = body.getAttribute("id");
   Dad = idBody;
@@ -138,6 +133,10 @@ function eintragErledigt(id) {
       .getElementsByTagName("textarea")
       .item(0)
       .setAttribute("readonly", "");
+    //delete from local storage
+    ToDoArray[id] = "";
+    const jsonText = JSON.stringify(ToDoArray);
+    localStorage.setItem("ToDoArray", jsonText);
   } else if (idBody == "Done") {
     let selectedDiv = DoneListe.appendChild(document.getElementById(id));
     let targetDiv = ToDoListe.appendChild(document.createElement("div"));
@@ -146,6 +145,10 @@ function eintragErledigt(id) {
     targetDiv.setAttribute("id", id);
     let text = selectedDiv.getElementsByTagName("textarea").item(0).value;
     targetDiv.getElementsByTagName("textarea").item(0).value = text;
+    //write into local storage again
+    ToDoArray[id] = text;
+    const jsonText = JSON.stringify(ToDoArray);
+    localStorage.setItem("ToDoArray", jsonText);
   }
   //delete selected div after copying all data
   eintragLöschen(id);
