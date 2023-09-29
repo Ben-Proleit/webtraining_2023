@@ -1,24 +1,41 @@
 :root{
-  --colourBase: #666666;
-  --colourAccent1: #a42cd6;
-  --colourAccent2: #120d31;
-  --colourTextBase: #defffc;
-  --colourTextComplementary: #d0a5c0;
-  --transparencyBorder: rgba(0, 0, 0, 0.3);
-  --transparencyBody: rgba(0, 0, 0, 0.1);
+  --colourBase: #555;
+  --colourAccent1: #ffb997;
+  --colourAccent2: #c95eff;
+  /* --colourAccent2: #02040f; */
+  /* --colourTextComplementary: #defffc; */
+  --transparencyBorder: rgba(225, 225, 225, 1);
+  --transparencyBody: rgba(225, 225, 225, 0.5);  
+  --btnSize: 25px;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   background-color: var(--colourBase);
-  color: var(--colourTextBase)
+  color: var(--colourAccent2)
 }
 
+h1.stickyHeader{
+  z-index: 99;
+  position: sticky;
+  top: 0;
+}
+
+h1 > div{
+  background-color: var(--colourBase);
+} 
+
 h1 p{
-  width: fit-content;
+  width: 75%;
   border-bottom: 5px solid var(--colourAccent1);
 }
 
+.taskList{
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+
 .listItem{
   --lIWidth: 80%;
-  height: 2em;
+  height: 1em;
   position: relative;
   left: calc(50% - var(--lIWidth)/2);
   width: var(--lIWidth);
@@ -29,29 +46,51 @@ h1 p{
   justify-content: center;
   align-items: center;
 }
+.listItem[completed]{
+  order: 1;
+}
 
-.btnDelete{
-  --btnSize: 25px;
-  background-image: url(./media/trashcan.svg);
-  background-repeat: no-repeat;
-  background-size: calc(var(--btnSize)*1.05);
-  background-position-x: -2.5px;
-  background-position-y: 1px;
-
-  background-color: var(--transparencyBody);
-
+button{
   width: var(--btnSize);
   height: var(--btnSize);
 
   border-radius: 4px;
   border-bottom-left-radius: 1px;
   border-style: solid;
+  background-color: var(--transparencyBody);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+button:hover{
+  border-color: var(--colourAccent2);
+}
+
+.btnDelete{
+  background-image: url(./media/trashcan.svg);
+  background-size: calc(var(--btnSize)*1.05);
+  background-position-x: -2.5px;
+  background-position-y: 1px;
+}
+
+.btnToggleTheme{
+  position: fixed;
+  bottom: 1%;
+  left: 1%;
+  width: calc(var(--btnSize)*1.5);
+  height: calc(var(--btnSize)*1.5);
+  background-image: url(./media/bulb-off.svg);
+}
+
+.btnToggleTheme:hover{
+  background-image: url(./media/bulb-on.svg);
 }
 
 .listItemText{
   margin: 0px 15px;
   width: 50%;
   max-width: 400px;
+  min-width: 150px;
+
   border-radius: 10px;
   border-bottom-left-radius: 2px;
   border-color: rgba(0, 0, 0, 0.0);
@@ -62,7 +101,7 @@ h1 p{
 
 .listItemText[disabled]{
   text-decoration-line: line-through;
-  text-decoration-color: var(--colourAccent1);
+  text-decoration-color: var(--colourAccent2);
   text-decoration-thickness: 2px;
 }
 
