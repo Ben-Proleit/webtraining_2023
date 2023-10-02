@@ -1,4 +1,4 @@
-import { toDoGroups, ToDoItem, ToDoGroup, AddNewToDo, RemoveGroup} from "./globals.js";
+import { toDoGroups, ToDoItem, ToDoGroup, AddNewToDo, RemoveGroup, InitializeList, getId, setId} from "./globals.js";
 import { LoadToDoGroups } from "./AddDialog/adddialog.js";
 
 var selectedToDo = null;
@@ -6,7 +6,7 @@ var selectedGroup = null;
 
 function selectToDo(id, group){
   selectedGroup = toDoGroups.find((toDoGroup) => {return toDoGroup.name == group});
-  selectedToDo = selectedGroup.getToDo(id);
+  selectedToDo = selectedGroup.toDos.find((todo) => {return todo.id == id});
 }
 
 function DisplayToDoItem(toDoItem, group) {
@@ -29,6 +29,14 @@ function DisplayToDoItem(toDoItem, group) {
 
   };
   xhr.send();
+  setTimeout(() => {
+    let checkbox = document.getElementById('c' + toDoItem.id);
+    checkbox.checked = toDoItem.isDone;
+    checkbox.addEventListener('click', () => {
+      toDoItem.isDone = checkbox.checked; 
+      localStorage.setItem('todos', JSON.stringify(toDoGroups));
+    })
+  },100);
 }
 
 function DisplayToDoLists() {
@@ -77,6 +85,8 @@ function AddSave() {
   dialog.classList.remove('show');
   dialog.classList.add('hide');
 
+  localStorage.setItem('id', getId());
+  localStorage.setItem('todos', JSON.stringify(toDoGroups));
   DisplayToDoLists()
 }
 
@@ -100,6 +110,10 @@ function DeleteOk() {
       RemoveGroup(selectedGroup.name);
     }
 
+    selectedToDo = null; 
+    selectedGroup = null;
+
+    localStorage.setItem('todos', JSON.stringify(toDoGroups));
     DisplayToDoLists();
   }
 
@@ -138,6 +152,15 @@ function InitializeButtonFunctions() {
   document.getElementById('deletecancelbutton').onclick = DeleteCancel;
 }
 
+let todolist = localStorage.getItem('todos');
+if(todolist != null){
+  InitializeList(JSON.parse(todolist));
+}
+
+setId(localStorage.getItem('id'));
+if(getId() == null) {
+  setId(1);
+}
 InitializeButtonFunctions();
 DisplayToDoLists();
 

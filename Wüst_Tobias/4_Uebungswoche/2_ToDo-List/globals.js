@@ -3,7 +3,7 @@ export {ToDoGroup, ToDoItem}
 
 export var toDoGroups = [];
 
-var id = 1; 
+var id = null; 
 
 export function RemoveGroup(groupName) {
   toDoGroups = toDoGroups.filter((group) => { return group.name != groupName});
@@ -19,4 +19,16 @@ export function AddNewToDo(name, details, date, groupName) {
   } 
   group.addToDo(new ToDoItem(id, name, details, date));
   id++;
+}
+
+export function InitializeList(todogroups) {
+  toDoGroups = todogroups;
+}
+
+export function getId() {
+  return id;
+}
+
+export function setId(newId) {
+  id = newId;
 }
