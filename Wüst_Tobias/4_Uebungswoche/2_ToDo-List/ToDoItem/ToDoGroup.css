@@ -1,31 +1,33 @@
-.todogroup {
-  background-color: blue;
-}
-
+/*
+  --color-group-main: #116d6e;
+  --color-group-secondary: #321e1e;
+  --color-group-tertiary: #4e3636;
+*/
 
 .groupsummary {
   display: grid;
   grid-template-columns: 15% 70% 15%;
   grid-template-rows: 40px;
   margin: 10px;
+  background-color: var(--color-group-main);
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px 1px ;
 }
 
 .groupname {
   margin-left: 10px;
   align-self: center;
-  color: white; 
+  color: var(--color-contrast); 
   font-weight: bold;
 } 
 
 .groupselector {
   align-self: center;
   justify-self: center;
+  text-decoration: none;
+  color: var(--color-contrast);
 }
 
-.groupselector a {
-  text-decoration: none;
-  color: white;
-}
 
 .grouppages {
   align-self: center;
