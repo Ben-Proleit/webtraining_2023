@@ -1,5 +1,13 @@
-import { toDoGroups, selectedToDo, ToDoGroup, ToDoItem, AddNewToDo } from "./globals.js";
+import { toDoGroups, ToDoItem, ToDoGroup, AddNewToDo, RemoveGroup} from "./globals.js";
 import { LoadToDoGroups } from "./AddDialog/adddialog.js";
+
+var selectedToDo = null;
+var selectedGroup = null;
+
+function selectToDo(id, group){
+  selectedGroup = toDoGroups.find((toDoGroup) => {return toDoGroup.name == group});
+  selectedToDo = selectedGroup.getToDo(id);
+}
 
 function DisplayToDoItem(toDoItem, group) {
   var xhr=new XMLHttpRequest();
@@ -13,19 +21,21 @@ function DisplayToDoItem(toDoItem, group) {
     text = text.replace('{details}', toDoItem.details);
     text = text.replace('{date}', toDoItem.date);
 
-    document.getElementById(group).children.item(0).innerHTML += text;
+    let elem = document.createElement('div');
+    elem.innerHTML = text;
+    elem.addEventListener('click',() => {selectToDo(toDoItem.id, group)});
+
+    document.getElementById(group).children.item(0).appendChild(elem);
+
   };
   xhr.send();
 }
 
 function DisplayToDoLists() {
+  let main = document.getElementsByTagName('main').item(0);
+  main.innerHTML = '';
   for(let toDoGroup of toDoGroups){
     setTimeout(() => {
-      console.log(toDoGroup);
-    var elem = document.getElementById(toDoGroup.name);
-    if(elem != null){
-      elem.remove();
-    }
     var xhr=new XMLHttpRequest();
     xhr.open('GET', 'ToDoItem/ToDoGroup.html', true);
     xhr.onreadystatechange = () => {
@@ -47,9 +57,9 @@ function DisplayToDoLists() {
 }
 
 function AddSave() {
-  let name =      document.getElementById('addname').value;
-  let details =   document.getElementById('adddetails').value;
-  let date =      document.getElementById('adddate').value;
+  let name      = document.getElementById('addname').value;
+  let details   = document.getElementById('adddetails').value;
+  let date      = document.getElementById('adddate').value;
   let groupName = document.getElementById('addgroup').value;
 
   document.getElementById('addname').value = '';
@@ -63,8 +73,7 @@ function AddSave() {
   }
 
   AddNewToDo(name, details, date, groupName);
-  console.log(toDoGroups);
-  let dialog = document.getElementById('add')
+  let dialog = document.getElementById('edit')
   dialog.classList.remove('show');
   dialog.classList.add('hide');
 
@@ -77,14 +86,36 @@ function AddCancel() {
   document.getElementById('adddate').value = '';
   document.getElementById('addgroup').value = '';
 
-  let dialog = document.getElementById('add')
+  let dialog = document.getElementById('edit');
   dialog.classList.remove('show');
   dialog.classList.add('hide');
 
 }
 
+function DeleteOk() {
+  if(selectedGroup != null && selectedToDo != null) {
+    selectedGroup.toDos = selectedGroup.toDos.filter( (todo) => { return todo.id != selectedToDo.id });
+
+    if(selectedGroup.toDos.length == 0) {
+      RemoveGroup(selectedGroup.name);
+    }
+
+    DisplayToDoLists();
+  }
+
+  let dialog = document.getElementById('delete');
+  dialog.classList.remove('show');
+  dialog.classList.add('hide');
+}
+
+function DeleteCancel() {
+  let dialog = document.getElementById('delete');
+  dialog.classList.remove('show');
+  dialog.classList.add('hide');
+}
+
 function OpenAddDialog() {
-  let dialog = document.getElementById('add');
+  let dialog = document.getElementById('edit');
   LoadToDoGroups();
   dialog.classList.remove('hide');
   dialog.classList.add('show');
@@ -101,9 +132,12 @@ function OpenDeleteDialog() {
 function InitializeButtonFunctions() {
   document.getElementById('headeradd').onclick = OpenAddDialog;
   document.getElementById('headerdelete').onclick = OpenDeleteDialog;
-  document.getElementById('savebutton').onclick = AddSave;
-  document.getElementById('cancelbutton').onclick = AddCancel;
+  document.getElementById('editsavebutton').onclick = AddSave;
+  document.getElementById('editcancelbutton').onclick = AddCancel;
+  document.getElementById('deleteokbutton').onclick = DeleteOk;
+  document.getElementById('deletecancelbutton').onclick = DeleteCancel;
 }
 
 InitializeButtonFunctions();
 DisplayToDoLists();
+

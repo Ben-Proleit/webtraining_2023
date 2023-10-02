@@ -9,11 +9,7 @@ export class ToDoGroup {
   }
 
   getToDo(id) {
-    for(let todo of ToDos) {
-      if(todo.id == id) {
-        return todo;
-      }
-    }
+    return this.toDos.find((todo) => {return todo.id == id});
   }
 
   addToDo(toDoItem) {
