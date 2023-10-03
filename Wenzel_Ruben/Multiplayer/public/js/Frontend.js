@@ -24,6 +24,8 @@ const playerInputs = []
 
 let sequenceNumber = 0
 
+let userName = ''
+
 
 //#endregion prefunctions
 
@@ -33,7 +35,7 @@ let sequenceNumber = 0
 //#region init
 
 socket.on('connect', () =>{
-    socket.emit('initCanvas', {width: canvas.width, height: canvas.height, devicePixelRatio})
+    socket.emit('initCanvas', {width: canvas.width, height: canvas.height, devicePixelRatio, userName})
 })
 
 //#endregion init
@@ -138,8 +140,6 @@ function clientSidePrediction(keyInputs){
 socket.on('updateProjectiles', (backEndProjectiles) => {
     for( const id in backEndProjectiles){
         const backEndProjectile = backEndProjectiles[id]
-        // console.log( backEndProjectile)
-        
         if (!frontEndProjectiles[id]){
             frontEndProjectiles[id] = new Projectile({
                                             x: backEndProjectile.x, 
