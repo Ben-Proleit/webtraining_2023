@@ -1,5 +1,6 @@
 var ListID = 0;
 var bearbeitet = 0;
+var secretPressed = 0;
 var Dad;
 var ToDoArray = [];
 var DoneArray = [];
@@ -193,22 +194,20 @@ function eintragErledigt(id) {
   eintragLöschen(id);
 }
 
-var pressed = 0;
-
 function Twerk() {
-  if (pressed == 0) {
+  if (secretPressed == 0) {
     let body = document.getElementsByTagName("body").item(0);
     let div = body.appendChild(document.createElement("div"));
     div.setAttribute("id", "Thanos");
     const iframe = div.appendChild(document.createElement("iframe"));
     iframe.setAttribute("src", "iframe.html");
-    pressed = 1;
-  } else if (pressed == 1) {
+    secretPressed = 1;
+  } else if (secretPressed == 1) {
     var iframes = document.querySelectorAll("iframe");
     for (var i = 0; i < iframes.length; i++) {
       iframes[i].parentNode.removeChild(iframes[i]);
     }
-    pressed = 0;
+    secretPressed = 0;
   }
 }
 document.getElementById("secret").onmousedown = Twerk;
