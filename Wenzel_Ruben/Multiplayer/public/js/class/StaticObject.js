@@ -9,9 +9,16 @@ class StaticObject{
         this.height = height
         this.color = color
     }
-
+    
+    settype(){
+        throw new Error("Method 'settype()' must be implemented.")
+    }
     draw(){
-        throw new Error("Method 'draw()' must be implemented.")
+        ctx.beginPath()
+        ctx.fillStyle = this.color
+        this.settype()
+        ctx.restore()
+        
     }
 
     interact(){

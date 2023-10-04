@@ -1,4 +1,9 @@
+//#region vars
+
+//#region serverini
+
 const express = require('express')
+const { stat } = require('fs')
 const app = express()
 // const { Socket } = require('engine.io')
 
@@ -10,16 +15,43 @@ const io = new Server(server, {pingInterval: 2000, pingTimeout: 5000})
 
 const port = 3000
 
+//#endregion serverini
+
+const backEndPlayers = {}
+const backEndProjectiles = {}
+const backEndStaticObjects = {}
+
+let staticObjectsId = 0
+
+let projectileId = 0
+
+//#endregion vars
+
+
+///GameCicle
+setInterval(() =>{    
+    updateProjectiles()
+    io.emit('updatePlayers', backEndPlayers)
+    io.emit('updateProjectiles', backEndProjectiles)
+}, 15) 
+
+
+//#region serverIni
+
 app.use(express.static('public'))
+
+server.listen(port, () => {
+    console.log('Listen on Port: ' + port)
+})
 
 app.get('/', (req, res) =>{
     res.sendFile(__dirname + '/public/html/index.html')
 })
 
-const backEndPlayers = {}
-const backEndProjectiles = {}
+//#endregion serverIni
 
-let projectileId = 0
+
+//#region userIni
 
 //Check if new User connects 
 io.on('connection', (socket) =>{
@@ -31,6 +63,7 @@ io.on('connection', (socket) =>{
         color: `hsl(${360 * Math.random()}, 100%, 50%)` ,
         sequenceNumber: 0//set to check all inputs not handled so far
     }
+
     //socket for single client io for all
     io.emit('updatePlayers', backEndPlayers)
 
@@ -39,9 +72,12 @@ io.on('connection', (socket) =>{
             width,
             height
         }
-
         
         backEndPlayers[socket.id].radius = devicePixelRatio * PLAYERRADIUS //Set player heiht
+
+
+        //TODO may has to be moved after lvl implimentation
+        socket.emit('initStaticObjects', backEndStaticObjects)
     })
 
     socket.on('fire', ({x, y, angle}) =>{
@@ -81,11 +117,10 @@ io.on('connection', (socket) =>{
     })
 })
 
-setInterval(() =>{    
-    updateProjectiles()
-    io.emit('updatePlayers', backEndPlayers)
-    io.emit('updateProjectiles', backEndProjectiles)
-}, 15) //UpdateIntervall
+//#endregion userIni
+
+
+//#region projectiles
 
 function updateProjectiles(){
     for( const id in backEndProjectiles){
@@ -94,7 +129,6 @@ function updateProjectiles(){
         updateProjectilePosition(id)
         hitdetection(id)
     }
-
 }
 
 function updateProjectilePosition(id){
@@ -128,13 +162,38 @@ function hitdetection(id){
             console.log(DISTANCE)
             break
         }
-        // console.log(DISTANCE)
     }
 }
 
+//#endregion projectiles
 
-server.listen(port, () => {
-    console.log('Listen on Port: ' + port)
-})
+
+//#region staticBody
+
+///Builds all the static objects for the level
+function buildMapObjects(){
+    createStatcObject({x:100,y:100,width:100,height:100,color:'green',class:'Tank'})
+}
+
+///Creates an static object
+function createStatcObject(object){
+    staticObjectsId++;
+    backEndStaticObjects[staticObjectsId] = object//Object.create(Tank, {x:1,y:1,width:1,height:1,color:'green'})
+    // backEndStaticObjects[staticObjectsId] = new 
+}
+
+///TODO Checks if someting collides with a static object
+function collosionDetection(){
+
+}
+
+//#endregion staticBody
+
+
+//#region ini
 
 console.log('Server Loaded')
+
+buildMapObjects()
+
+//#endregion ini
