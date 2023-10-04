@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Aris wundervolle ToDo-Liste</title>
+    <link rel="stylesheet" href="style.css"/>
+    <script src="todo-script.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Aris wundervolle ToDo-Liste</h1>
+    </header>
+    <main>
+      <div id="button-bar">
+        <button onclick="showDetailedMissionScreen(null)">Add</button>
+      </div>
+      <h2>Zu tun</h2>
+      <div id="mission-list">
+        <!-- Template 
+        <div id="mission-be5e9fd8-4d53-4a77-b960-6d4ce3d2ec5c">
+          <input type="checkbox" title="Abschließen"/>
+          <span class="mission-name">Aufgabentext</span>
+          <span class="mission-description">Beschreibung</span>
+          <span class="mission-enddate">Enddatum</span>
+          <button class="edit">Bearbeiten</button>
+          <button class="delete">L&ouml;schen</button>
+        </div> -->
+      </div>
+      <h2>Erledigt</h2>
+      <div id="completed-list">
+        
+      </div>
+      <div id="detailed-mission-view" style="display: none;">
+        <div class="popup">
+          <form onsubmit="try { addOrEditMission(); } catch(e) {console.error(e)}finally { return false;}">
+            <input type="hidden" id="detailed-mission-id"/>
+            <label for="detailed-mission-name" required>Titel: </label>
+            <input type="text" id="detailed-mission-name"/><br/>
+            <label for="detailed-mission-description">Beschreibung: </label>
+            <input type="text" id="detailed-mission-description"/><br/>
+            <label for="detailed-mission-enddate">Deadline: </label>
+            <input type="date" id="detailed-mission-enddate"/><br/>
+            <input type="submit" value="Fertigstellen"/><br/>
+          </form>
+          <button onclick="onCancelButtonClick()">Abbrechen</button>
+        </div>
+      </div>
+    </main>
+    <footer>
+      &copy; Ari the boss, 2023-&infin;
+    </footer>
+  </body>
+</html>
