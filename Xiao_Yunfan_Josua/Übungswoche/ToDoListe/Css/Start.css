@@ -1,0 +1,43 @@
+:root {
+  --background: #222;
+  --contrast: #ffa500;
+}
+
+body {
+  background-color: var(--background);
+  color: whitesmoke;
+  font-family: Verdana;
+  height: 820px;
+}
+
+h1 {
+  text-align: center;
+}
+
+body > div {
+  display: grid;
+  grid-template-columns: 1fr 50% 1fr;
+  grid-template-rows: 100%;
+}
+
+a {
+  color: whitesmoke;
+  text-decoration: none;
+}
+
+#Textausgabe {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 1fr;
+  text-align: center;
+  font-size: larger;
+}
+
+#sideBars {
+  height: 100%;
+  width: 100%;
+}
+
+#hoehe {
+  height: 100%;
+}

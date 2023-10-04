@@ -101,7 +101,7 @@ function winAusgabe(who) {
   if (who == 1) {
     document.getElementById("sideOne").innerHTML = "<h3>Spieler 1</h3>" + P1;
   } else if (who == 2) {
-    document.getElementById("sideTwo").innerHTML = "<h3>Spieler 1</h3>" + P2;
+    document.getElementById("sideTwo").innerHTML = "<h3>Spieler 2</h3>" + P2;
   }
 
   idk.textContent = "Spieler " + who + " hat gewonnen";
