@@ -1,7 +1,7 @@
 function OpenToDo() {
-  window.open("ToDo.html", "_self");
+  window.open("ToDo.html", "_blank");
 }
 
 function OpenTicTacToe() {
-  window.open("../TicTacToe/TicTacToe.html", "_self");
+  window.open("../TicTacToe/TicTacToe.html", "_blank");
 }
