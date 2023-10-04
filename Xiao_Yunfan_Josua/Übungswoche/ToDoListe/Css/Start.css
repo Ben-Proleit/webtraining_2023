@@ -28,16 +28,28 @@ a {
 #Textausgabe {
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 1fr;
+  grid-template-rows: 30% 1fr 1fr 30%;
   text-align: center;
   font-size: larger;
+  height: 50%;
 }
 
-#sideBars {
+#sideBar1 {
+  height: 100%;
+  width: 100%;
+}
+
+#sideBar2 {
   height: 100%;
   width: 100%;
 }
 
 #hoehe {
   height: 100%;
+}
+
+#DJKahled,
+#Spongebob {
+  height: 100%;
+  width: 100%;
 }
