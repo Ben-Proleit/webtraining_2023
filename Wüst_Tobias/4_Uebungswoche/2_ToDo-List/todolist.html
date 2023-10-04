@@ -1,0 +1,71 @@
+<html>
+  <head>
+    <title>ToDos</title>
+    <link rel="stylesheet" href="todolist-header.css">
+    <link rel="stylesheet" href="ToDoItem/ToDoGroup.css">
+    <link rel="stylesheet" href="ToDoItem/ToDoItem.css">
+    <link rel="stylesheet" href="AddDialog/adddialog.css">
+    <link rel="stylesheet" href="DeleteDialog/deletedialog.css">
+    <script src="globals.js" type="module"></script>
+    <script src="AddDialog/adddialog.js" type="module" defer></script>
+    <script src="ToDoItem/ToDoItem.js" type="module" defer></script>
+    <script src="todolist.js" type="module" defer></script>
+  </head>
+  <body>
+    <header>
+      <span>ToDos</span>
+      <div class="search">
+        <img src="images/search.png" alt="searchicon">
+        <input type="search" id="search" placeholder="Search..."/>
+        <select>
+          <option>Group</option>
+          <option>ToDo</option>
+        </select>
+      </div>
+      <div class="buttons">
+        <button id="headeradd">
+          <img src="images/add.png" alt="add">
+        </button>
+        <button id="headerdelete">
+          <img src="images/delete.png" alt="delete">
+        </button>
+        <button id="headeredit">
+          <img src="images/edit.png" alt="edit">
+        </button>
+      </div>
+    </header>
+    <main>
+    </main>
+    <div class="hide" id="edit">
+      <div class="editdialog">
+        <label><span>Name</span>
+          <input type="text" id="addname">
+        </label>
+        <label><span>Details</span>
+          <input type="text" id="adddetails">
+        </label>
+        <label><span>Deadline</span>
+          <input type="date" id="adddate">
+        </label>
+        <label><span>Group</span>
+          <input list="groupnames" id="addgroup"/>
+        </label>
+        <datalist id="groupnames">
+        </datalist>
+        <div>
+          <button id="editsavebutton">save</button>
+          <button id="editcancelbutton">cancel</button>
+        </div>
+      </div>
+    </div>
+    <div class="hide" id="delete">
+      <div class="deletedialog">
+        Do you want to delete this Item?
+        <div class="deletebuttons">
+          <button id="deleteokbutton">Ok</button>
+          <button id="deletecancelbutton">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

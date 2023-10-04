@@ -1,0 +1,41 @@
+
+.todoitem {
+  display: flex;
+  background-color: var(--color-group-secondary);
+  margin: 0.5%;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px 1px;
+}
+
+.itemsummary {
+  display: grid;
+  grid-template-columns: 85% 15%;
+  grid-template-rows: 30px;
+}
+
+.itemname {
+  align-self: center;
+  font-weight: 600;
+}
+
+.itemcontent {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 130px;
+}
+
+.itemdetails {
+  width: 95%;
+  height: 90%;
+  margin: 0px 1% 0px 1%;
+  border-radius: 5px;
+  background-color: var(--color-group-tertiary);
+}
+
+.itemdate {
+  align-self: center;
+  justify-self: center;
+
+}

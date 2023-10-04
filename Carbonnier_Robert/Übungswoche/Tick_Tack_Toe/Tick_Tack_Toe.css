@@ -1,0 +1,49 @@
+
+div{
+    display: flex;
+    
+    align-items: center;
+    height: 100%;
+    justify-self: end;
+    justify-content: space-around;
+}
+
+#header{
+    justify-content:space-around;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 50px;
+    background-color: antiquewhite;
+}
+
+
+#grid {
+    display: grid;
+    grid-template-columns: 50px 50px 50px;
+    grid-template-rows: 50px 50px 50px;
+    height: unset;
+    width: 100% -200px;
+}
+
+#stats{
+    display: flex;
+    position: fixed;
+    width: 300px;
+    background-color: antiquewhite;
+    right: 0;
+}
+button{
+    width: 50px;
+    height: 50px;
+    background-color: antiquewhite;
+}
+#reset{
+    position: fixed;
+    left: 0%;
+    top:0%;
+    z-index: 50;
+}
+
+

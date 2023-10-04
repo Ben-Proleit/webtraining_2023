@@ -1,0 +1,64 @@
+html * {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#Sticker {
+    height: 100;
+    width: 100%;
+    background-color: darkmagenta;
+    position: sticky;
+    top: 40px;
+}
+
+#Footer {
+    height: 40px;
+    width: 100%;
+    background-color: gray;
+    position: fixed;
+    bottom: 40px;
+}
+
+div {
+    height: 100;
+    width: 100%;
+
+}
+
+h1 {
+    font-size: 30px;
+    background-color: chocolate;
+    color: darkblue;
+    padding: 15;
+}
+
+section.first>h2 {
+    color: green;
+    border-color: black;
+    border-style: solid;
+    border-spacing: 15;
+    border-width: 2px;
+}
+
+section.second>h2 {
+    border-color: green;
+    border-style: dotted;
+    border-spacing: 15;
+    color: green;
+    border-width: 5px;
+}
+
+#Para1 {
+    background-color: violet;
+}
+
+#Para2 {
+    background-color: darkgoldenrod;
+}
+
+#Para3 {
+    background-color: chartreuse;
+}
+
+section p {
+    padding-left: 300px;
+}

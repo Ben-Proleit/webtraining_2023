@@ -1,0 +1,50 @@
+<div data-lang-file="logout"></div>
+<div class="d-flex flex-row justify-content-center flex-nowrap">
+  <div class="login-form">
+    <!-- errors -->
+    <p id="errors" class="text-danger" style="display: none;"></p>
+    <!-- trust button -->
+    <div class="text-center">
+      <p class="text-dark">Stuck on this page? <a href="login.php">Back to Sign in</a></p>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  var socket;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    socket = new ModularHomeSocket();
+    socket.onReady = function(){
+      logout();
+    };
+    socket.connect();
+  });
+
+  function logout(){
+    socket.logout(function(data){
+      if(data){
+        //clear the session data
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("username");
+        //navigate
+        href("login.php");
+      }else{
+        getTranslation("3", "logout", showError);
+      }
+    }, function(code){
+      getTranslation("4", "logout", showError, ["@CODE", code]);
+    }, 4000);
+  }
+
+  function showError(message){
+    let errors = document.getElementById("errors");
+    errors.innerText = message;
+    errors.style.setProperty("display", "block");
+  }
+
+  function hideError(){
+    let errors = document.getElementById("errors");
+    errors.innerText = "";
+    errors.style.setProperty("display", "none");
+  }
+</script>

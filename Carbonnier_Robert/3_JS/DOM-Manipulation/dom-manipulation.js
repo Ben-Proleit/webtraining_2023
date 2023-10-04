@@ -54,11 +54,11 @@ function task5(seat){
 }
 
 function task6(position){
-    var table = document.getElementsByTagName("table")
+    let table = document.getElementsByTagName("table")
     //get the table data
-    var tabledata = document.getElementsByTagName("td")
-    var pos = 4* position -1 
-    var number = tabledata[pos]
+    let tabledata = document.getElementsByTagName("td")
+    let pos = 4* position -1 
+    let number = tabledata[pos]
     //Je nach dem welche Zeile tr mit 4 malnehmen
     table[0].deleteRow(position)
     return number.innerText;

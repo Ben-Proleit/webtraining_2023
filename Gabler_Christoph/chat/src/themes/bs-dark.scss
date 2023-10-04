@@ -1,0 +1,41 @@
+$primary:       #ff5429;
+$secondary:     #00b4fe;
+$success:       #00b4fe;
+$info:          #00b4fe;
+$warning:       #ffc107;
+$danger:        #C10000;
+$light:         #000000;
+$dark:          #e1e1e1;
+
+$body-bg-light: #333333;
+$body-bg: #262626;
+$body-bg-dark: #1a1a1a;
+
+$border-color: #bababa;
+$modal-content-bg: $body-bg;
+$form-check-input-border: 1px solid rgba($border-color, .25);
+$input-bg: $body-bg-light;
+$toast-background-color: $body-bg-light;
+$toast-header-background-color: $body-bg-dark;
+
+:root {
+  --body-bg-light: #{$body-bg-light};
+  --body-bg-dark: #{$body-bg-dark};
+}
+.bg-body-light{
+  background-color: #{$body-bg-light};
+}
+.bg-body-dark{
+  background-color: #{$body-bg-dark};
+}
+.svg-background{
+  filter: invert(1);
+}
+
+$font-family-base: "Roboto";
+
+@import "../bootstrap-5.2.1/scss/bootstrap";
+
+.border-dark{
+  border-color: #737373 !important;
+}

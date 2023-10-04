@@ -1,0 +1,39 @@
+* {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+  }
+
+h1 {
+  size: 30px;
+  color: blue;
+  background-color: optional;
+  padding: 15px;
+}
+
+.firstSection h2{
+  color: green;
+  border: 2px solid black;
+  padding: 10px;
+}
+
+
+.secondSection h2{
+    color: green;
+    border: 5px dotted green;
+    padding: 10px;
+}
+
+#p1 {
+    color: pink;
+}
+
+#p2 {
+    color: lightseagreen;
+}
+
+#p3 {
+    color:cornflowerblue;
+}
+
+p {
+    margin-right: 200px;
+}

@@ -1,0 +1,114 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+:root {
+  --color-main: #4F4557;
+  --color-darker-main: #393646;
+  --color-lighter-main: #6D5D6E;
+  --color-contrast: #F4EEE0;
+  --color-group-main: #116d6e;
+  --color-group-secondary: #526D82;
+  --color-group-tertiary: #768a96;
+}
+
+body {
+  padding: 0px;
+  margin: 0px;
+  background-color: var(--color-main);
+}
+
+img {
+  width: 25px;
+  height: 25px;
+  object-fit: scale-down;
+}
+
+header {
+  display: grid;
+  grid-template-columns: 20% 60% 20%;
+  grid-template-rows: 60px;
+  position: sticky;
+  top: 0px;
+  background-color: var(--color-darker-main);
+  height: 60px;
+  padding: .5%;
+  box-shadow: 1px 1px 1px 1px ;
+}
+
+header span {
+  align-self: center;
+  font-size: 30px;
+  font-weight: bold;
+  color: var(--color-contrast);
+}
+
+header button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 3px;
+  border: 0px;
+  border-radius: 15%;
+  background-color: var(--color-lighter-main);
+  height: 30px;
+  width: 30px;
+}
+
+header button:hover {
+  background-color: var(--color-main);
+}
+
+header button:active {
+  background-color: var(--color-lighter-main);
+}
+
+.search {
+  align-self: center;
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  height: 30px;
+  width: 50%;
+  padding: 2px;
+  border: 1px;
+  border-style: solid;
+  border-color: var(--color-main);
+  background-color: var(--color-lighter-main);
+}
+
+.search #search {
+  border-style: none;
+  margin-left: 5px;
+  width: 70%;
+  height: 100%;
+  background-color: var(--color-lighter-main);
+  color: var(--black)
+}
+
+::placeholder {
+  color: var(--color-darker-main)
+}
+
+.search select {
+  border-style: none;
+  background-color: var(--color-lighter-main);
+  width: 30%;
+  height: 100%;
+}
+
+.buttons {
+  align-self: center;
+  justify-self: right;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+.show {
+  visibility: visible;
+}

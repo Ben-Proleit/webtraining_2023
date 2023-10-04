@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="ToDo.js" defer></script>
-    <link rel="stylesheet" href="ToDo.css" />
+    <script src="JS/ToDo.js" defer></script>
+    <link rel="stylesheet" href="css/ToDo.css" />
     <meta charset="UTF-8" />
+    <link rel="icon" type="images/x-icon" href="Pics/List.png" />
+    <title>TodoListe</title>
   </head>
   <body>
     <header>
-      <h1>Coole ToDo Liste</h1>
+      <button id="secret" type="submit" class="Headline">
+        <h1>Coole ToDo Liste</h1>
+      </button>
     </header>
     <hr />
+    <br />
     <div id="Button">
-      <button type="button" onclick="einträgeHinzufügen()">
-        Einträge hinzufügen
+      <button type="submit" onclick="einträgeHinzufügen()">
+        <img src="Pics/Add.png" /> Hinzufügen
       </button>
     </div>
     <hr />
     <h2>ToDo</h2>
-    <div id="ToDo">
-      <div>
-        <textarea class="Editable" type="text"></textarea>
-        <button>bearbeiten</button>
-        <button>löschen</button>
-        <button>Erledigt</button>
-      </div>
-    </div>
+    <div id="ToDo"></div>
+    <br />
     <hr />
+    <br />
     <h2>Done</h2>
     <div id="Done"></div>
   </body>

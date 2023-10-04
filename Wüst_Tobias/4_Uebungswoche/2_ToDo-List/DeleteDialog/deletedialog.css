@@ -1,0 +1,47 @@
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+.deletedialog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 100%;
+  background-color: var(--color-lighter-main);
+  color: var(--color-contrast);
+  font-weight: 800;
+}
+
+.deletebuttons {
+  display: flex;
+  justify-content: space-between;
+  width: 70%
+}
+
+.deletebuttons button {
+  height: 30px;
+  width: 100px;
+  background-color: inherit;
+  color: var(--color-contrast);
+  border-radius: 15px;
+  border: 3px;
+  border-style: solid;
+  border-color: var(--color-contrast);
+}
+
+.deletebuttons button:hover {
+  background-color: var(--color-contrast);
+  color: var(--color-lighter-main);
+}
+
+#delete {
+  position: fixed;
+  left: 35%;
+  top: 40%;
+  width: 30%;
+  height: 20%;
+  box-shadow: 5px 5px 5px 5px;
+}
+

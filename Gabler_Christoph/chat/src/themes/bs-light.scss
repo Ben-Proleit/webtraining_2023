@@ -1,0 +1,30 @@
+$primary:       #ff5429;
+$secondary:     #00b4fe;
+$success:       #00b4fe;
+$info:          #00b4fe;
+$warning:       #ffc107;
+$danger:        #C10000;
+$light:         #ffffff;
+$dark:          #000000;
+
+$body-bg-light: #ffffff;
+$body-bg: #f1f1f1;
+$body-bg-dark: #e0e0e0;
+
+$border-color: #989898;
+$modal-content-bg: $body-bg;
+
+:root {
+  --body-bg-light: #{$body-bg-light};
+  --body-bg-dark: #{$body-bg-dark};
+}
+.bg-body-light{
+  background-color: #{$body-bg-light};
+}
+.bg-body-dark{
+  background-color: #{$body-bg-dark};
+}
+
+$font-family-base: "Roboto";
+
+@import "../bootstrap-5.2.1/scss/bootstrap";

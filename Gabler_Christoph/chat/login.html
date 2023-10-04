@@ -1,0 +1,211 @@
+<div class="d-flex flex-row justify-content-center flex-nowrap text-dark">
+  <!-- login form -->
+  <form class="login-form" onsubmit="signIn();">
+    <!-- logo and name -->
+    <div class="d-flex flex-row justify-content-evenly flex-nowrap mb-5">
+      <p class="h2 fw-bold">Chat iT</p>
+    </div>
+    <!-- username input -->
+    <div class="form-outline mb-4">
+      <input type="email" id="username" class="form-control text-dark" />
+      <label class="form-label" for="signInForm">Username</label>
+    </div>
+    <!-- password input -->
+    <div class="form-outline mb-4">
+      <input type="password" id="password" class="form-control text-dark" />
+      <label class="form-label" for="signInForm">Password</label>
+    </div>
+    <!-- 2 column grid layout for inline styling -->
+    <div class="row mb-4">
+      <div class="col d-flex flex-row justify-content-between flex-nowrap">
+        <!-- checkbox -->
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="remember" checked />
+          <label class="form-check-label" for="signInForm">remember me</label>
+        </div>
+        <!-- connection status -->
+        <label id="status" class="my-auto text-uppercase text-danger small m-0">disconnected</label>
+      </div>
+    </div>
+    <!-- Submit button -->
+    <button type="button" class="btn btn-primary btn-block mb-4 w-100" onclick="signIn();">Sign in</button>
+    <!-- errors -->
+    <p id="errors" class="text-danger" style="display: none;"></p>
+    <!-- trust button -->
+    <div class="text-center">
+      <p>Disconnected? <a id="trustLink" href="about:blank" target="_blank">Trust Chat iT Server</a></p>
+    </div>
+    <div id="signUp" class="text-center">
+      <p>Dont have an account yet? <a href="register.php">Register now!</a></p>
+    </div>
+  </form>
+</div>
+<script>
+  var socket;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    //close the old session
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("username");
+    //initialize the configuration
+    InitConfig();
+    //get the websocket server address
+    let rawAddress = Config.URL.split('/');
+    if (rawAddress.length >= 3) {
+      document.getElementById("trustLink").setAttribute("href", "https://" + rawAddress[2] + "/");
+    }
+    //fill in the username
+    let username = localStorage.getItem("username");
+    if (username !== null) {
+      document.getElementById("username").value = username;
+    }
+    //listen for enter key press
+    document.onkeydown = function (event) {
+      if (event.key === "Enter") {
+        signIn();
+      }
+    };
+    //enable the sign-up link if necessary
+    if (Config.PUBLIC_SERVER) {
+      document.getElementById("signUp").style.display = "initial";
+    }
+
+    //initialize the web socket
+    socket = new ModularHomeSocket();
+    socket.onReady = function () {
+      //navigate on a successful sign in
+      navigateUp();
+    };
+    socket.onConnected = function () {
+      //show that the connection was established
+      showConnected();
+    };
+    socket.onClosed = function () {
+      //show that the connection was closed
+      showDisconnected();
+    };
+    socket.connect();
+  });
+
+  function navigateUp() {
+    href("chat.php");
+    /*
+    //check if the screen size matches a desktop
+    if (!window.matchMedia("(max-width:993px)").matches) {
+      //save the new page name
+      sessionStorage.setItem("page_name", "Dashboard");
+      sessionStorage.setItem("navID", "app-1");
+      //navigate to home
+      href("chat.php");
+    } else {
+      href("mobile.php");
+    }
+    */
+  }
+
+  function signIn() {
+    //hide all errors
+    hideError();
+    //play a silent sound
+    let sound = new Audio("./src/1-second-of-silence.mp3");
+    sound.play();
+    //check the username input
+    let username = document.getElementById("username").value;
+    if (username === null || username.length <= 0) {
+      showError("Please specify a username!");
+      return;
+    }
+    //check if the username is valid
+    if (!username.match(/^([a-zA-Z]|[0-9]|@|\.|_|-)+$/g)) {
+      showError("The username can only contain the letters, numbers or @ . _ -");
+      return;
+    }
+    //check if the username is too long
+    if (username.length > 128) {
+      showError("The username can only consist of 128 characters");
+      return;
+    }
+    //check the password input
+    let password = document.getElementById("password").value;
+    if (password === null || password.length <= 0) {
+      showError("Please specify a password!");
+      return;
+    }
+    //save or delete username
+    if (document.getElementById("remember").checked) {
+      localStorage.setItem("username", username);
+    } else {
+      localStorage.removeItem("username");
+    }
+    //save the current username
+    sessionStorage.setItem("username", username);
+
+    //perform the login
+    socket.login(username, password, function (data) {
+      if (!Array.isArray(data) || data.length < 2) {
+        showError("The server responded with the wrong data.");
+        return;
+      }
+      //filter the possible results
+      switch (String(data[0])) {
+        case "success":
+          break; //this is already handled by navigateUp()
+        case "failure":
+          showError(data[1]);
+          break;
+        case "tries":
+          showError("Invalid username or password. Remaining tries: " + data[1]);
+          break;
+        case "timeout":
+          showError("You still have a login timeout of " + data[1] + " seconds.");
+          break;
+        default:
+          showError("The server sent an unexpected response.");
+      }
+    }, function (code) {
+      showError("Network protocol error: " + code + " Please consider reloading this page.");
+    }, 4000); //custom timeout
+  }
+
+  function showConnected() {
+    let display = document.getElementById("status");
+    let displayClasses = display.classList;
+    //remove the danger attribute
+    if (displayClasses.contains("text-danger")) {
+      displayClasses.remove("text-danger");
+    }
+    //check if the success color is not yet applied
+    if (!displayClasses.contains("text-success")) {
+      displayClasses.add("text-success");
+    }
+    //set the connected text
+    display.innerText = "connected";
+  }
+
+  function showDisconnected() {
+    let display = document.getElementById("status");
+    let displayClasses = display.classList;
+    //remove the success attribute
+    if (displayClasses.contains("text-success")) {
+      displayClasses.remove("text-success");
+    }
+    //check if the danger color is not yet applied
+    if (!displayClasses.contains("text-danger")) {
+      displayClasses.add("text-danger");
+    }
+    //set the disconnected text
+    display.innerText = "disconnected";
+  }
+
+  function showError(message) {
+    let errors = document.getElementById("errors");
+    errors.innerText = message;
+    errors.style.setProperty("display", "block");
+  }
+
+  function hideError() {
+    let errors = document.getElementById("errors");
+    errors.innerText = "";
+    errors.style.setProperty("display", "none");
+  }
+</script>

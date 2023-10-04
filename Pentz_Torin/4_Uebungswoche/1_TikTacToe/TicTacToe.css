@@ -1,0 +1,111 @@
+.PlayingField {
+    display: grid;
+    height: 400px;
+    width: 400px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    row-gap: 0px;
+    column-gap: 0px;
+    justify-content: center;
+    align-items: center;
+}
+
+.PlayingField div {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    border: 2px black solid;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    width: 99%;
+    margin-top: 5%;
+    justify-content: baseline;
+    align-items: center;
+    background-color: #eeeeff;
+}
+
+button {
+    height: 100%;
+    width: 100%;
+    cursor: pointer
+}
+
+button div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#header {
+    font-size: 55;
+    font-weight: semibold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Georgia, 'Times New Roman', serif;
+    margin-bottom: 20px;
+}
+
+footer {
+    background-color: #073a73;
+    color: white;
+    height: 10%;
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+}
+
+#ResetButtonDiv {
+    height: 20%;
+    width: 100%;
+    border: 2px black solid;
+    margin-top: 10px;
+}
+
+#ResetButton {
+    background-color: #ffcc00;
+    font-size: 35;
+    font-weight: semibold;
+}
+
+#ResetButton:hover {
+    background-color: #edc009;
+    /*box-shadow: 0 0 0 0.25rem rgba(237, 192, 9, .5);*/
+    box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, .5);
+}
+
+
+#InfoText {
+    font-size: 35;
+    width: 100%;
+    font-weight: semibold;
+    margin-top: 50px;
+    margin-bottom: -70px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#Result {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: space-between;
+    position: relative;
+    font-size: 26;
+}
+
+.ResultClass {
+    display: flex;
+    width: 400px;
+    justify-content: space-between;
+    align-content: space-between;
+    position: relative;
+}

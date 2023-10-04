@@ -1,0 +1,177 @@
+<div data-lang-file="generic"></div>
+<div data-lang-file="register"></div>
+<div class="d-flex flex-row justify-content-center flex-nowrap text-dark">
+  <!-- login form -->
+  <form class="login-form" onsubmit="signIn();">
+    <!-- logo and name -->
+    <div class="d-flex flex-row justify-content-evenly flex-nowrap mb-5">
+      <p class="h2 fw-bold">Register for Chat iT</p>
+    </div>
+    <!-- username input -->
+    <div class="form-outline mb-4">
+      <input type="email" id="username" class="form-control text-dark" />
+      <label class="form-label" for="signInForm">Username</label>
+    </div>
+    <!-- password input -->
+    <div class="form-outline mb-4">
+      <input type="password" id="password" class="form-control text-dark" />
+      <label class="form-label" for="signInForm">Password</label>
+    </div>
+    <!-- password input -->
+    <div class="form-outline mb-4">
+      <input type="password" id="password-repeat" class="form-control text-dark" />
+      <label class="form-label" for="signInForm">Repeat Password</label>
+    </div>
+    <!-- 2 column grid layout for inline styling -->
+    <div class="row mb-4">
+      <div class="col d-flex justify-content-between">
+        <!-- checkbox -->
+        <a href="login.php">
+          <label class="form-label" style="cursor: pointer;">Back to sign in</label>
+        </a>
+        <!-- connection status -->
+        <label id="status" class="my-auto text-uppercase text-danger small m-0">disconnected</label>
+      </div>
+    </div>
+    <!-- Submit button -->
+    <button type="button" class="btn btn-primary btn-block mb-4 w-100" onclick="signUp();">Sign up</button>
+    <!-- errors -->
+    <p id="errors" class="text-danger" style="display: none;"></p>
+    <!-- trust button -->
+    <div class="text-center">
+      <p>Disconnected? <a id="trustLink" href="about:blank" target="_blank">Trust Chat iT Server</a></p>
+    </div>
+  </form>
+</div>
+<script>
+  var socket;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    //close the old session
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("username");
+    //initialize the configuration
+    InitConfig();
+    //get the websocket server address
+    let rawAddress = Config.URL.split('/');
+    if (rawAddress.length >= 3) {
+      document.getElementById("trustLink").setAttribute("href", "https://" + rawAddress[2] + "/");
+    }
+    //listen for enter key press
+    document.onkeydown = function (event) {
+      if (event.key === "Enter") {
+        signUp();
+      }
+    };
+
+    //create the socket here
+    socket = new ModularHomeSocket();
+    socket.onConnected = function () {
+      //show that the connection was established
+      showConnected();
+    };
+    socket.onClosed = function () {
+      //show that the connection was closed
+      showDisconnected();
+    };
+    socket.connect();
+  });
+
+  function signUp() {
+    //hide all errors
+    hideError();
+    //check the username input
+    let username = document.getElementById("username").value;
+    if (username === null || username.length <= 0) {
+      showError("Please fill in the username field.");
+      return;
+    }
+    //check if the username is valid
+    if (!username.match(/^([a-zA-Z]|[0-9]|@|\.|_|-)+$/g)) {
+      showError("The username can only contain the letters, numbers or @ . _ -");
+      return;
+    }
+    //check if the username is too long
+    if (username.length > 128) {
+      showError("The username can only consist of 128 characters");
+      return;
+    }
+    //check the password input
+    let password = document.getElementById("password").value;
+    if (password === null || password.length <= 0) {
+      showError("Please fill in the password field.");
+      return;
+    }
+    //check the password repeat input
+    let passwordRepeat = document.getElementById("password-repeat").value;
+    if (passwordRepeat === null || passwordRepeat.length <= 0) {
+      showError("Please fill in the password repeat field.");
+      return;
+    }
+    //check if password and password repeat are not equal
+    if (password !== passwordRepeat) {
+      showError("Please make sure that both passwords are equal!");
+      return;
+    }
+
+    //perform the registration
+    socket.requestCommand("create account", [username, password], function (data) {
+      //check if the response has the right type
+      if (typeof data !== "boolean") {
+        showError("The modular home server returned an invalid answer. The account could not be created.");
+        return;
+      }
+      //check if the account was created
+      if (data) {
+        showError("The account has been created. You will be redirected to the sign in page.");
+        href("login.php");
+      } else {
+        showError("The account could not be created. Is the username already in use?");
+      }
+    }, function (code) {
+      showError("Network protocol error: " + code + " Please consider reloading this page.");
+    }, 4000); //custom timeout
+  }
+
+  function showConnected() {
+    let display = document.getElementById("status");
+    let displayClasses = display.classList;
+    //remove the danger attribute
+    if (displayClasses.contains("text-danger")) {
+      displayClasses.remove("text-danger");
+    }
+    //check if the success color is not yet applied
+    if (!displayClasses.contains("text-success")) {
+      displayClasses.add("text-success");
+    }
+    //set the connected text
+    display.innerText = "connected";
+  }
+
+  function showDisconnected() {
+    let display = document.getElementById("status");
+    let displayClasses = display.classList;
+    //remove the success attribute
+    if (displayClasses.contains("text-success")) {
+      displayClasses.remove("text-success");
+    }
+    //check if the danger color is not yet applied
+    if (!displayClasses.contains("text-danger")) {
+      displayClasses.add("text-danger");
+    }
+    //set the disconnected text
+    display.innerText = "disconnected";
+  }
+
+  function showError(message) {
+    let errors = document.getElementById("errors");
+    errors.innerText = message;
+    errors.style.setProperty("display", "block");
+  }
+
+  function hideError() {
+    let errors = document.getElementById("errors");
+    errors.innerText = "";
+    errors.style.setProperty("display", "none");
+  }
+</script>

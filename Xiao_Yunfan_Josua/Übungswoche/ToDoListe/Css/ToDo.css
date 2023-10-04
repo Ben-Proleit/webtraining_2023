@@ -1,0 +1,95 @@
+:root {
+  --background: #222;
+  --contrast: #ffa500;
+}
+
+body {
+  background-color: var(--background);
+  color: whitesmoke;
+  font-family: Verdana;
+}
+
+textarea {
+  background-color: var(--background);
+  color: whitesmoke;
+  resize: none;
+  font-size: 14px;
+}
+
+div > div:focus-within {
+  border: 3px;
+  border-color: var(--contrast);
+  border-style: solid;
+}
+
+#Button > button {
+  font-size: 15px;
+}
+
+#Button > button:hover {
+  background-color: var(--contrast);
+}
+
+#ToDo > div {
+  display: grid;
+  grid-template-columns: 1fr 5% 5% 5%;
+  grid-template-rows: auto;
+}
+
+#Done > div {
+  display: grid;
+  grid-template-columns: 1fr 0.01% 5% 5%;
+  grid-template-rows: auto;
+}
+
+#Done > div {
+  text-decoration: line-through;
+}
+
+/* Add Images to Buttons */
+
+button.edit > img {
+  content: url("../Pics/Pencil.png");
+}
+
+button.kill > img {
+  content: url("../Pics/TrashBin.png");
+}
+
+button.completed > img {
+  content: url("../Pics/CheckMark.png");
+}
+
+#Done button.completed > img {
+  content: url("../Pics/Reload.png");
+}
+
+/* Add Hover changes */
+#ToDo button:hover {
+  background-color: var(--contrast);
+  border: 1px;
+  border-style: solid;
+  border-color: black;
+}
+
+/* Add Hover changes */
+#Done button:hover {
+  background-color: var(--contrast);
+  border: 1px;
+  border-style: solid;
+  border-color: black;
+}
+
+.Headline {
+  background: #222;
+  color: whitesmoke;
+  border-radius: 0px;
+  border: 0px #222;
+}
+
+iframe {
+  height: 290px;
+  width: 484px;
+  position: relative;
+  left: 30%;
+}

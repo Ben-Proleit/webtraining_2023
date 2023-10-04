@@ -1,0 +1,183 @@
+/* THE SETTINGS OF THE HIGHER ELEMENTS*/
+body{
+    display: grid;
+    grid-template-rows: 7% 86% 7% ;
+}
+
+main{
+    grid-row: 2 ;
+    display: grid;
+}
+
+footer{
+    grid-row: 3 ;
+}
+/* THE SETTINGS OF THE HIGHER ELEMENTS*/
+
+header{
+    grid-row: 1 ;
+    color: #76a3ab;
+    font-size: 30;
+    font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
+}
+
+/* THE DIFFERENT DIVS OF THE SITE*/
+#div1{
+    display: grid;
+    grid-template: 30% 40% 30% / 20% 60% 20%;
+}
+
+#div2{
+    grid-area: 1 / 1 / 2 / 2;
+    display: flex;
+    background-color: #76a3ab;
+    border-radius: 20%;
+    border-color: white;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+#div3{
+    grid-area: 1 / 2 / 4 / 3;
+    display: grid;
+    grid-template: 2.5% 30% 2.5% 30% 2.5% 30% 2.5%/ 10% 25% 2.5% 25% 2.5% 25% 10%;
+}
+
+#div4{
+    grid-area: 1 / 3 / 3 / 4;
+    background-color: #cce2e6;
+    border-radius: 20%;
+    border-color: white;
+    margin-bottom: 5%;
+    margin-top: 5%;
+}
+
+#div5{
+    grid-area: 2 / 1 / 4 / 2;
+    background-color: #cce2e6;
+    border-radius: 20%;
+    border-color: white;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+}
+
+#div6{
+    grid-area: 3 / 3 / 4 / 4;
+    display: flex;
+    background-color: #76a3ab;
+    border-radius: 20%;
+    border-color: white;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    font-size: 12;
+    text-align: center;
+}
+/* THE DIFFERENT DIVS OF THE SITE*/
+
+
+/* THE FIELDS OF THE BOARD*/
+#fieldA1{
+    grid-area: 2 / 2 / 3 / 3;
+}
+
+#fieldA2{
+    grid-area: 2 / 4 / 3 / 5;
+}
+
+#fieldA3{
+    grid-area: 2 / 6 / 3 / 7;
+}
+
+#fieldB1{
+    grid-area: 4 / 2 / 5 / 3;
+}
+
+#fieldB2{
+    grid-area: 4 / 4 / 5 / 5;
+}
+
+#fieldB3{
+    grid-area: 4 / 6 / 5 / 7;
+}
+
+#fieldC1{
+    grid-area: 6 / 2 / 7 / 3;
+}
+
+#fieldC2{
+    grid-area: 6 / 4 / 7 / 5;
+}
+
+#fieldC3{
+    grid-area: 6 / 6 / 7 / 7;
+}
+/* THE FIELDS OF THE BOARD*/
+
+
+
+/* THE BUTTON SETTINGS*/
+button {
+    border: none;
+}
+
+.field {
+    background-color: #cce2e6;
+}
+
+.field:hover {
+    background-color: #eae8ed;
+}
+/* THE BUTTON SETTINGS*/
+
+
+
+/* THE ALREADY PRESSED FIELDS OF THE BOARD*/
+div.circle{
+    background-color: #76a3ab;
+    border-radius: 50%;
+}
+
+div.square{
+    background-color: #76a3ab;
+}
+/* THE ALREADY PRESSED FIELDS OF THE BOARD*/
+
+/* THE LEFT OVER BUTTONS*/
+.disabledField{
+    background-color: #eae8ed;
+}
+/* THE LEFT OVER BUTTONS*/
+
+
+#top10 {
+    text-align: center;
+    margin: 5%;
+}
+
+#newDIV5{
+    grid-area: 2 / 1 / 4 / 2;
+    background-color: #cce2e6;
+    border-radius: 20%;
+    border-color: white;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    display: flex;
+    justify-content:flex-start;
+    flex-direction: column;
+}
+
+#top10Btn {
+    margin-top: 40%;
+    margin-bottom: 40%;
+}
