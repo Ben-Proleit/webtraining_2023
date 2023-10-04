@@ -1,7 +1,12 @@
+
 .todoitem {
   display: flex;
-  background-color: beige;
+  background-color: var(--color-group-secondary);
   margin: 0.5%;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px 1px;
 }
 
 .itemsummary {
@@ -25,9 +30,8 @@
   width: 95%;
   height: 90%;
   margin: 0px 1% 0px 1%;
-  border: 1px;
-  border-style: solid;
-  border-color: black;
+  border-radius: 5px;
+  background-color: var(--color-group-tertiary);
 }
 
 .itemdate {

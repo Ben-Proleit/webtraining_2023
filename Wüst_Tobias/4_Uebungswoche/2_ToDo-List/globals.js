@@ -1,16 +1,13 @@
 import {ToDoGroup, ToDoItem} from "./ToDoItem/ToDoItem.js" 
 export {ToDoGroup, ToDoItem}
 
-export const toDoGroups = [new ToDoGroup("First Group")];
-export const selectedToDo = new ToDoItem(1,'','',new Date());
-var id = 1; 
+export var toDoGroups = [];
 
-const addEvent = new CustomEvent('todo:add-dialog-save', {
-  detail: {},
-  bubbles: true,
-  cancelable: false,
-  composed: false
-});
+var id = null; 
+
+export function RemoveGroup(groupName) {
+  toDoGroups = toDoGroups.filter((group) => { return group.name != groupName});
+}
 
 export function AddNewToDo(name, details, date, groupName) {
   let group = toDoGroups.find((elem) => {
@@ -22,4 +19,16 @@ export function AddNewToDo(name, details, date, groupName) {
   } 
   group.addToDo(new ToDoItem(id, name, details, date));
   id++;
+}
+
+export function InitializeList(todogroups) {
+  toDoGroups = todogroups;
+}
+
+export function getId() {
+  return id;
+}
+
+export function setId(newId) {
+  id = newId;
 }

@@ -20,7 +20,6 @@ header{
     font-size: 30;
     font-weight: bold;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    text-decoration: underline;
     text-align: center;
 }
 
@@ -66,6 +65,8 @@ header{
     border-color: white;
     margin-bottom: 5%;
     margin-top: 5%;
+    display: flex;
+    justify-content: center;
 }
 
 #div6{
@@ -135,7 +136,7 @@ button {
 }
 
 .field:hover {
-    background-color: #76a3ab;
+    background-color: #eae8ed;
 }
 /* THE BUTTON SETTINGS*/
 
@@ -151,3 +152,32 @@ div.square{
     background-color: #76a3ab;
 }
 /* THE ALREADY PRESSED FIELDS OF THE BOARD*/
+
+/* THE LEFT OVER BUTTONS*/
+.disabledField{
+    background-color: #eae8ed;
+}
+/* THE LEFT OVER BUTTONS*/
+
+
+#top10 {
+    text-align: center;
+    margin: 5%;
+}
+
+#newDIV5{
+    grid-area: 2 / 1 / 4 / 2;
+    background-color: #cce2e6;
+    border-radius: 20%;
+    border-color: white;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    display: flex;
+    justify-content:flex-start;
+    flex-direction: column;
+}
+
+#top10Btn {
+    margin-top: 40%;
+    margin-bottom: 40%;
+}

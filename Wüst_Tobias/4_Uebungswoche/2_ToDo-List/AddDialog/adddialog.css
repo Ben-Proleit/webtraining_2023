@@ -1,12 +1,9 @@
-body {
-  padding: 0px;
-  margin: 0px;
-}
-
 .editdialog {
   display: flex;
   flex-direction: column;
-  background-color: orange;
+  background-color: var(--color-lighter-main);
+  color: var(--color-contrast);
+  font-weight: 600;
   align-items: center;
   justify-content: space-around;
   width: 100%;
@@ -14,10 +11,30 @@ body {
 }
 
 .editdialog input {
-  border-radius: 5px;
+  border-radius: 15px;
+  border-style: solid;
+  border-color: var(--color-main);
+  height: 30px;
+  width: 300px;
 }
 
-#add {
+.editdialog button {
+  height: 30px;
+  width: 100px;
+  background-color: inherit;
+  color: var(--color-contrast);
+  border-radius: 15px;
+  border: 3px;
+  border-style: solid;
+  border-color: var(--color-contrast);
+}
+
+.editdialog button:hover {
+  background-color: var(--color-contrast);
+  color: var(--color-lighter-main);
+}
+
+#edit {
   position: fixed;
   left: 35%;
   top: 25%;

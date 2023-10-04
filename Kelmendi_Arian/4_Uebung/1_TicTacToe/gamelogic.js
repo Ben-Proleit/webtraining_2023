@@ -8,12 +8,12 @@ class TicTacToe {
       ["", "", ""], 
       ["", "", ""]
     ];
-    this.finished = false;
+    this.isRunning = false;
   }
 
   setPiece(x, y) {
     // Check if move is valid
-    if (x < 0 || x >= 3 || y < 0 || y >= 3 || this.board[y][x] !== "" || this.finished)
+    if (x < 0 || x >= 3 || y < 0 || y >= 3 || this.board[y][x] !== "" || !this.isRunning)
       return false;
 
     // Make move
@@ -36,21 +36,21 @@ class TicTacToe {
       ["", "", ""], 
       ["", "", ""]
     ];
-    this.finished = false;
+    this.isRunning = true;
   }
 
   checkWin() {
     if (this.#checkWonHorizontal()) {
-      this.finished = true;
+      this.isRunning = false;
       return true;
     }
     if (this.#checkWonVertical()) {
-      this.finished = true;
+      this.isRunning = false;
       return true;
     }
 
     if (this.#checkWonDiagonal()) {
-      this.finished = true;
+      this.isRunning = false;
       return true;
     }
 
@@ -155,6 +155,10 @@ class Player {
   totalGames() {
     return this.timesDraw + this.timesLost + this.timesWon;
   }
+
+  getWinningRate() {
+    return this.timesWon/(this.timesWon + this.timesLost);
+  }
 }
 
 class SaveUtil {
@@ -208,6 +212,7 @@ function startGame() {
   document.getElementById("register-user-screen").style.display = "none";
   document.getElementById("game-screen").style.display = "";
   ticTacToe.resetGame();
+  ticTacToe.isRunning = true;
   updateDisplay();
   updatePlayerCard();
 }
@@ -296,7 +301,7 @@ function updateDisplay() {
 
 
   // Update current player card
-  if(ticTacToe.finished) { // remove all current player card-classes
+  if(!ticTacToe.isRunning) { // remove all current player card-classes
     Array.from(document.querySelectorAll(".current-player-card")).forEach((pc) => {
       pc.classList.remove("current-player-card")
     });
@@ -336,7 +341,9 @@ function validateInput() {
 function resetGame() {
   // Hide end screen
   document.getElementById("end-screen").style.display = "none";
+  document.getElementById("game-screen").style.display = "";
   ticTacToe.resetGame();
+  ticTacToe.isRunning = true;
   // Spieler vielleicht wechseln
   if(Math.random() < 0.5) {
     let temp = activePlayerO;
@@ -350,5 +357,70 @@ function resetGame() {
 function registerNewPlayer() {
   document.getElementById("end-screen").style.display = "none";
   document.getElementById("game-screen").style.display = "none";
+  document.getElementById("leaderboard-screen").style.display = "none";
   document.getElementById("register-user-screen").style.display = "";
+}
+
+function displayLeaderboard() {
+  // Build Table
+  // tbody Element
+  let tbody = document.querySelector("#leaderboard-screen tbody");
+  // Leere Tabelle
+  tbody.innerHTML = "";
+
+  // Sorts and Insert all players
+  playerList.sort((p1, p2) => {
+    return p2.timesWon - p1.timesWon;
+  })
+  .forEach((player) => {
+    let newRow = tbody.appendChild(document.createElement("tr"));
+    newRow.appendChild(document.createElement("td")).innerText = playerList.indexOf(player) + 1 + "."; // Place
+    newRow.appendChild(document.createElement("td")).innerText = player.name; // Name
+    newRow.appendChild(document.createElement("td")).innerText = player.timesWon; // Wins
+    newRow.appendChild(document.createElement("td")).innerText = player.timesDraw; // Draws
+    newRow.appendChild(document.createElement("td")).innerText = player.timesLost; // Lost
+    newRow.appendChild(document.createElement("td")).innerText = 
+    (!Number.isNaN(player.getWinningRate())) ? Math.round(player.getWinningRate()*100*100)/100 + "%" : "-%";
+  });
+
+  // Show right div
+  document.getElementById("register-user-screen").style.display = "none";
+  document.getElementById("end-screen").style.display = "none";
+  document.getElementById("leaderboard-screen").style.display = "";
+}
+
+function showScreen(screenId) {
+  const allScreens = ["register-user-screen", "end-screen", "leaderboard-screen", "game-screen"];
+
+  // hide all other screens
+  allScreens.forEach((s) => {
+    document.getElementById(s).style.display = "none";
+  });
+
+  // Show right screen
+  document.getElementById(screenId).style.display = "";
+}
+
+
+// Add Event listiners
+window.addEventListener('beforeunload',(e) => {
+    // Confirm exit when game is running
+    let searchParams = new URLSearchParams(location.search);
+    let bypassingConfirm = searchParams.has("bypassreloadconfirm") && searchParams.get("bypassreloadconfirm").toLocaleLowerCase() != "false"
+    if (ticTacToe.isRunning && !bypassingConfirm) {
+      e.preventDefault();
+      e.returnValue = '';
+    }
+});
+
+///Executing Code on loading
+
+// DEBUG: Show correct Window on start
+if(locationUtil.hasSearchItem("debug-showwindow"))
+{
+  showScreen(locationUtil.getSearchItem("debug-showwindow"));
+}
+else
+{
+  showScreen("register-user-screen");
 }

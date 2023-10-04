@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="ToDo-List.css" />
+    <script src="ToDo-List.js" defer></script>
+    <title>ToDo List</title>
+  </head>
+  <body>
+    <!--  -->
+    <div>
+      <h1>ToDo List</h1>
+    </div>
+    <!--  -->
+    <div class="button-area">
+      <button id="todoButtonAdd" class="icon-btn">
+        <i class="gg-add"></i>
+      </button>
+    </div>
+    <!--  -->
+    <table id="todoTable">
+      <thead>
+        <tr>
+          <th width="100px">IsDone</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody id="todoTableBody"></tbody>
+    </table>
+    <!--  -->
+    <div id="todoContextMenu" class="context-menu" style="display: none">
+      <div>
+        <button id="todoButtonEdit" class="icon-btn">
+          <i class="gg-pen"></i>
+        </button>
+        <button id="todoButtonDelete" class="icon-btn">
+          <i class="gg-trash"></i>
+        </button>
+      </div>
+    </div>
+    <!--  -->
+    <dialog id="todoDialog">
+      <div class="dialog-content">
+        <div class="dialog-head">Add / Edit ToDo</div>
+        <form name="todoForm">
+          <div class="dialog-body">
+            <label for="description">Description:</label>
+            <input
+              name="description"
+              id="description"
+              type="text"
+              oninput="this.setCustomValidity('')"
+            />
+          </div>
+          <div class="dialog-actions">
+            <button type="submit" id="todoButtonSave">Save</button>
+            <button type="button" id="todoButtonDiscard">Discard</button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+  </body>
+</html>

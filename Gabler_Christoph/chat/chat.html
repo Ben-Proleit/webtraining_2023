@@ -31,10 +31,19 @@
   <div class="w-100 bg-body d-flex flex-row flex-nowrap justify-content-between py-2 ps-4 pe-2 home-content">
     <p id="page-name" class="my-auto text-dark">Chatroom</p>
     <div class="d-flex flex-row flex-nowrap justify-content-end">
-      <button class="btn me-1" onclick="toggleTheme();" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Enable/Disable Dark Mode">
+      <!-- quick settings -->
+      <button id="reload" class="btn me-1" onclick="reloadMessages();" data-bs-toggle="tooltip"
+        data-bs-placement="bottom" data-bs-title="Reload all messages">
+        <img class="svg-background" width="20px" height="20px" src="./src/icons/arrow-repeat.svg">
+      </button>
+      <button class="btn me-1" onclick="toggleInjection();" data-bs-toggle="tooltip" data-bs-placement="bottom"
+        data-bs-title="Enable/Disable HTML Injection">
+        <img id="htmlinjection" class="svg-background" width="20px" height="20px">
+      </button>
+      <button class="btn me-1" onclick="toggleTheme();" data-bs-toggle="tooltip" data-bs-placement="bottom"
+        data-bs-title="Enable/Disable Dark Mode">
         <img id="theme" class="svg-background" width="20px" height="20px">
       </button>
-      <!-- quick settings -->
       <button class="btn" onclick="toggleNotification();" data-bs-toggle="tooltip" data-bs-placement="bottom"
         data-bs-title="Enable/Disable Notification sound">
         <img id="silent" class="svg-background" src="./src/icons/bell-slash.svg" width="20px" height="20px">
@@ -51,7 +60,8 @@
   </div>
   <!-- new message wrapper -->
   <div class="w-100 bg-body d-flex flex-row flex-nowrap justify-content-between mt-3 p-3 home-content">
-    <input type="text" id="messageInput" class="form-control my-auto text-dark me-2" placeholder="Type yor message here"/>
+    <input type="text" id="messageInput" class="form-control my-auto text-dark me-2"
+      placeholder="Type yor message here" />
     <div class="d-flex flex-row flex-nowrap justify-content-end">
       <!-- send message -->
       <button class="btn btn-primary text-light" onclick="sendMessage();">Send</button>
@@ -72,12 +82,16 @@
   </div>
 </div>
 <script>
+  var htmlInjection = false;
+
   document.addEventListener('DOMContentLoaded', () => {
     //display the username
     let username = sessionStorage.getItem("username");
     if (username !== null && username.length > 0) {
       document.getElementById("username").innerText = username;
     }
+    //update the injection setting
+    updateInjection();
     //update the silence setting
     updateSilent();
     //update the theme setting
@@ -98,9 +112,9 @@
     //set on ready handler
     socket.onReady = function () {
       showConnected();
+      reloadMessages();
       //subscribe for updates
       socket.requestCommand("chatit subscribe", null);
-      //TODO: load the last bunch of messages
     };
     //set on closed handler
     socket.onClosed = function () {
@@ -111,7 +125,7 @@
       //check if the data contains a message
       if (data["command"] !== undefined && data["command"] === "chatit new message") {
         //display the message
-        addMessage(data["arguments"][2], data["arguments"][0], true, data["arguments"][1]);
+        addMessage(data["arguments"][2], data["arguments"][0], data["arguments"][1]);
         //show the notifiction
         showNotification(data["arguments"][2], data["arguments"][1], data["arguments"][0]);
       }
@@ -120,20 +134,42 @@
     socket.connect();
   });
 
-  function sendMessage(){
+  function reloadMessages() {
+    //disable the reload button
+    document.getElementById("reload").disabled = true;
+    //load the last bunch of messages
+    socket.requestCommand("chatit get messages", [30], (data) => {
+      //clear all messages
+      clearMessages();
+      //display the most recent messages
+      if (Array.isArray(data)) {
+        data.forEach((message) => {
+          addMessage(message[1], message[2], message[0]);
+        });
+      } else {
+        console.log("The server responded with the wrong answer.");
+      }
+      //enable the reload button again
+      document.getElementById("reload").disabled = false;
+    }, (code) => {
+      console.log("The new messages could not be loaded. Code: " + code);
+    });
+  }
+
+  function sendMessage() {
     //check if a message is defined
     let messageInput = document.getElementById("messageInput");
     let message = messageInput.value;
     messageInput.value = "";
-    if(message != null && message.length > 0){
+    if (message != null && message.length > 0) {
       //get the current time
       let now = new Date();
       //send a message here
       socket.requestCommand("chatit send message", [message, now], (data) => {
-        if(typeof data === "boolean" && data){
+        if (typeof data === "boolean" && data) {
           //add the message to the screen
-          addMessage(message, now.toLocaleTimeString());
-        }else{
+          addMessage(message, now, sessionStorage.getItem("username"));
+        } else {
           console.log("Server could not send message.");
         }
       }, (code) => {
@@ -191,6 +227,19 @@
     }
   }
 
+  function toggleInjection() {
+    htmlInjection = !htmlInjection;
+    if (htmlInjection) {
+      let sound = new Audio("./src/tng_red_alert4.mp3");
+      sound.play();
+    }
+    updateInjection();
+  }
+
+  function updateInjection() {
+    document.getElementById("htmlinjection").src = "./src/icons/shield-" + (htmlInjection ? "slash" : "check") + ".svg";
+  }
+
   function toggleNotification() {
     let silent = localStorage.getItem("silent");
     if (silent != null && silent.length > 0 && silent === "false") {
@@ -218,54 +267,64 @@
     }
   }
 
-  function toggleTheme(){
-        //prepare the search params
-        let searchParams = window.location.search;
-        if(searchParams.length > 0){
-            //prepare the search params
-            searchParams = searchParams.replace("?theme=dark", "");
-            searchParams = searchParams.replace("&theme=dark", "");
-            searchParams = searchParams.replace("?theme=light", "");
-            searchParams = searchParams.replace("&theme=light", "");
-            //divide the search params
-            let dividedSearch = searchParams.split("#", 1);
-            //check if the get attributes were set
-            if(searchParams.includes('?')){
-                searchParams = dividedSearch[0] + "&theme=@theme";
-            }else{
-                searchParams = "?theme=@theme";
-            }
-            //reapply the second part of the search params
-            if(dividedSearch.length > 1){
-                searchParams += "#" + dividedSearch[1];
-            }
-        }else{
-            searchParams = "?theme=@theme";
-        }
-        //reload the layout
-        if(getCookie("theme") === "dark"){
-            searchParams = searchParams.replace("@theme", "light");
-        }else{
-            searchParams = searchParams.replace("@theme", "dark");
-        }
-        href(searchParams);
+  function toggleTheme() {
+    //prepare the search params
+    let searchParams = window.location.search;
+    if (searchParams.length > 0) {
+      //prepare the search params
+      searchParams = searchParams.replace("?theme=dark", "");
+      searchParams = searchParams.replace("&theme=dark", "");
+      searchParams = searchParams.replace("?theme=light", "");
+      searchParams = searchParams.replace("&theme=light", "");
+      //divide the search params
+      let dividedSearch = searchParams.split("#", 1);
+      //check if the get attributes were set
+      if (searchParams.includes('?')) {
+        searchParams = dividedSearch[0] + "&theme=@theme";
+      } else {
+        searchParams = "?theme=@theme";
+      }
+      //reapply the second part of the search params
+      if (dividedSearch.length > 1) {
+        searchParams += "#" + dividedSearch[1];
+      }
+    } else {
+      searchParams = "?theme=@theme";
     }
-
-    function updateThemeIcon(){
-        if(getCookie("theme") === "dark"){
-            document.getElementById("theme").src = "./src/icons/moon.svg";
-        }else{
-            document.getElementById("theme").src = "./src/icons/sun.svg";
-        }
+    //reload the layout
+    if (getCookie("theme") === "dark") {
+      searchParams = searchParams.replace("@theme", "light");
+    } else {
+      searchParams = searchParams.replace("@theme", "dark");
     }
+    href(searchParams);
+  }
 
-  function addMessage(text, time, foreign = false, user = "You"){
+  function updateThemeIcon() {
+    if (getCookie("theme") === "dark") {
+      document.getElementById("theme").src = "./src/icons/moon.svg";
+    } else {
+      document.getElementById("theme").src = "./src/icons/sun.svg";
+    }
+  }
+
+  function addMessage(text, time, user) {
+    let foreign = !(user === sessionStorage.getItem("username"));
     fetchHTML((foreign ? "foreign" : "own") + "Message.html", (data) => {
-      text = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      //check if html injection is enabled/disabled
+      if (!htmlInjection) {
+        text = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      } else {
+        text = text.replace(/img/ig, "BUIDL");
+        text = text.replace(/script/ig, "SKRIBT");
+        text = text.replace(/iframe/ig, "INDERNEDRAHMEN");
+        text = text.replace(/audio/ig, "HORCH");
+        text = text.replace(/src/ig, "QUELLE");
+      }
       //prepare the new message
       let html = data.replaceAll("@MESSAGE", text);
-      html = html.replaceAll("@TIME", time);
-      if(foreign){
+      html = html.replaceAll("@TIME", time.toLocaleTimeString());
+      if (foreign) {
         html = html.replaceAll("@USER", user);
       }
       //append the message
@@ -276,5 +335,9 @@
     }, (status) => {
       console.log("Could not fetch message template. Code: " + status);
     });
+  }
+
+  function clearMessages() {
+    document.getElementById("messageHistory").innerHTML = "";
   }
 </script>

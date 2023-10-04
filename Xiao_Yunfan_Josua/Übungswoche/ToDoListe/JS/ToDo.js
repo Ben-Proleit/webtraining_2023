@@ -2,13 +2,18 @@ var ListID = 0;
 var bearbeitet = 0;
 var Dad;
 var ToDoArray = [];
+var DoneArray = [];
 
 function loadEntries() {
+  //load Local storages and clear them
   const todosJson = localStorage.getItem("ToDoArray");
-  const test = JSON.parse(todosJson);
+  const doneJson = localStorage.getItem("DoneArray");
   localStorage.clear();
 
-  test.forEach((element) => {
+  //Todo Local storage
+  const todos = JSON.parse(todosJson);
+
+  todos.forEach((element) => {
     if (element != null && element != "") {
       einträgeHinzufügen();
       textareaBeschreiben(element);
@@ -17,7 +22,24 @@ function loadEntries() {
     const jsonText = JSON.stringify(ToDoArray);
     localStorage.setItem("ToDoArray", jsonText);
   });
+
+  //Done Local storage
+  const dones = JSON.parse(doneJson);
+
+  if (dones != null) {
+    dones.forEach((element) => {
+      if (element != null && element != "") {
+        einträgeHinzufügen();
+        textareaBeschreiben(element);
+        eintragErledigt(ListID - 1);
+        DoneArray[ListID - 1] = element;
+      }
+      const jsonText = JSON.stringify(DoneArray);
+      localStorage.setItem("DoneArray", jsonText);
+    });
+  }
 }
+
 loadEntries();
 
 function einträgeHinzufügen() {
@@ -65,9 +87,6 @@ function eintragLöschen(id) {
     let body = document.getElementById(Dad);
     let deathRow = body.getElementsByClassName("toKill").item(0);
     body.removeChild(deathRow);
-    ToDoArray[id] = "";
-    const jsonText = JSON.stringify(ToDoArray);
-    localStorage.setItem("ToDoArray", jsonText);
   } else {
     let deathRow = document.getElementById(id);
     let body = deathRow.parentElement;
@@ -76,6 +95,10 @@ function eintragLöschen(id) {
       ToDoArray[id] = "";
       const jsonText = JSON.stringify(ToDoArray);
       localStorage.setItem("ToDoArray", jsonText);
+    } else {
+      DoneArray[id] = "";
+      const jsonText = JSON.stringify(DoneArray);
+      localStorage.setItem("DoneArray", jsonText);
     }
   }
   bearbeitet = 0;
@@ -116,9 +139,7 @@ function eintragBearbeiten(id) {
 function eintragErledigt(id) {
   //vater festlegen & beide möglichen eltern holen
   let cElement = document.getElementById(id);
-  console.log(cElement);
   cElement.setAttribute("class", "toKill");
-  console.log(cElement);
   let body = cElement.parentElement;
   let idBody = body.getAttribute("id");
   Dad = idBody;
@@ -126,6 +147,7 @@ function eintragErledigt(id) {
   let ToDoListe = document.getElementById("ToDo");
   let DoneListe = document.getElementById("Done");
   bearbeitet = 1;
+  //if Target-Div is in ToDo section
   if (idBody == "ToDo") {
     let selectedDiv = ToDoListe.appendChild(document.getElementById(id));
     let targetDiv = DoneListe.appendChild(document.createElement("div"));
@@ -138,6 +160,17 @@ function eintragErledigt(id) {
       .getElementsByTagName("textarea")
       .item(0)
       .setAttribute("readonly", "");
+
+    //delete from ToDo-local storage
+    ToDoArray[id] = "";
+    let jsonText = JSON.stringify(ToDoArray);
+    localStorage.setItem("ToDoArray", jsonText);
+
+    //write into Done-local storage
+    DoneArray[id] = text;
+    jsonText = JSON.stringify(DoneArray);
+    localStorage.setItem("DoneArray", jsonText);
+    //if Target-Div is in Done section
   } else if (idBody == "Done") {
     let selectedDiv = DoneListe.appendChild(document.getElementById(id));
     let targetDiv = ToDoListe.appendChild(document.createElement("div"));
@@ -146,6 +179,15 @@ function eintragErledigt(id) {
     targetDiv.setAttribute("id", id);
     let text = selectedDiv.getElementsByTagName("textarea").item(0).value;
     targetDiv.getElementsByTagName("textarea").item(0).value = text;
+    //write into Done-local storage
+    ToDoArray[id] = text;
+    let jsonText = JSON.stringify(ToDoArray);
+    localStorage.setItem("ToDoArray", jsonText);
+
+    //delete from Done-local storage
+    DoneArray[id] = "";
+    jsonText = JSON.stringify(DoneArray);
+    localStorage.setItem("DoneArray", jsonText);
   }
   //delete selected div after copying all data
   eintragLöschen(id);

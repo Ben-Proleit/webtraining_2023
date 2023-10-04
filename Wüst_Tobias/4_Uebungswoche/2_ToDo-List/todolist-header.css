@@ -2,9 +2,20 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+:root {
+  --color-main: #4F4557;
+  --color-darker-main: #393646;
+  --color-lighter-main: #6D5D6E;
+  --color-contrast: #F4EEE0;
+  --color-group-main: #116d6e;
+  --color-group-secondary: #526D82;
+  --color-group-tertiary: #768a96;
+}
+
 body {
   padding: 0px;
   margin: 0px;
+  background-color: var(--color-main);
 }
 
 img {
@@ -19,15 +30,17 @@ header {
   grid-template-rows: 60px;
   position: sticky;
   top: 0px;
-  background-color: darkslategray;
+  background-color: var(--color-darker-main);
   height: 60px;
   padding: .5%;
+  box-shadow: 1px 1px 1px 1px ;
 }
 
 header span {
   align-self: center;
   font-size: 30px;
   font-weight: bold;
+  color: var(--color-contrast);
 }
 
 header button {
@@ -37,17 +50,17 @@ header button {
   margin: 3px;
   border: 0px;
   border-radius: 15%;
-  background-color: grey;
+  background-color: var(--color-lighter-main);
   height: 30px;
   width: 30px;
 }
 
 header button:hover {
-  background-color: lightgray;
+  background-color: var(--color-main);
 }
 
 header button:active {
-  background-color: grey;
+  background-color: var(--color-lighter-main);
 }
 
 .search {
@@ -60,8 +73,8 @@ header button:active {
   padding: 2px;
   border: 1px;
   border-style: solid;
-  border-color: black;
-  background-color: white;
+  border-color: var(--color-main);
+  background-color: var(--color-lighter-main);
 }
 
 .search #search {
@@ -69,10 +82,17 @@ header button:active {
   margin-left: 5px;
   width: 70%;
   height: 100%;
+  background-color: var(--color-lighter-main);
+  color: var(--black)
+}
+
+::placeholder {
+  color: var(--color-darker-main)
 }
 
 .search select {
   border-style: none;
+  background-color: var(--color-lighter-main);
   width: 30%;
   height: 100%;
 }
