@@ -3,9 +3,10 @@ let game = ['','',''];
 game[0] = ['','',''];
 game[1] = ['','',''];
 game[2] = ['','',''];
-var playerNames = [];
+var playerNameScore = [];
 var div3Clone = document.getElementById('div3').cloneNode(true);
 var div2Clone = document.getElementById('div2').cloneNode(true);
+var div6Clone = document.getElementById('div6').cloneNode(true);
 
 function fillField(id) {
 
@@ -29,6 +30,7 @@ function fillField(id) {
         console.log('the game was won');
         saveStatistic();
         createBeginNewGame();
+        disableGameField();
     }
 
     let draw = checkDraw();
@@ -168,10 +170,15 @@ function getPlayerNames() {
     let nameOne = document.getElementById('nameOne').value;
     let nameTwo = document.getElementById('nameTwo').value;
 
-    playerNames.push(nameOne);
-    playerNames.push(nameTwo);
-    console.log(nameOne, nameTwo, playerNames);
 
+    if (!playerNameScore.some(row => row.includes(nameOne))) {
+        playerNameScore.push([nameOne, 6]);
+    }
+    if (!playerNameScore.some(row => row.includes(nameTwo))) {
+        playerNameScore.push([nameTwo, 10]);
+    }
+    console.log(nameOne, nameTwo, playerNameScore);
+    getTop10();
     playerDisplay(nameOne, nameTwo);
 }
 
@@ -240,6 +247,10 @@ function newPlayers() {
     game[2] = ['','',''];
 }
 
+function restoreDIV6() {
+    document.getElementById('div6').replaceWith(div6Clone.cloneNode(true));
+}
+
 function createBeginNewGame() {
     const divID = "div6";
     const currentDIV = document.getElementById(divID);
@@ -253,6 +264,7 @@ function createBeginNewGame() {
     beginNewGameBtn.type = 'button';
     beginNewGameBtn.textContent = 'BEGIN NEW GAME'
     beginNewGameBtn.addEventListener('click', newPlayers)
+    beginNewGameBtn.addEventListener('click', restoreDIV6)
 }
 
 function noPlayerDisplay() {
@@ -292,5 +304,66 @@ function checkDraw() {
     return false;
 }
 
-//TODO: Array mit S und C falschrum
-//TODO: Nach dem gewonnenen Spiel kann noch weitergespielt werden
+function disableGameField() {
+    let buttons = document.getElementsByClassName('field');
+    //const disabledField = document.createElement('div');
+
+    buttons = Array.prototype.slice.call(buttons);
+
+    console.log(buttons);
+
+    buttons.forEach(button => {
+        let disabledField = document.createElement('div');
+        button.replaceWith(disabledField);
+        disabledField.id = button.attributes[1].nodeValue;
+        disabledField.classList.add("disabledField");
+    });
+    
+}
+
+function getTop10() {
+    playerNameScore.sort(function(a,b) {
+        return a[1]-b[1]
+    });
+    playerNameScore.reverse();
+    const topTen = playerNameScore.slice(0,10);
+    console.log(topTen);
+}
+
+function displayTop10() {
+    const newDIV = document.createElement('div');
+    newDIV.id = 'newDIV5';
+    let div5 = document.getElementById('div5');
+
+    if (div5 == null) {
+        div5 = document.getElementById('newDIV5');
+    };
+
+    div5.replaceWith(newDIV);
+
+    const headerDIV = document.createElement('div');
+    headerDIV.id = 'top10';
+    headerDIV.append('TOP 10 PLAYER');
+    const newTable = document.createElement('table');
+    const headerRow = document.createElement('tr');
+    const header1 = document.createElement('th');
+    header1.append('Name');
+    const header2 = document.createElement('th');
+    header2.append('Score');
+
+    newDIV.appendChild(headerDIV);
+    newDIV.appendChild(newTable);
+    newTable.appendChild(headerRow);
+    headerRow.appendChild(header1);
+    headerRow.appendChild(header2);
+
+    playerNameScore.forEach(player => {
+        let tableRow = document.createElement('tr');
+        newTable.appendChild(tableRow);
+        let tableDataName = document.createElement('th');
+        tableDataName.append(player[0]);
+        let tableDataScore = document.createElement('th');
+        tableDataScore.append(player[1]);
+    });
+
+}
