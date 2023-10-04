@@ -1,13 +1,14 @@
 var Player = false;
 var roundCount = 0;
-var tttArray = [["", "", ""], [("", "", "")], [("", "", "")]];
+var newArray = [];
 var X = "X";
 var O = "O";
-
+var won = false;
 function switcher() {
   Player = !Player;
   console.log(Player);
 }
+
 /**
  *
  * @param {Number} id
@@ -15,86 +16,64 @@ function switcher() {
 function insertInput(id) {
   let Button = document.getElementById(id);
   let insert;
-  roundCount++;
-
   if (Player == false) {
     insert = X;
   } else {
     insert = O;
   }
 
-  switch (id) {
-    case 1:
-      tttArray[0][0] = insert;
-      Button.textContent = insert;
-      break;
-    case 2:
-      tttArray[0][1] = insert;
-      Button.textContent = insert;
-      break;
-    case 3:
-      tttArray[0][2] = insert;
-      Button.textContent = insert;
-      break;
-    case 4:
-      tttArray[1][0] = insert;
-      Button.textContent = insert;
-      break;
-    case 5:
-      tttArray[1][1] = insert;
-      Button.textContent = insert;
-      break;
-    case 6:
-      tttArray[1][2] = insert;
-      Button.textContent = insert;
-      break;
-    case 7:
-      tttArray[2][0] = insert;
-      Button.textContent = insert;
-      break;
-    case 8:
-      tttArray[2][1] = insert;
-      Button.textContent = insert;
-      break;
-    case 9:
-      tttArray[2][2] = insert;
-      Button.textContent = insert;
-      break;
+  if ((newArray[id] == "" || newArray[id] == null) && won == false) {
+    newArray[id] = insert;
+    Button.textContent = insert;
+    roundCount++;
+    if (roundCount >= 5) {
+      winCheck();
+    }
+    switcher();
   }
-
-  if (roundCount >= 5) {
-    winCheck();
-  }
-  switcher();
 }
-
+//#region WinCheck
 function winCheck() {
+  winCheckHor();
+  winCheckVer();
+  winCheckX();
+}
+function winCheckVer() {
   let Nr = 0;
-  let winString = "";
   do {
-    winString = "";
-    winString += tttArray[Nr][0];
-    winString += tttArray[Nr][1];
-    winString += tttArray[Nr][2];
+    let winString = "";
+    winString += newArray[Nr];
+    winString += newArray[Nr + 1];
+    winString += newArray[Nr + 2];
     CheckCheck(winString);
-    winString = "";
-    winString += tttArray[0][Nr];
-    winString += tttArray[1][Nr];
-    winString += tttArray[2][Nr];
+    Nr = Nr + 3;
+  } while (Nr < 10);
+}
+function winCheckHor() {
+  let Nr = 0;
+  do {
+    let winString = "";
+    winString += newArray[Nr];
+    winString += newArray[Nr + 3];
+    winString += newArray[Nr + 6];
     CheckCheck(winString);
-    Nr++;
-  } while (Nr < 3);
-  winString = "";
-  winString += tttArray[0][0];
-  winString += tttArray[1][1];
-  winString += tttArray[2][2];
+    Nr = Nr + 1;
+  } while (Nr < 10);
+}
+function winCheckX() {
+  let winString = "";
+  winString += newArray[1];
+  winString += newArray[5];
+  winString += newArray[9];
   CheckCheck(winString);
   winString = "";
-  winString += tttArray[0][2];
-  winString += tttArray[1][1];
-  winString += tttArray[2][0];
+  winString += newArray[3];
+  winString += newArray[5];
+  winString += newArray[7];
   CheckCheck(winString);
 }
+//#endregion
+
 /**
  * @param {string} win
  */
@@ -107,7 +86,30 @@ function CheckCheck(win) {
 }
 
 function winAusgabe(who) {
-  let tisch = document.getElementsByTagName("table").item(0);
-  let idk = tisch.appendChild(document.createElement("h2"));
+  let tisch = document.getElementsByTagName("tbody").item(0);
+  let newTr = tisch.appendChild(document.createElement("tr"));
+  let trOne = newTr.appendChild(document.createElement("td"));
+  let trTwo = newTr.appendChild(document.createElement("td"));
+  let idk = trOne.appendChild(document.createElement("h2"));
+  let reset = trTwo.appendChild(document.createElement("button"));
+
   idk.textContent = "Spieler " + who + " hat gewonnen";
+  newTr.setAttribute("class", "Winner");
+  reset.setAttribute("onclick", "reset()");
+  won = true;
+}
+
+function reset() {
+  let Nr = 1;
+  do {
+    newArray[Nr] = "";
+    let Button = document.getElementById(Nr);
+    Button.textContent = "";
+    Nr++;
+  } while (Nr <= 9);
+  let kill = document.getElementsByClassName("Winner").item(0);
+  let father = kill.parentElement;
+  father.removeChild(kill);
+  won = false;
+  Player = false;
 }
