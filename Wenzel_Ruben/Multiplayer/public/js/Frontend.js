@@ -1,10 +1,12 @@
-// #region prefunctions
+//#region vars
 
 const frontEndPlayers = {}//All players known to the client
 
 const frontEndProjectiles = {}
 
-KeyInputMap ={E68: false,E65: false,E87: false,E83: false,};
+const frontEndStaticObjects = {}
+
+var KeyInputMap ={E68: false,E65: false,E87: false,E83: false,};
 
 const socket = io()
 
@@ -27,10 +29,8 @@ let sequenceNumber = 0
 let userName = ''
 
 
-//#endregion prefunctions
+//#endregion vars
 
-
-//#region functions
 
 //#region init
 
@@ -39,6 +39,7 @@ socket.on('connect', () =>{
 })
 
 //#endregion init
+
 
 //#region player
 
@@ -50,7 +51,7 @@ socket.on('updatePlayers', (backEndPlayers) => {
 
     clientSidePrediction(KeyInputMap)
     
-    draw()
+    drawMovableObjects()
 })
 
 ///Transmitts keyinputs to the server
@@ -134,6 +135,7 @@ function clientSidePrediction(keyInputs){
 
 //#endregion player
 
+
 //#region projectiles
 
 //Update projectiles-functiuon
@@ -167,13 +169,42 @@ socket.on('updateProjectiles', (backEndProjectiles) => {
 
 //#endregion projectiles
 
+
+//#region staticObjects
+
+socket.on('initStaticObjects', (backEndStaticObjects) => {
+    for(const id in backEndStaticObjects){
+        const backEndStaticObject = backEndStaticObjects[id]
+        if(backEndStaticObject.class == 'Tank'){
+            frontEndStaticObjects[id] = new Tank({  x: backEndStaticObject.x
+                                                    , y: backEndStaticObject.y
+                                                    , width: backEndStaticObject.width
+                                                    , height: backEndStaticObject.height
+                                                    , color: backEndStaticObject.color
+                                                    })
+
+                                                console.log(frontEndStaticObjects[id])
+        }
+    }   
+})
+
+function drawStaticObjects(){
+    for(const id in frontEndStaticObjects){
+        frontEndStaticObjects[id].draw()
+    }
+}
+
+//#endregion staticObjects
+
+
 //#region animation
 
 ///Draws the entire screen for the user
-function draw(){
+function drawMovableObjects(){
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     drawPlayers()
     drawProjectiles()
+    drawStaticObjects()
 }
 
 ///Draws all frontEndPlayers
@@ -201,6 +232,7 @@ function drawProjectiles(){
 
 //#endregion animation
 
+
 //#region keymapping
 
 //Gets the pressed Keys
@@ -210,5 +242,3 @@ onkeydown = onkeyup = function(e){
     KeyInputMap['E'+ e.keyCode] = e.type == 'keydown';
 }
 //#endregion keymapping
-
-//#endregion functions
