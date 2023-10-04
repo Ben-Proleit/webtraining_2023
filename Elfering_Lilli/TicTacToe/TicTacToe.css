@@ -2,6 +2,7 @@
 body{
     display: grid;
     grid-template-rows: 7% 86% 7% ;
+    font-family:  "JetBrains Mono",monospace;
 }
 
 main{
@@ -19,7 +20,6 @@ header{
     color: #76a3ab;
     font-size: 30;
     font-weight: bold;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     text-align: center;
 }
 
@@ -51,11 +51,16 @@ header{
 
 #div4{
     grid-area: 1 / 3 / 3 / 4;
+    display: flex;
     background-color: #cce2e6;
     border-radius: 20%;
     border-color: white;
     margin-bottom: 5%;
     margin-top: 5%;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
 }
 
 #div5{
@@ -125,21 +130,33 @@ header{
 /* THE FIELDS OF THE BOARD*/
 
 
-
 /* THE BUTTON SETTINGS*/
 button {
     border: none;
+    font-family:  "JetBrains Mono",monospace;
+    border-radius: 10%;
+    background-color: #da7b78;
+    color: white;
+    font-size: medium;
+}
+
+button:disabled {
+    background-color: #c8c7c9;
+}
+
+button:hover {
+    background-color: #c8c7c9;
 }
 
 .field {
     background-color: #cce2e6;
+    border-radius: 0%;
 }
 
 .field:hover {
     background-color: #eae8ed;
 }
 /* THE BUTTON SETTINGS*/
-
 
 
 /* THE ALREADY PRESSED FIELDS OF THE BOARD*/
@@ -153,6 +170,7 @@ div.square{
 }
 /* THE ALREADY PRESSED FIELDS OF THE BOARD*/
 
+
 /* THE LEFT OVER BUTTONS*/
 .disabledField{
     background-color: #eae8ed;
@@ -160,6 +178,7 @@ div.square{
 /* THE LEFT OVER BUTTONS*/
 
 
+/* THE TOP10 DISPLAY*/
 #top10 {
     text-align: center;
     margin: 5%;
@@ -173,11 +192,40 @@ div.square{
     margin-bottom: 5%;
     margin-top: 5%;
     display: flex;
-    justify-content:flex-start;
+    justify-content: flex-start;
     flex-direction: column;
 }
 
 #top10Btn {
-    margin-top: 40%;
-    margin-bottom: 40%;
+    position: relative;
+    height: 40%;
+    width: 40%;
+    justify-self:center;
+    align-self: center;
+}
+
+#buttonDiv {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+}
+ 
+#refreshBtn {
+    width: fit-content;
+}
+
+td {
+    text-align: center;
+}
+/* THE TOP10 DISPLAY*/
+
+input {
+    border-color: #da7b78;
+    border-width: 15%;
+    border-style: solid;
+}
+
+input::placeholder {
+    color: #c8c7c9;
 }
