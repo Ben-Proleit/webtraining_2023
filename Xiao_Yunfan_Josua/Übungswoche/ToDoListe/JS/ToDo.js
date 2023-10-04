@@ -39,6 +39,7 @@ function loadEntries() {
     });
   }
 }
+
 loadEntries();
 
 function einträgeHinzufügen() {
@@ -146,6 +147,7 @@ function eintragErledigt(id) {
   let ToDoListe = document.getElementById("ToDo");
   let DoneListe = document.getElementById("Done");
   bearbeitet = 1;
+  //if Target-Div is in ToDo section
   if (idBody == "ToDo") {
     let selectedDiv = ToDoListe.appendChild(document.getElementById(id));
     let targetDiv = DoneListe.appendChild(document.createElement("div"));
@@ -168,6 +170,7 @@ function eintragErledigt(id) {
     DoneArray[id] = text;
     jsonText = JSON.stringify(DoneArray);
     localStorage.setItem("DoneArray", jsonText);
+    //if Target-Div is in Done section
   } else if (idBody == "Done") {
     let selectedDiv = DoneListe.appendChild(document.getElementById(id));
     let targetDiv = ToDoListe.appendChild(document.createElement("div"));
