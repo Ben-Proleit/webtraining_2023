@@ -1,0 +1,23 @@
+body {
+    align-items: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#base {
+    display: grid;
+    grid-template-columns: repeat(8, 70px);
+    grid-template-rows: repeat(8, 70px);
+}
+
+#sun {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    height: 50px;
+    width: 50px;
+    background-color: yellow;
+    border-radius: 50%;
+}
