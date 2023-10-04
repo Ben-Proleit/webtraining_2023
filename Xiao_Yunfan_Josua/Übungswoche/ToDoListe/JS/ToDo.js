@@ -2,13 +2,18 @@ var ListID = 0;
 var bearbeitet = 0;
 var Dad;
 var ToDoArray = [];
+var DoneArray = [];
 
 function loadEntries() {
+  //load Local storages and clear them
   const todosJson = localStorage.getItem("ToDoArray");
-  const test = JSON.parse(todosJson);
+  const doneJson = localStorage.getItem("DoneArray");
   localStorage.clear();
 
-  test.forEach((element) => {
+  //Todo Local storage
+  const todos = JSON.parse(todosJson);
+
+  todos.forEach((element) => {
     if (element != null && element != "") {
       einträgeHinzufügen();
       textareaBeschreiben(element);
@@ -17,6 +22,22 @@ function loadEntries() {
     const jsonText = JSON.stringify(ToDoArray);
     localStorage.setItem("ToDoArray", jsonText);
   });
+
+  //Done Local storage
+  const dones = JSON.parse(doneJson);
+
+  if (dones != null) {
+    dones.forEach((element) => {
+      if (element != null && element != "") {
+        einträgeHinzufügen();
+        textareaBeschreiben(element);
+        eintragErledigt(ListID - 1);
+        DoneArray[ListID - 1] = element;
+      }
+      const jsonText = JSON.stringify(DoneArray);
+      localStorage.setItem("DoneArray", jsonText);
+    });
+  }
 }
 loadEntries();
 
@@ -73,6 +94,10 @@ function eintragLöschen(id) {
       ToDoArray[id] = "";
       const jsonText = JSON.stringify(ToDoArray);
       localStorage.setItem("ToDoArray", jsonText);
+    } else {
+      DoneArray[id] = "";
+      const jsonText = JSON.stringify(DoneArray);
+      localStorage.setItem("DoneArray", jsonText);
     }
   }
   bearbeitet = 0;
@@ -133,10 +158,16 @@ function eintragErledigt(id) {
       .getElementsByTagName("textarea")
       .item(0)
       .setAttribute("readonly", "");
-    //delete from local storage
+
+    //delete from ToDo-local storage
     ToDoArray[id] = "";
-    const jsonText = JSON.stringify(ToDoArray);
+    let jsonText = JSON.stringify(ToDoArray);
     localStorage.setItem("ToDoArray", jsonText);
+
+    //write into Done-local storage
+    DoneArray[id] = text;
+    jsonText = JSON.stringify(DoneArray);
+    localStorage.setItem("DoneArray", jsonText);
   } else if (idBody == "Done") {
     let selectedDiv = DoneListe.appendChild(document.getElementById(id));
     let targetDiv = ToDoListe.appendChild(document.createElement("div"));
@@ -145,10 +176,15 @@ function eintragErledigt(id) {
     targetDiv.setAttribute("id", id);
     let text = selectedDiv.getElementsByTagName("textarea").item(0).value;
     targetDiv.getElementsByTagName("textarea").item(0).value = text;
-    //write into local storage again
+    //write into Done-local storage
     ToDoArray[id] = text;
-    const jsonText = JSON.stringify(ToDoArray);
+    let jsonText = JSON.stringify(ToDoArray);
     localStorage.setItem("ToDoArray", jsonText);
+
+    //delete from Done-local storage
+    DoneArray[id] = "";
+    jsonText = JSON.stringify(DoneArray);
+    localStorage.setItem("DoneArray", jsonText);
   }
   //delete selected div after copying all data
   eintragLöschen(id);
