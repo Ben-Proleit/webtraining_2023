@@ -8,14 +8,17 @@
     <title>TicTacTic</title>
   </head>
   <body>
-    <header><h1>TicTacToe</h1></header>
+    <header><h1>Das coole TicTacToe</h1></header>
 
     <br />
     <hr />
     <br />
 
     <div>
-      <div></div>
+      <div id="sideOne">
+        <h3>Spieler 1</h3>
+        0
+      </div>
       <table>
         <tr>
           <td><button id="1" onclick="insertInput(1);"></button></td>
@@ -33,7 +36,10 @@
           <td><button id="9" onclick="insertInput(9);"></button></td>
         </tr>
       </table>
-      <div></div>
+      <div id="sideTwo">
+        <h3>Spieler 2</h3>
+        0
+      </div>
     </div>
   </body>
 </html>
