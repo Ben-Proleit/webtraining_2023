@@ -1,6 +1,8 @@
 @import url("https://fonts.cdnfonts.com/css/open-dyslexic");
 @import url("https://css.gg/css");
 
+/* #region Font & Colors */
+
 :root {
   font-family: "Open-Dyslexic", sans-serif;
   /* Default Colors */
@@ -68,15 +70,15 @@
   }
 }
 
+/* #endregion Font & Colors */
+
+/* #region General */
+
 body {
   background: var(--background);
   color: var(--foreground);
   width: 95%;
   margin: 0 2.5%;
-}
-
-h1 {
-  text-align: center;
 }
 
 input {
@@ -90,25 +92,15 @@ button {
   font-size: inherit;
 }
 
-.button-area {
-  --size: 50px;
-  height: var(--size);
-  display: flex;
-}
-
-.button-area button {
-  height: var(--size);
-  width: var(--size);
-  margin-right: 10px;
-}
-
 .icon-btn {
   background: none;
   border: none;
-  border-radius: 25%;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 24px;
+  min-height: 24px;
 }
 
 .icon-btn:hover {
@@ -117,13 +109,59 @@ button {
 
 .gg-add,
 .gg-trash,
-.gg-pen {
+.gg-pen,
+.gg-options {
   color: var(--foreground);
+}
+
+.gg-check-o {
+  color: var(--lifeGreen);
+}
+
+.gg-close-o {
+  color: var(--proleitRed);
 }
 
 input[type="checkbox"] {
   accent-color: var(--proleitBlue);
 }
+
+#noTodosSection {
+  text-align: center;
+}
+
+/* #endregion General */
+
+/* #region Head */
+
+#head {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+#todoButtonAdd {
+  --size: 50px;
+  height: var(--size);
+  width: var(--size);
+  position: absolute;
+  left: 0px;
+}
+
+#head h1 {
+  text-align: center;
+  width: 100%;
+}
+
+#optionsButton {
+  --size: 50px;
+  height: var(--size);
+  width: var(--size);
+  position: absolute;
+  right: 0px;
+}
+
+/* #endregion Head */
 
 /* #region table */
 
@@ -146,21 +184,14 @@ table td {
   padding: 5px;
 }
 
-table .checkbox-column {
-  padding: unset;
+table .btn-column {
+  text-align: center;
+  vertical-align: middle;
 }
 
-table .checkbox-column .checkbox-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-table .checkbox-column .checkbox-wrapper input[type="checkbox"] {
-  --size: 20px;
-  height: var(--size);
-  width: var(--size);
-  margin: 1px;
+table .btn-column button {
+  height: 100%;
+  width: 100%;
 }
 
 /* #endregion table */
@@ -192,7 +223,7 @@ table .checkbox-column .checkbox-wrapper input[type="checkbox"] {
 
 /* #region dialog */
 
-#todoDialog {
+dialog {
   min-width: 300px;
   width: fit-content;
 
@@ -205,11 +236,6 @@ table .checkbox-column .checkbox-wrapper input[type="checkbox"] {
   padding: unset;
   overflow: hidden;
   color: unset;
-}
-
-.dialog-content {
-  display: flex;
-  flex-direction: column;
 }
 
 .dialog-head {
@@ -226,6 +252,18 @@ table .checkbox-column .checkbox-wrapper input[type="checkbox"] {
   display: flex;
   flex-direction: column;
   padding: 10px;
+}
+
+.dialog-body span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dialog-body span input[type="checkbox"] {
+  --size: 15px;
+  height: var(--size);
+  width: var(--size);
 }
 
 .dialog-body input[type="text"] {

@@ -3,71 +3,152 @@
 class Todo {
   /**
    * Creates a Todo
-   * @param {string} description - Free text description of the todo
-   * @param {boolean} isDone - Represents if the todo is active or done
+   * @param {string} description Free text description of the todo
+   * @param {boolean} isDone Represents if the todo is active or done
    */
   constructor(description, isDone) {
-    this.description = description;
-    this.isDone = isDone;
+    this.description = description ?? "";
+    this.isDone = isDone ?? false;
   }
+}
 
-  invertStatus = () => {
-    this.isDone = !this.isDone;
-    saveTodos();
-  };
+class Options {
+  /**
+   * Creates an Option
+   * @param {boolean} canEditDoneTodos
+   * @param {boolean} autoDeleteDoneTodos
+   */
+  constructor(canEditDoneTodos, autoDeleteDoneTodos) {
+    this.canEditDoneTodos = canEditDoneTodos ?? false;
+    this.autoDeleteDoneTodos = autoDeleteDoneTodos ?? false;
+  }
 }
 
 //#endregion classes
 
 //#region functions
 
+//#region options
+
+function showOptionsDialog() {
+  optionsForm["canEdit"].checked = options.canEditDoneTodos;
+  optionsForm["autoDelete"].checked = options.autoDeleteDoneTodos;
+  optionsDialog.showModal();
+}
+
+function applyOptionsDialog(e) {
+  e.preventDefault();
+
+  const canEdit = optionsForm["canEdit"].checked;
+  const autoDelete = optionsForm["autoDelete"].checked;
+
+  saveAndApplyOptions(canEdit, autoDelete);
+
+  closeOptionsDialog();
+}
+
+function closeOptionsDialog() {
+  optionsDialog.close();
+}
+
+function saveAndApplyOptions(canEdit, autoDelete) {
+  options.canEditDoneTodos = canEdit;
+  options.autoDeleteDoneTodos = autoDelete;
+
+  localStorage.setItem("options", JSON.stringify(options));
+
+  if (autoDelete) {
+    doneTodos = [];
+
+    doneTodoTableBody.replaceChildren();
+
+    saveTodos();
+  }
+  toggleTodoSectionsVisibility();
+}
+
+function loadOptions() {
+  options = Object.assign(
+    new Options(),
+    JSON.parse(localStorage.getItem("options"))
+  );
+}
+
+//#endregion Options
+
 function saveTodos() {
-  const todosJson = JSON.stringify(todos);
-  localStorage.setItem("todos", todosJson);
+  localStorage.setItem("todos", JSON.stringify(todos));
+
+  if (options.autoDeleteDoneTodos) {
+    localStorage.removeItem("doneTodos");
+  } else {
+    localStorage.setItem("doneTodos", JSON.stringify(doneTodos));
+  }
 }
 
 function loadTodos() {
-  JSON.parse(localStorage.getItem("todos"))?.forEach((todo) => {
-    todos.push(Object.assign(new Todo(), todo));
+  // not done todos
+  JSON.parse(localStorage.getItem("todos"))?.forEach((item) => {
+    const todo = Object.assign(new Todo(), item);
+    todos.push(todo);
   });
 
-  todoTableBody.replaceChildren();
+  todosTableBody.replaceChildren();
 
   for (let todo of todos) {
-    todoTableBody.appendChild(createTableRow(todo));
+    todosTableBody.append(createTodoTableRow(todo));
+  }
+
+  // done todos
+  if (!options.autoDeleteDoneTodos) {
+    JSON.parse(localStorage.getItem("doneTodos"))?.forEach((item) => {
+      const todo = Object.assign(new Todo(), item);
+      doneTodos.push(todo);
+    });
+
+    doneTodoTableBody.replaceChildren();
+
+    for (let todo of doneTodos) {
+      doneTodoTableBody.append(createTodoTableRow(todo));
+    }
   }
 }
 
 function addTodo() {
-  document.forms["todoForm"]["description"].value = "";
+  todoForm["description"].value = "";
   todoDialog.showModal();
 }
 
 function editTodo() {
-  document.forms["todoForm"]["description"].value = selectedTodo.description;
+  todoForm["description"].value = selectedTodo.description;
   todoDialog.showModal();
 }
 
 function deleteTodo() {
-  todos.splice(todos.indexOf(selectedTodo), 1);
-  todoTableBody.removeChild(selectedRow);
-  saveTodos();
+  if (selectedTodo.isDone) {
+    doneTodos.splice(doneTodos.indexOf(selectedTodo), 1);
+    doneTodoTableBody.removeChild(selectedRow);
+  } else {
+    todos.splice(todos.indexOf(selectedTodo), 1);
+    todosTableBody.removeChild(selectedRow);
+  }
 
-  selectedTodo = null;
-  selectedRow = null;
+  saveTodos();
+  closeTodoDialog();
+  toggleTodoSectionsVisibility();
 }
 
 /**
  *
  * @param {SubmitEvent} e
  */
-function saveTodo(e) {
+function saveTodoDialog(e) {
   e.preventDefault();
 
-  const descriptionInput = todoForm.elements.namedItem("description");
-  const value = descriptionInput.value;
+  const descriptionInput = todoForm["description"];
+  const value = descriptionInput.value.trim();
 
-  // Todo: better handling
+  // Make shure string is not empty
   if (isEmptyOrSpaces(value)) {
     descriptionInput.setCustomValidity("Description can't be empty");
     descriptionInput.reportValidity();
@@ -76,24 +157,33 @@ function saveTodo(e) {
 
   if (selectedTodo == null && selectedRow == null) {
     const todo = new Todo(value, false);
-    const row = createTableRow(todo);
+    const row = createTodoTableRow(todo);
 
-    todoTableBody.appendChild(row);
-    todos.push(todo);
+    todosTableBody.prepend(row);
+    todos.unshift(todo);
   } else {
     const todo = selectedTodo;
     todo.description = value;
-    const row = createTableRow(todo);
+    const row = createTodoTableRow(todo);
 
-    todoTableBody.replaceChild(row, selectedRow);
-    todos[todos.indexOf(selectedRow)] = todo;
+    if (!todo.isDone) {
+      todosTableBody.replaceChild(row, selectedRow);
+      todos[todos.indexOf(selectedRow)] = todo;
+    } else if (!options.autoDeleteDoneTodos) {
+      doneTodoTableBody.replaceChild(row, selectedRow);
+      doneTodos[doneTodos.indexOf(selectedRow)] = todo;
+    }
   }
 
   saveTodos();
-  todoDialog.close();
+  closeTodoDialog();
+  toggleTodoSectionsVisibility();
 }
 
-function discardTodo() {
+function closeTodoDialog() {
+  selectedTodo = null;
+  selectedRow = null;
+
   todoDialog.close();
 }
 
@@ -102,58 +192,105 @@ function discardTodo() {
  * @param {Todo} todo - the Todo to add to the table
  * @returns {HTMLTableRowElement}
  */
-function createTableRow(todo) {
+function createTodoTableRow(todo) {
   const row = document.createElement("tr");
   const tdIsDone = document.createElement("td");
   const tdDescription = document.createElement("td");
-  const isDoneCheckbox = document.createElement("input");
-  const checkboxWrapper = document.createElement("div");
+  const button = document.createElement("button");
+  const i = document.createElement("i");
 
-  isDoneCheckbox.setAttribute("type", "checkbox");
-  isDoneCheckbox.checked = todo.isDone;
-  checkboxWrapper.classList.add("checkbox-wrapper");
-  tdIsDone.classList.add("checkbox-column");
+  i.classList.add(todo.isDone ? "gg-close-o" : "gg-check-o");
+  button.classList.add("icon-btn");
+  tdIsDone.classList.add("btn-column");
   tdDescription.textContent = todo.description;
 
   row.addEventListener(
     "contextmenu",
-    (e) => {
-      e.preventDefault();
-
-      if (todoContextMenu.style.display == "block") {
-        hideMenu(true);
-      }
-
-      row.classList.add("tr-highlighted");
-
-      todoContextMenu.style.display = "block";
-      todoContextMenu.style.left = e.pageX + "px";
-      todoContextMenu.style.top = e.pageY + "px";
-
-      selectedTodo = todo;
-      selectedRow = row;
-    },
+    (e) => openContextMenu(todo, row, e),
     false
   );
-  isDoneCheckbox.addEventListener("click", todo.invertStatus, false);
+  button.addEventListener("click", () => changeTodoState(todo, row), false);
 
-  checkboxWrapper.appendChild(isDoneCheckbox);
-  tdIsDone.appendChild(checkboxWrapper);
-  row.appendChild(tdIsDone);
-  row.appendChild(tdDescription);
+  button.append(i);
+  tdIsDone.append(button);
+  row.append(tdIsDone);
+  row.append(tdDescription);
   return row;
 }
 
-function hideMenu(deleteSelected = true) {
+// #region ContextMenu
+
+/**
+ *
+ * @param {Todo} todo
+ * @param {HTMLTableRowElement} row
+ * @param {MouseEvent} e
+ */
+function openContextMenu(todo, row, e) {
+  e.preventDefault();
+
+  if (todoContextMenu.style.display == "block") {
+    hideContextMenu(true);
+  }
+
+  const editButtonHidden = todo.isDone && !options.canEditDoneTodos;
+  todoButtonEdit.style.display = editButtonHidden ? "none" : "inherit";
+
+  row.classList.add("tr-highlighted");
+
+  todoContextMenu.style.display = "block";
+  todoContextMenu.style.left = e.pageX + "px";
+  todoContextMenu.style.top = e.pageY + "px";
+
+  selectedTodo = todo;
+  selectedRow = row;
+}
+
+function hideContextMenu(deleteSelected = true) {
   todoContextMenu.style.display = "none";
-  Array.from(todoTable.getElementsByClassName("tr-highlighted")).forEach((tr) =>
-    tr.classList.remove("tr-highlighted")
+  Array.from(todosTable.getElementsByClassName("tr-highlighted")).forEach(
+    (tr) => tr.classList.remove("tr-highlighted")
+  );
+  Array.from(doneTodoTable.getElementsByClassName("tr-highlighted")).forEach(
+    (tr) => tr.classList.remove("tr-highlighted")
   );
 
   if (deleteSelected) {
     selectedTodo = null;
     selectedRow = null;
   }
+}
+
+// #endregion ContextMenu
+
+/**
+ *
+ * @param {Todo} todo
+ * @param {HTMLTableRowElement} row
+ */
+function changeTodoState(todo, row) {
+  if (todo.isDone) {
+    doneTodos.splice(doneTodos.indexOf(todo), 1);
+    doneTodoTableBody.removeChild(row);
+
+    todo.isDone = false;
+
+    todos.unshift(todo);
+    todosTableBody.prepend(createTodoTableRow(todo));
+  } else {
+    todos.splice(todos.indexOf(todo), 1);
+    todosTableBody.removeChild(row);
+
+    todo.isDone = true;
+
+    if (!options.autoDeleteDoneTodos) {
+      doneTodos.unshift(todo);
+      doneTodoTableBody.prepend(createTodoTableRow(todo));
+    }
+  }
+
+  saveTodos();
+  toggleTodoSectionsVisibility();
 }
 
 /**
@@ -165,19 +302,75 @@ function isEmptyOrSpaces(str) {
   return str === null || str.match(/^ *$/) !== null;
 }
 
+function toggleTodoSectionsVisibility() {
+  const doneHidden = options.autoDeleteDoneTodos || doneTodos.length === 0;
+  doneTodosSection.style.display = doneHidden ? "none" : "inherit";
+
+  const todosHidden = todos.length === 0;
+  todosSection.style.display = todosHidden ? "none" : "inherit";
+
+  const noTodosHidden = !(todos.length === 0 && doneTodos.length === 0);
+  noTodosSection.style.display = noTodosHidden ? "none" : "inherit";
+}
+
 //#endregion functions
 
 //#region HTML Elements
 
 /**
+ * @type {HTMLButtonElement}
+ */
+const optionsButton = document.getElementById("optionsButton");
+
+/**
+ * @type {HTMLDialogElement}
+ */
+const optionsDialog = document.getElementById("optionsDialog");
+
+/**
+ * @type {HTMLFormElement}
+ */
+const optionsForm = document.getElementById("optionsForm");
+
+/**
+ * @type {HTMLButtonElement}
+ */
+const optionsButtonDiscard = document.getElementById("optionsButtonDiscard");
+
+/**
+ * @type {HTMLDivElement}
+ */
+const todosSection = document.getElementById("todosSection");
+
+/**
  * @type {HTMLTableElement}
  */
-const todoTable = document.getElementById("todoTable");
+const todosTable = document.getElementById("todosTable");
 
 /**
  * @type {HTMLTableSectionElement}
  */
-const todoTableBody = document.getElementById("todoTableBody");
+const todosTableBody = document.getElementById("todosTableBody");
+
+/**
+ * @type {HTMLDivElement}
+ */
+const doneTodosSection = document.getElementById("doneTodosSection");
+
+/**
+ * @type {HTMLTableElement}
+ */
+const doneTodoTable = document.getElementById("doneTodoTable");
+
+/**
+ * @type {HTMLTableSectionElement}
+ */
+const doneTodoTableBody = document.getElementById("doneTodoTableBody");
+
+/**
+ * @type {HTMLHeadingElement}
+ */
+const noTodosSection = document.getElementById("noTodosSection");
 
 /**
  * @type {HTMLDialogElement}
@@ -207,11 +400,6 @@ const todoButtonDelete = document.getElementById("todoButtonDelete");
 /**
  * @type {HTMLButtonElement}
  */
-const todoButtonSave = document.getElementById("todoButtonSave");
-
-/**
- * @type {HTMLButtonElement}
- */
 const todoButtonDiscard = document.getElementById("todoButtonDiscard");
 
 /**
@@ -227,7 +415,7 @@ document.addEventListener(
   "click",
   (e) => {
     if (todoContextMenu.style.display == "block") {
-      hideMenu(!todoContextMenu.contains(e.target));
+      hideContextMenu(!todoContextMenu.contains(e.target));
     }
   },
   false
@@ -237,7 +425,7 @@ document.addEventListener(
   "keydown",
   (e) => {
     if (e.key == "Escape" && todoContextMenu.style.display == "block") {
-      hideMenu(true);
+      hideContextMenu(true);
     }
   },
   false
@@ -254,7 +442,7 @@ document.addEventListener(
       return;
     }
     if (todoContextMenu.style.display == "block") {
-      hideMenu(true);
+      hideContextMenu(true);
     }
   },
   false
@@ -262,21 +450,34 @@ document.addEventListener(
 
 //#endregion Document Event Listener
 
-//#region element event listener
+//#region Element Event Listener
 
+optionsButton.addEventListener("click", showOptionsDialog, false);
+optionsForm.addEventListener("submit", applyOptionsDialog, false);
+optionsButtonDiscard.addEventListener("click", closeOptionsDialog, false);
 todoButtonAdd.addEventListener("click", addTodo, false);
 todoButtonEdit.addEventListener("click", editTodo, false);
 todoButtonDelete.addEventListener("click", deleteTodo, false);
-todoButtonDiscard.addEventListener("click", discardTodo, false);
-todoForm.addEventListener("submit", saveTodo, false);
-todoDialog.addEventListener("close", discardTodo, false);
+todoButtonDiscard.addEventListener("click", closeTodoDialog, false);
+todoForm.addEventListener("submit", saveTodoDialog, false);
+todoDialog.addEventListener("close", closeTodoDialog, false);
 
-//#endregion element event listener
+//#endregion Element Event Listener
+
+/**
+ * @type {Options}
+ */
+let options;
 
 /**
  * @type {Todo[]}
  */
 let todos = [];
+
+/**
+ * @type {Todo[]}
+ */
+let doneTodos = [];
 
 /**
  * @type {Todo}
@@ -288,4 +489,6 @@ let selectedTodo = null;
  */
 let selectedRow = null;
 
+loadOptions();
 loadTodos();
+toggleTodoSectionsVisibility();
