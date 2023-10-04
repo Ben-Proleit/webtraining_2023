@@ -193,11 +193,22 @@ function eintragErledigt(id) {
   eintragLöschen(id);
 }
 
+var pressed = 0;
+
 function Twerk() {
-  let body = document.getElementsByTagName("body").item(0);
-  let div = body.appendChild(document.createElement("div"));
-  div.setAttribute("id", "Thanos");
-  const iframe = div.appendChild(document.createElement("iframe"));
-  iframe.setAttribute("src", "iframe.html");
+  if (pressed == 0) {
+    let body = document.getElementsByTagName("body").item(0);
+    let div = body.appendChild(document.createElement("div"));
+    div.setAttribute("id", "Thanos");
+    const iframe = div.appendChild(document.createElement("iframe"));
+    iframe.setAttribute("src", "iframe.html");
+    pressed = 1;
+  } else if (pressed == 1) {
+    var iframes = document.querySelectorAll("iframe");
+    for (var i = 0; i < iframes.length; i++) {
+      iframes[i].parentNode.removeChild(iframes[i]);
+    }
+    pressed = 0;
+  }
 }
 document.getElementById("secret").onmousedown = Twerk;
