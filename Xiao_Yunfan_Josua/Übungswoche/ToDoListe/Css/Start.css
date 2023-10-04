@@ -42,16 +42,6 @@ a {
   height: 50%;
 }
 
-#sideBar1 {
-  height: 100%;
-  width: 100%;
-}
-
-#sideBar2 {
-  height: 100%;
-  width: 100%;
-}
-
 #hoehe {
   height: 100%;
 }
@@ -61,6 +51,7 @@ a {
   height: 100%;
   width: 100%;
 }
+
 /* #region */
 .button-container-1 {
   position: relative;
@@ -77,6 +68,7 @@ a {
   transition: 0.5s;
   letter-spacing: 1px;
   border-radius: 8px;
+  background-color: #fff;
 }
 .button-container-1 button {
   width: 101%;
@@ -86,7 +78,7 @@ a {
   font-size: 11px;
   letter-spacing: 1px;
   font-weight: bold;
-  background: #000;
+  background: #222;
   -webkit-mask: url("https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/nature-sprite.png");
   mask: url("https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/nature-sprite.png");
   -webkit-mask-size: 2300% 100%;
@@ -104,18 +96,19 @@ a {
 
 .button-container-2 {
   position: relative;
-  width: 100px;
+  width: 80%;
   height: 50px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 7vh;
   overflow: hidden;
-  border: 1px solid #000;
+  border: 1px solid #fff;
   font-family: Verdana;
   font-weight: 300;
   transition: 0.5s;
   letter-spacing: 1px;
   border-radius: 8px;
+  background-color: #fff;
 }
 .button-container-2 button {
   width: 101%;
@@ -125,7 +118,7 @@ a {
   font-size: 11px;
   letter-spacing: 1px;
   font-weight: bold;
-  background: #000;
+  background: #222;
   -webkit-mask: url("https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/urban-sprite.png");
   mask: url("https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/urban-sprite.png");
   -webkit-mask-size: 3000% 100%;
@@ -143,7 +136,7 @@ a {
 
 .mas {
   position: absolute;
-  color: #fff;
+  color: #222;
   text-align: center;
   width: 101%;
   font-family: Verdana;
