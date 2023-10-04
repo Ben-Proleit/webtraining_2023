@@ -47,6 +47,9 @@ h2 {
 button.resett > img {
   content: url("Reset.png");
 }
+button:hover {
+  background-color: var(--contrast);
+}
 
 #sideOne,
 #sideTwo {

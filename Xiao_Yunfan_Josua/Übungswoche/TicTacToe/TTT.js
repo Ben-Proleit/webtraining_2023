@@ -9,7 +9,6 @@ var P2 = 0;
 
 function switcher() {
   Player = !Player;
-  console.log(Player);
 }
 
 /**
@@ -40,6 +39,9 @@ function winCheck() {
   winCheckHor();
   winCheckVer();
   winCheckX();
+  if (roundCount == 9 && won == false) {
+    reset();
+  }
 }
 function winCheckVer() {
   let Nr = 1;
@@ -119,10 +121,13 @@ function reset() {
     Button.textContent = "";
     Nr++;
   } while (Nr <= 9);
-  let kill = document.getElementsByClassName("Winner").item(0);
-  let father = kill.parentElement;
-  father.removeChild(kill);
+  if (won == true) {
+    let kill = document.getElementsByClassName("Winner").item(0);
+    let father = kill.parentElement;
+    father.removeChild(kill);
+  }
   won = false;
   Player = false;
+  roundCount = 0;
 }
 //#endregion
