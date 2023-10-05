@@ -13,8 +13,33 @@ h1 {
   text-align: center;
 }
 
-body > div {
+#startpage {
   display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+#input {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+#Start {
+  width: 30%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+textarea {
+  height: 20px;
+  font-size: 14px;
+  resize: none;
+}
+
+#playboard {
+  display: none;
   grid-template-columns: 1fr 35% 1fr;
   grid-template-rows: auto;
 }
