@@ -1,0 +1,27 @@
+:root{
+  --imagesize: 115px;
+}
+
+img{
+  width: var(--imagesize);
+  height: var(--imagesize);
+}
+
+div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: blueviolet;
+  border: 2px;
+  border-style: solid;
+  border-color: black;
+}
+
+div:hover{
+  transition: ease;
+  transition-duration: 100ms;
+  transform: scale(1.1);
+}
+.card {
+
+}
