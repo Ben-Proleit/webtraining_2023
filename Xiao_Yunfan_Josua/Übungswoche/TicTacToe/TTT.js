@@ -128,12 +128,13 @@ function winAusgabe(who) {
   if (who == 1) {
     document.getElementById("sideOne").innerHTML =
       "<h3>" + Name1 + "</h3>" + P1;
+    idk.textContent = Name1 + " hat gewonnen";
   } else if (who == 2) {
     document.getElementById("sideTwo").innerHTML =
       "<h3>" + Name2 + "</h3>" + P2;
+    idk.textContent = Name2 + " hat gewonnen";
   }
 
-  idk.textContent = "Spieler " + who + " hat gewonnen";
   newTr.setAttribute("class", "Winner");
   reset.setAttribute("class", "resett");
   reset.setAttribute("onclick", "reset()");
