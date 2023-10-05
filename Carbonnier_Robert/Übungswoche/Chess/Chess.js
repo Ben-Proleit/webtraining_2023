@@ -1,13 +1,22 @@
 
 var turn = 'w'
-var field = [['r', 'n', 'b', 'q', 0, 'b', 'n', 'r'],
-['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
+var field = [['r', 0, 'b', 'q', 'k', 'b', 'n', 'r'],
+['p', 'P', 'p', 'p', 'p', 'p', 'p', 'p'],
 [0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 'k', 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
 [0, 'b', 0, 0, 0, 0, 0, 'R'],
-[0, 0, 0, 0, 'K', 0, 0, 0],
-['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
-['R', 'N', 'B', 'Q', 0, 'B', 'N', 'R']]
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 'P', 'p', 'P', 'P', 'P', 'P', 'P'],
+['R', 0, 0, 0, 'K', 'B', 'N', 'R']]
+
+
+var colorTileLight = '#A3'
+var colorTileDark = '#D9D9D9'
+
+var colorRed = '#C4736A'
+var colorBlue = '#9AC7D6'
+
+
 
 // 9_9 is the default value
 var markedId = '9_9'
@@ -21,25 +30,36 @@ var possibleEnPassant = '9_9'
 var possibleHitEnPassant = '9_9'
 
 createField()
+document.getElementById('turn').className = 'white'
+//Rochade
+var possibleRochadeRookL = '9_9'
+var possibleRochadeRookR = '9_9'
 
 //Rochade White
 var kingMovedW = false
-var rockLeftMovedW = false
-var rockRightMovedW = false
+var rookLeftMovedW = false
+var rookRightMovedW = false
 
 //Rochade Black
 var kingMovedB = false
-var rockLeftMovedB = false
-var rockRightMovedB = false
+var rookLeftMovedB = false
+var rookRightMovedB = false
 
 
 //Current position of the kings for checktests
-var wKingPosition = '5_4'
-var bKingPosition = '3_4'
+var wKingPosition = '7_4'
+var bKingPosition = '0_4'
 
+
+var wKingCheck = false
+var bKingCheck = false
 
 var isTesting = false
 
+//promote
+var promotedPawn = '9_9'
+var colorPromote = null
+var onPromotion = false
 
 //#region Setup
 
@@ -51,11 +71,11 @@ function createField() {
         for (let j = 0; j < 8; j++) {
             div = createSingleField(i + '_' + j)
             if (i % 2 == 0 && j % 2 == 0)
-                div.style.backgroundColor = '#ffffff'
+                div.style.backgroundColor = colorTileLight
             else if (i % 2 != 0 && j % 2 != 0)
-                div.style.backgroundColor = '#ffffff'
+                div.style.backgroundColor = colorTileLight
             else
-                div.style.backgroundColor = '#964d22'
+                div.style.backgroundColor = colorTileDark
 
             base.appendChild(div)
         }
@@ -74,7 +94,7 @@ function createButton(number) {
     let row = number[0]
     let col = number[2]
     if (field[row][col] != 0) {
-        button.innerText = field[row][col]
+        assignImage(field[row][col], button)
     }
 
     return button
@@ -93,14 +113,69 @@ function createSingleField(number) {
 
 }
 
+function assignImage(content, button) {
+    switch (content) {
+        case 'K':
+            button.innerHTML = '&#9812;'
+            button.className = 'white'
+            break
+        case 'P':
+            button.innerHTML = '&#9817;'
+            button.className = 'white'
+            break
+        case 'R':
+            button.innerHTML = '&#9814;'
+            button.className = 'white'
+            break
+        case 'N':
+            button.innerHTML = '&#9816;'
+            button.className = 'white'
+            break
+        case 'Q':
+            button.innerHTML = '&#9813;'
+            button.className = 'white'
+            break
+        case 'B':
+            button.innerHTML = '&#9815;'
+            button.className = 'white'
+            break
+
+        case 'k':
+            button.innerHTML = '&#9818;'
+            button.className = 'black'
+            break
+        case 'p':
+            button.innerHTML = '&#9823;'
+            button.className = 'black'
+            break
+        case 'r':
+            button.innerHTML = '&#9820;'
+            button.className = 'black'
+            break
+        case 'n':
+            button.innerHTML = '&#9822;'
+            button.className = 'black'
+            break
+        case 'q':
+            button.innerHTML = '&#9819;'
+            button.className = 'black'
+            break
+        case 'b':
+            button.innerHTML = '&#9821;'
+            button.className = 'black'
+            break
+    }
+}
+
 //#endregion Setup
 
 
 
 
 function ButtonClick(sender) {
-
-
+    if (onPromotion) {
+        return
+    }
     let pos = sender.target.id
     let row = pos[0]
     let column = pos[2]
@@ -118,40 +193,56 @@ function ButtonClick(sender) {
         let origin = document.getElementById(markedId)
         lastMove.push(destination)
         lastMove.push(origin)
-        destination.innerText = origin.innerText
+
+        if (destination == possibleRochadeRookL || destination == possibleRochadeRookR) {
+            resolveRochade(destination == possibleRochadeRookL ? 'l' : 'r')
+        } else {
+            destination.innerHTML = origin.innerHTML
+
+            //EnPassant
+            checkEnpassant(destination, sender)
+
+            field[row][column] = field[origin.id[0]][origin.id[2]]
+
+            updateKingPosition(row, column)
+            origin.className = ''
+
+            turn == 'w' ? destination.className = 'white' : destination.className = 'black'
+            origin.innerHTML = ''
+            field[origin.id[0]][origin.id[2]] = 0
 
 
-        //Rochade Possibility
+            if ((turn == 'w' ? destination.id[0] == 0 : destination.id[0] == 7) && field[destination.id[0]][destination.id[2]].toLowerCase() == 'p') {
+                colorPromote = turn
+                promote(destination.id[0], destination.id[2])
+            }
 
-
-        //EnPassant
-        checkEnpassant(destination, sender)
-
-        field[row][column] = field[origin.id[0]][origin.id[2]]
-
-        updateKingPosition(row, column)
-
-        origin.innerText = ''
-        field[origin.id[0]][origin.id[2]] = 0
+        }
+        updateRochade(origin.id[0], origin.id[2])
 
         //TODO Letzen Zug Anzeigen
-        //lastMove.forEach(element => element.style.backgroundColor = '#109010')
+        //lastMove.forEach(element => element.style.backgroundColor = '#109010')#
+
         switchTarget()
         markedId = '9_9'
 
-        if (turn == 'w')
-            turn = 'b'
-        else
-            turn = 'w'
+        turnChange()
+
+        checkCheck()
     }
     //New Target
     else {
         switchTarget()                                                                             //Clear all marked fields (not green)
         //Movement
         if (field[row][column] != 0 && (whiteTurnPiece(row, column) || blackTurnPiece(row, column))) {        //Upper Case letters are white pieces
-            document.getElementById(sender.target.id).style.backgroundColor = '#ADD8E6'
+            document.getElementById(sender.target.id).style.backgroundColor = colorBlue
             markedId = pos
-            predictMovement(document.getElementById(sender.target.id).innerText, column, row, turn)
+            predictMovement(field[row][column], column, row, turn)
+            checkifMovementPossible(row, column)
+            if (field[row][column].toLocaleLowerCase() == 'k') {
+                rochade()
+            }
+
             colorPossibleMovement()
 
         }
@@ -163,9 +254,9 @@ function checkEnpassant(destination, sender) {
         enPassant = possibleEnPassant
         hitEnPassant = possibleHitEnPassant
     }
-    else if (hitEnPassant != '9_9' && destination.id == hitEnPassant.id && sender.target.innerText.toUpperCase() == 'P') {
+    else if (hitEnPassant != '9_9' && destination.id == hitEnPassant.id && field[sender.id[0]][sender.id[2]].toUpperCase() == 'P') {
 
-        enPassant.innerText = ''
+        enPassant.innerHTML = ''
         field[enPassant.id[0]][enPassant.id[2]] = 0
     }
     else {
@@ -176,14 +267,43 @@ function checkEnpassant(destination, sender) {
     }
 }
 
-function updateKingPosition(row, column) {
-    if (field[row][column] == 'k') {
-        bKingPosition = row + '_' + column
-    } else if (field[row][column] == 'K') {
-        wKingPosition = row + '_' + column
+function checkCheck() {
+    wKingCheck = isThreatened(wKingPosition[0], wKingPosition[2], 'w')
+    bKingCheck = isThreatened(bKingPosition[0], bKingPosition[2], 'b')
+    console.log(wKingCheck)
+    if (wKingCheck) {
+        document.getElementById(wKingPosition).style.backgroundColor = '#FC0'
+    } else {
+        document.getElementById(wKingPosition).style.backgroundColor = 'transparent'
+    }
+    if (bKingCheck) {
+        document.getElementById(bKingPosition).style.backgroundColor = '#FC0'
+    } else {
+        document.getElementById(bKingPosition).style.backgroundColor = 'transparent'
     }
 }
 
+function updateKingPosition(row, column) {
+    if (field[row][column] == 'k') {
+        bKingPosition = row + '_' + column
+        kingMovedB = true
+    } else if (field[row][column] == 'K') {
+        wKingPosition = row + '_' + column
+        kingMovedW = true
+    }
+}
+
+function checkonMate() {
+    field.forEach(row => {
+        for (let i = 0; i < row.length; i++) {
+
+        }
+    })
+}
+function turnChange() {
+    turn = (turn == 'w' ? 'b' : 'w')
+    document.getElementById('turn').className = (turn == 'w' ? 'white' : 'black')
+}
 
 function predictMovement(piece, column, row, color) {
     switch (piece.toLowerCase()) {
@@ -252,26 +372,47 @@ function inBound(row, column) {
 function colorPossibleMovement() {
     possibleMovement.forEach(tile => {
         if (field[tile.id[0]][tile.id[2]] == 0)
-            tile.style.backgroundColor = '#ADD8E6'
+            tile.style.backgroundColor = colorBlue
         else if (blackTurnPiece(tile.id[0], tile.id[2]) || whiteTurnPiece(tile.id[0], tile.id[2]))
-            tile.style.backgroundColor = '#ADD8E6'
+            tile.style.backgroundColor = colorBlue
         else
-            tile.style.backgroundColor = '#FFCCCB'
+            tile.style.backgroundColor = colorRed
     })
 }
 
 
 //#endregion Helper
 
-//TODO
-function checkRochade() {
+
+function updateRochade(row, column) {
     if (turn == 'w') {
-        if (kingMovedW == false) {
-
-        }
-
+        if (row == 7 && column == 0)
+            rookLeftMovedW = true
+        if (row == 7 && column == 7)
+            rookRightMovedW = true
+    } else {
+        if (row == 0 && column == 0)
+            rookLeftMovedB = true
+        if (row == 0 && column == 7)
+            rookRightMovedB = true
     }
 }
+
+function promote(row, column) {
+    onPromotion = true
+    document.getElementById('promote-dialog').style.display = 'flex'
+    promotedPawn = document.getElementById(row + '_' + column)
+}
+
+function switchPiece(sender) {
+
+    field[promotedPawn.id[0]][promotedPawn.id[2]] = (colorPromote == 'w' ? sender.id.toUpperCase() : sender.id.toLowerCase())
+    promotedPawn.innerHTML = sender.innerHTML
+    document.getElementById('promote-dialog').style.display = 'none'
+    onPromotion = false
+    checkCheck()
+}
+
 
 //#region KingCheck
 
@@ -333,9 +474,6 @@ function afterMovementOwnKingInCheck(destinationRow, destinationColumn, originRo
     field[originRow][originColumn] = 0
     isTesting = true
     let possible = color == 'w' ? isThreatened(wKingPosition[0], wKingPosition[2], 'w') : isThreatened(bKingPosition[0], bKingPosition[2], 'b')
-    if (destinationRow == 5 && destinationColumn == 2)
-        console.log('Blaue 5_2' + ' sender: ' + document.getElementById(originRow + '_' + originColumn).innerText + ' possible: ' + possible)
-
 
     field[destinationRow][destinationColumn] = destinationContent
     field[originRow][originColumn] = originContent
@@ -409,6 +547,16 @@ function checkPawnMovement(column, row, playercolor) {
     }
 }
 
+function checkifMovementPossible(rowFrom, columnFrom) {
+    if (field[rowFrom][columnFrom].toLocaleLowerCase() == 'k')
+        return
+    let tmpCheckPossibleMovement = []
+    possibleMovement.forEach(target => {
+        if (!afterMovementOwnKingInCheck(target.id[0], target.id[2], rowFrom, columnFrom, isWhite(rowFrom, columnFrom) ? 'w' : 'b'))
+            tmpCheckPossibleMovement.push(target)
+    })
+    possibleMovement = tmpCheckPossibleMovement
+}
 
 //#endregion KingCheck
 
@@ -462,8 +610,7 @@ function pawnMovement(column, row, playercolor) {
 
 //Markes reachable tiles for king figure
 function kingMovement(column, row, color) {
-    //Rochade abfragen
-    //Schach abfragen
+
     //Right side
     if (!ColorBlueKing(row + 1, column, color, row, column))
         ColorRedKing(row + 1, column, color, row, column)
@@ -483,6 +630,56 @@ function kingMovement(column, row, color) {
         ColorRedKing(row, column + 1, color, row, column)
     if (!ColorBlueKing(row, column - 1, color, row, column))
         ColorRedKing(row, column - 1, color, row, column)
+
+    // if (!kingMovedB && !rookLeftMovedB && 1 == 1)
+
+}
+
+function rochade() {
+    if (turn == 'w') {
+        if (field[7][0] == 'R' && !kingMovedW && !rookLeftMovedW && field[7][2] == 0 && field[7][3] == 0 && field[7][1] == 0 && !isThreatened(7, 2, 'w') && !isThreatened(7, 3, 'w')) {
+            possibleMovement.push(document.getElementById('7_0'))
+            possibleRochadeRookL = document.getElementById('7_0')
+        }
+        if (field[7][7] == 'R' && !kingMovedW && !rookRightMovedW && field[7][5] == 0 && field[7][6] == 0 && !isThreatened(7, 5, 'w') && !isThreatened(7, 6, 'w')) {
+            possibleMovement.push(document.getElementById('7_7'))
+            possibleRochadeRookR = document.getElementById('7_7')
+        }
+    } else {
+        if (field[0][0] == 'r' && !kingMovedB && !rookLeftMovedB && field[0][2] == 0 && field[0][3] == 0 && field[0][1] == 0 && !isThreatened(0, 2, 'b') && !isThreatened(0, 3, 'b')) {
+            possibleMovement.push(document.getElementById('0_0'))
+            possibleRochadeRookL = document.getElementById('0_0')
+        }
+        if (field[0][7] == 'r' && !kingMovedB && !rookRightMovedB && field[0][5] == 0 && field[0][6] == 0 && !isThreatened(0, 5, 'b') && !isThreatened(0, 6, 'b')) {
+            possibleMovement.push(document.getElementById('0_7'))
+            possibleRochadeRookR = document.getElementById('0_7')
+        }
+    }
+}
+
+function resolveRochade(direction) {
+    let row = turn == 'w' ? '7' : '0'
+    let rookFrom = document.getElementById(direction == 'l' ? row + '_0' : row + '_7')
+    let rookTo = document.getElementById(direction == 'l' ? row + '_3' : row + '_5')
+    let kingFrom = document.getElementById(row + '_4')
+    let kingTo = document.getElementById(direction == 'l' ? row + '_2' : row + '_6')
+
+    rookTo.innerHTML = rookFrom.innerHTML
+    rookTo.className = rookFrom.className
+    kingTo.innerHTML = kingFrom.innerHTML
+    kingTo.className = kingFrom.className
+
+    rookFrom.innerHTML = ''
+    rookFrom.className = ''
+    kingFrom.innerHTML = ''
+    kingFrom.innerHTML = ''
+
+    field[rookFrom.id[0]][rookFrom.id[2]] = 0
+    field[rookTo.id[0]][rookTo.id[2]] = turn == 'w' ? 'R' : 'r'
+    field[kingFrom.id[0]][kingFrom.id[2]] = 0
+    field[kingTo.id[0]][kingTo.id[2]] = turn == 'w' ? 'K' : 'k'
+
+    updateKingPosition(kingTo.id[0], kingTo.id[2])
 
 }
 
@@ -572,12 +769,8 @@ function knightMovement(column, row, color) {
 //Checks if tile is empty -> Colors it blue
 function ColorBlue(rowTo, columnTo, rowFrom, columnFrom) {
     if (inBound(rowTo, columnTo)) {
-        if (field[rowTo][columnTo] == 0
-            && !afterMovementOwnKingInCheck(rowTo, columnTo, rowFrom, columnFrom, isWhite(rowFrom, columnFrom) ? 'w' : 'b')) {
-            if (rowTo == 5 && columnTo == 2)
-                console.log('Blaue 5_2' + ' sender: ' + document.getElementById(rowFrom + '_' + columnFrom).innerText)
+        if (field[rowTo][columnTo] == 0) {
             let tile = document.getElementById(rowTo + '_' + columnTo)
-            tile.style.backgroundColor = '#ADD8E6'
             possibleMovement.push(tile)
             return true
         }
@@ -592,7 +785,6 @@ function ColorBlueKing(rowTo, columnTo, color, rowFrom, columnFrom) {
     if (inBound(rowTo, columnTo) && !isThreatened(rowTo, columnTo, color)) {
         if (field[rowTo][columnTo] == 0) {
             let tile = document.getElementById(rowTo + '_' + columnTo)
-            tile.style.backgroundColor = '#ADD8E6'
             possibleMovement.push(tile)
             return true
         }
@@ -604,11 +796,10 @@ function ColorBlueKing(rowTo, columnTo, color, rowFrom, columnFrom) {
 //Checks if tile is not empty and if it is a piece of the opponent -> Color it red
 function ColorRed(rowTo, columnTo, color, rowFrom, columnFrom) {
     if (inBound(rowTo, columnTo)) {
-        if (field[rowTo][columnTo] == 0 && !afterMovementOwnKingInCheck(rowTo, columnTo, rowFrom, columnFrom, color))
+        if (field[rowTo][columnTo] == 0)
             return false
         if (takeable(rowTo, columnTo, color)) {
             let tile = document.getElementById(rowTo + '_' + columnTo)
-            tile.style.backgroundColor = '#FFCCCB'
             possibleMovement.push(tile)
             return true
         }
@@ -623,7 +814,6 @@ function ColorRedKing(rowTo, columnTo, color, rowFrom, columnFrom) {
             return false
         if (takeable(rowTo, columnTo, color) && !isThreatened(rowTo, columnTo, color)) {
             let tile = document.getElementById(rowTo + '_' + columnTo)
-            tile.style.backgroundColor = '#FFCCCB'
             possibleMovement.push(tile)
             return true
         }
@@ -636,12 +826,10 @@ function ColorRedEnPassant(rowTo, columnTo, rowFrom, columnFrom) {
     if (inBound(rowTo, columnTo)) {
         if (enPassant != '9_9') {
 
-            if (document.getElementById(rowTo + '_' + columnTo).id != hitEnPassant.id
-                && !afterMovementOwnKingInCheck(rowTo, columnTo, rowFrom, columnFrom, isWhite(rowFrom, columnFrom) ? 'w' : 'b')) {
+            if (document.getElementById(rowTo + '_' + columnTo).id != hitEnPassant.id) {
                 return false
             }
             let tile = document.getElementById(rowTo + '_' + columnTo)
-            tile.style.backgroundColor = '#FFCCCB'
             possibleMovement.push(tile)
             return true
 
