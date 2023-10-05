@@ -109,11 +109,18 @@ io.on('connection', (socket) =>{
             return
         backEndPlayers[socket.id].sequenceNumber = sequenceNumber
         //TODO has to be called by the gameCycle
-        const speed = 5;
-        if(KeyInputMap.E68){backEndPlayers[socket.id].x+=1*speed}
-        if(KeyInputMap.E65){backEndPlayers[socket.id].x-=1*speed}
-        if(KeyInputMap.E87){backEndPlayers[socket.id].y-=1*speed}
-        if(KeyInputMap.E83){backEndPlayers[socket.id].y+=1*speed}
+        const SPEED = 5
+        let PLAYERX = 0,PLAYERY = 0
+        if(KeyInputMap.E68){PLAYERX += 1}
+        if(KeyInputMap.E65){PLAYERX -= 1}
+        if(KeyInputMap.E87){PLAYERY -= 1}
+        if(KeyInputMap.E83){PLAYERY += 1}
+
+        //Move
+        // if(collosionDetection(backEndPlayers[socket.id].x + (PLAYERX * SPEED)), backEndPlayers[socket.id].y += PLAYERY * SPEED){
+            backEndPlayers[socket.id].x += PLAYERX * SPEED 
+            backEndPlayers[socket.id].y += PLAYERY * SPEED
+        // }
     })
 })
 
@@ -172,7 +179,7 @@ function hitdetection(id){
 
 ///Builds all the static objects for the level
 function buildMapObjects(){
-    createStatcObject({x:100,y:100,width:100,height:100,color:'green',class:'Tank'})
+    createStatcObject({x:100,y:100,width:100,height:100,color:'white',class:'Tank'})
 }
 
 ///Creates an static object
@@ -183,8 +190,24 @@ function createStatcObject(object){
 }
 
 ///TODO Checks if someting collides with a static object
-function collosionDetection(){
-
+function collosionDetection(GOTOX,GOTOY){
+    // for (const playerId in backEndPlayers){
+    //     const backEndPlayer = backEndPlayers[playerId]
+    //     // console.log(backEndProjectiles[id].x)
+    //     const DISTANCE = Math.hypot(
+    //                             backEndProjectiles[id]?.x - backEndPlayer?.x, 
+    //                             backEndProjectiles[id]?.y - backEndPlayer?.y)
+        
+    //     //TODO: backEndProjectiles[id].radius has to be added 
+    //     if (DISTANCE <  5 + backEndPlayer.radius && 
+    //         backEndProjectiles[id].playerId !== playerId){
+    //         delete backEndProjectiles[id]
+    //         delete backEndPlayers[playerId]
+    //         console.log(DISTANCE)
+    //         break
+    //     }
+    // }
+    // return ture
 }
 
 //#endregion staticBody
