@@ -81,10 +81,10 @@ function winCheckX() {
  * @param {string} win
  */
 function CheckCheck(win) {
-  if (win == "XXX") {
+  if (win == X + X + X) {
     P1++;
     winAusgabe(1);
-  } else if (win == "OOO") {
+  } else if (win == O + O + O) {
     P2++;
     winAusgabe(2);
   }
