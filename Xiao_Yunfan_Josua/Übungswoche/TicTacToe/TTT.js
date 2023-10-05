@@ -10,11 +10,27 @@ var Name1 = "yun fan";
 var Name2 = "divad";
 
 //set players name
-document.getElementById("Name1").innerHTML = Name1;
-document.getElementById("Name2").innerHTML = Name2;
-//change chars
-X = Name1.charAt(0).toUpperCase();
-O = Name2.charAt(0).toUpperCase();
+function setPlayernames() {
+  document.getElementById("Name1").innerHTML = Name1;
+  document.getElementById("Name2").innerHTML = Name2;
+  //change chars
+  X = Name1.charAt(0).toUpperCase();
+  O = Name2.charAt(0).toUpperCase();
+}
+setPlayernames();
+
+function startGame() {
+  let stoart = document.getElementById("startpage");
+  let tic = document.getElementById("playboard");
+
+  stoart.classList.add("hidden");
+  tic.removeAttribute("class");
+  if (document.getElementById("NamePlayer1").value != "") {
+    Name1 = document.getElementById("NamePlayer1").value;
+    Name2 = document.getElementById("NamePlayer2").value;
+    setPlayernames();
+  }
+}
 
 function switcher() {
   Player = !Player;

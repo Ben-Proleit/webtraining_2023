@@ -2,7 +2,7 @@
   --background: #222;
   --contrast: #ffa500;
 }
-
+/* #region tagname */
 body {
   background-color: var(--background);
   color: whitesmoke;
@@ -13,6 +13,37 @@ h1 {
   text-align: center;
 }
 
+textarea {
+  height: 20px;
+  font-size: 14px;
+  resize: none;
+}
+
+table {
+  text-align: center;
+  height: 100%;
+}
+
+td {
+  height: 222px;
+  width: 150px;
+}
+
+button {
+  width: 150px;
+  height: 150px;
+  font-size: xx-large;
+  font-family: "Brush Script MT", cursive;
+}
+
+h2 {
+  align-content: center;
+  text-align: center;
+  align-items: center;
+  align-self: center;
+}
+/* #endregion */
+/* #region id */
 #startpage {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -32,42 +63,18 @@ h1 {
   align-items: center;
 }
 
-textarea {
-  height: 20px;
-  font-size: 14px;
-  resize: none;
-}
-
 #playboard {
-  display: none;
+  display: grid;
   grid-template-columns: 1fr 35% 1fr;
   grid-template-rows: auto;
 }
 
-table {
+#sideOne,
+#sideTwo {
   text-align: center;
-  height: 100%;
-}
-
-td {
-  height: 222px;
-  width: 150px;
-  /* max-width: 170px; */
-}
-
-button {
-  width: 150px;
-  height: 150px;
   font-size: xx-large;
-  font-family: "Brush Script MT", cursive;
 }
-
-h2 {
-  align-content: center;
-  text-align: center;
-  align-items: center;
-  align-self: center;
-}
+/* #endregion */
 
 button.resett > img {
   content: url("Reset.png");
@@ -76,8 +83,6 @@ button:hover {
   background-color: var(--contrast);
 }
 
-#sideOne,
-#sideTwo {
-  text-align: center;
-  font-size: xx-large;
+.hidden {
+  display: none !important;
 }
