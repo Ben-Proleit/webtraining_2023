@@ -29,7 +29,7 @@ class MissionListSerializer {
         "id": element.getId(),
         "name":element.name,
         "description":element.description,
-        "enddate":element.enddate.toJSON(),
+        "enddate": (element.enddate != null) ? element.enddate.toJSON() : null,
         "completed":element.completed
       })
     }); 
@@ -47,7 +47,7 @@ class MissionListSerializer {
       mission.name = x.name;
       mission.description = x.description;
       mission.completed = x.completed;
-      mission.enddate = new Date(x.enddate);
+      mission.enddate = x.enddate != null ? new Date(x.enddate) : null;
       result.push(mission);
     });
 
@@ -99,8 +99,10 @@ function showDetailedMissionScreen(mission) {
     document.getElementById("detailed-mission-id").value = mission.getId();
     document.getElementById("detailed-mission-name").value = mission.name;
     document.getElementById("detailed-mission-description").value = mission.description;
-    document.getElementById("detailed-mission-enddate").value = mission.enddate.toISOString()
-                                                                .substring(0, mission.enddate.toISOString().indexOf("T"));
+    document.getElementById("detailed-mission-enddate").value = (mission.enddate != null) 
+                                                                ? mission.enddate.toISOString()
+                                                                .substring(0, mission.enddate.toISOString().indexOf("T"))
+                                                                : null;
   }
 
 
@@ -113,7 +115,8 @@ function addOrEditMission() {
   let mission = createOrGetMission(document.getElementById("detailed-mission-id").value);
   mission.name = document.getElementById("detailed-mission-name").value;
   mission.description = document.getElementById("detailed-mission-description").value;
-  mission.enddate = new Date(Date.parse(document.getElementById("detailed-mission-enddate").value));
+  let enddateTimestamp = Date.parse(document.getElementById("detailed-mission-enddate").value);
+  mission.enddate = (!Number.isNaN(enddateTimestamp)) ? new Date(enddateTimestamp) : null;
 
   // Add entry to List, if it not already exists
   if(!missions.find((x) => x.getId().toLowerCase() === mission.getId().toLowerCase()))
@@ -192,12 +195,17 @@ function updateMissionDisplay(mission) {
   missionDiv.querySelector(".mission-completed").checked = mission.completed;
   missionDiv.querySelector(".mission-name").innerText = mission.name;
   missionDiv.querySelector(".mission-description").innerText = mission.description;
-  missionDiv.querySelector(".mission-enddate").innerText = mission.enddate.toLocaleString();
+  missionDiv.querySelector(".mission-enddate").innerText = (mission.enddate != null) ? mission.enddate.toLocaleDateString() : "";
+
+  // Update Expireing color
+  missionDiv.querySelector(".mission-enddate").classList.remove("overdue");
+  if(Date.now() >= mission.enddate?.getTime() && missionDiv.parentElement.id == "mission-list")
+    missionDiv.querySelector(".mission-enddate").classList.add("overdue");
 }
 
 function createMissionDiv(id) {
   if(id === null || id === undefined)
-    throw Error("Parameter ID was null or undefined");
+    throw Error("Parameter ID is null or undefined");
 
   let missionDiv = document.getElementById("mission-list").appendChild(document.createElement("div"));
   missionDiv.id = id;
@@ -214,11 +222,11 @@ function createMissionDiv(id) {
 
   // Buttons
   let buttonEdit = missionDiv.appendChild(document.createElement("button"));
-  buttonEdit.innerText = "Bearbeiten";
+  buttonEdit.classList.add("mission-edit-button");
   buttonEdit.onclick = onEditButtonClick;
 
   let buttonDelete = missionDiv.appendChild(document.createElement("button"));
-  buttonDelete.innerText = "Löschen";
+  buttonDelete.classList.add("mission-delete-button");
   buttonDelete.onclick = onDeleteButtonClick;
 
   return missionDiv;

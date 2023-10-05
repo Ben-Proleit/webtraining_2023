@@ -38,6 +38,16 @@ h2 {
   text-align: center;
 }
 
+.center-helper {
+  display: flex;
+  columns: 1fr;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+}
+
+/* #region Table & Leaderboard */
+
 table {
   background-color: black;
 } 
@@ -61,6 +71,10 @@ tbody > tr:nth-child(2n+1) {
 tbody > tr:nth-child(2n) {
   background-color: #9bdcd8;
 }
+
+/* #endregion */
+
+/* #region inputting */
 
 form {
   display: grid;
@@ -98,22 +112,20 @@ form input[type="submit"] {
   margin-right: 20px;
 }
 
-.center-helper {
-  display: flex;
-  columns: 1fr;
-  justify-content: center;
-  align-items: center;
-  height: 80%;
-}
-
 .invisible-button    {
   border: 0px none transparent;
   background-color: transparent;
 }
 
+/* #endregion */
+
+
+
 .invisible-button:hover {
   background-color: #e0e0e0aa;
 }
+
+/* #region Game Area */
 
 #game-area {
   display: grid;
@@ -245,6 +257,8 @@ form input[type="submit"] {
 #player-x-draw, #player-o-draw {
   color: #aaaaaa;
 }
+
+/* #endregion */
 
 @media only screen and (max-width: 600px) {
   body {
