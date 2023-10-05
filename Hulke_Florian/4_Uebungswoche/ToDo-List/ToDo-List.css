@@ -1,111 +1,11 @@
-@import url("https://fonts.cdnfonts.com/css/open-dyslexic");
 @import url("https://css.gg/css");
+@import url("../utilities/theme.css");
 
-/* #region Font & Colors */
-
-:root {
-  font-family: "Open-Dyslexic", sans-serif;
-  /* Default Colors */
-  --white: #ffffff;
-  --black: #333333;
-
-  /* SE Colors*/
-  --lifeGreen: #3dcd58;
-  --seLogoGreen: #009530;
-  --seDarkGray: #626469;
-  --seLightGray: #9fa0a4;
-
-  /* ProLeiT Colors*/
-
-  /* Blue*/
-  --proleitDarkBlue: #052c56;
-  --proleitBlue: #073a73;
-  --proleitLightblue: #39618f;
-  --proleitLighterBlue: #6a89ab;
-  --proleitLightestBlue: #9cb0c7;
-  --proleitFadingBlue: #cdd8e3;
-  /* Yellow */
-  --proleitDarkYellow: #8f9900;
-  --proleitYellow: #ffcc00;
-  --proleitLightYellow: #ffd633;
-  --proleitLighterYellow: #fee066;
-  --proleitLightestYellow: #feeb99;
-  --proleitFadingYellow: #fff5cc;
-  /* Gray */
-  --proleitDarkGray: #636363;
-  --proleitGray: #848484;
-  --proleitLightGray: #9d9d9d;
-  --proleitLighterGray: #b5b5b5;
-  --proleitLightestGray: #cecece;
-  --proleitFadingGray: #e6e6e6;
-  /* Red */
-  --proleitDarkRed: #990026;
-  --proleitRed: #cc0033;
-  --proleitLightRed: #d6335c;
-  --proleitLighterRed: #e06685;
-  --proleitLightestRed: #eb99ad;
-  --proleitFadingRed: #f5ccd6;
+#noTodosSection {
+  text-align: center;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --themePrimaryBlue: var(--proleitLightestBlue);
-    --themePrimaryYellow: var(--proleitLightestYellow);
-    --themePrimaryGray: var(--proleitLightestGray);
-    --themePrimaryRed: var(--proleitLightestRed);
-    --background: var(--white);
-    --backgroundHover: #e6e6e6;
-    --foreground: var(--black);
-  }
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --themePrimaryBlue: var(--proleitBlue);
-    --themePrimaryYellow: var(--proleitYellow);
-    --themePrimaryGray: var(--proleitDarkGray);
-    --themePrimaryRed: var(--proleitRed);
-    --background: var(--black);
-    --backgroundHover: #444444;
-    --foreground: var(--white);
-  }
-}
-
-/* #endregion Font & Colors */
-
-/* #region General */
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  width: 95%;
-  margin: 0 2.5%;
-}
-
-input {
-  color: inherit;
-  font-family: inherit;
-  font-size: inherit;
-}
-
-button {
-  font-family: inherit;
-  font-size: inherit;
-}
-
-.icon-btn {
-  background: none;
-  border: none;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 24px;
-  min-height: 24px;
-}
-
-.icon-btn:hover {
-  background: var(--backgroundHover);
-}
+/* #region Icon Colors */
 
 .gg-add,
 .gg-trash,
@@ -122,15 +22,7 @@ button {
   color: var(--proleitRed);
 }
 
-input[type="checkbox"] {
-  accent-color: var(--proleitBlue);
-}
-
-#noTodosSection {
-  text-align: center;
-}
-
-/* #endregion General */
+/* #endregion Icon Colors */
 
 /* #region Head */
 
@@ -163,7 +55,7 @@ input[type="checkbox"] {
 
 /* #endregion Head */
 
-/* #region table */
+/* #region Tables */
 
 table {
   width: 100%;
@@ -194,9 +86,9 @@ table .btn-column button {
   width: 100%;
 }
 
-/* #endregion table */
+/* #endregion Tables */
 
-/* #region context menu */
+/* #region Context Menu */
 
 .context-menu {
   position: absolute;
@@ -219,9 +111,9 @@ table .btn-column button {
   margin-right: 10px;
 }
 
-/* #endregion context menu */
+/* #endregion Context Menu */
 
-/* #region dialog */
+/* #region Dialogs */
 
 dialog {
   min-width: 300px;
@@ -297,4 +189,4 @@ dialog {
   background: var(--backgroundHover);
 }
 
-/* #endregion dialog */
+/* #endregion Dialogs */
