@@ -1,0 +1,106 @@
+:root {
+    --text: #000;
+    --bg: #fff;
+    --mission-list-bg: #e0e0e0;
+
+    --schneider-green: #3DCD58;
+    --schneider-dark-green: #009530;
+    --schneider-dark-gray: #626469;
+    --schneider-light-gray: #9FA0A4;
+  
+    --proleit-blue: #073a73;
+    --proleit-yellow: #ffcc00;
+    --proleit-red: #ca0032;
+}
+
+
+@media (prefers-color-scheme: dark) {
+    :root {
+      --text: #fff;
+      --bg: #000;
+    }
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    margin-bottom: 35px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 30px;
+    background-color: var(--schneider-green);
+    color: white;
+    font-weight: bold;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#mission-list {
+    border: 2px solid black;
+    background-color: var(--mission-list-bg);
+}
+
+#mission-list > div { /* Single Entry */
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid #000000;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 20px 1fr 50px 50px 50px;
+}
+
+#mission-list > div > .mission-completed {
+    grid-area: 0 / 0 / span 0 / span 1;
+}
+
+#mission-list > div > .mission-name {
+    
+}
+
+#mission-list > div > .mission-description {
+    
+}
+
+#mission-list > div > .mission-enddate {
+    
+}
+
+#mission-list > div > button:first-of-type {
+    
+}
+
+#mission-list > div > button:last-of-type {
+    
+}
+
+/* #region Detailed View */
+
+#detailed-mission-view {
+    background-color: #000000aa;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+#detailed-mission-view > .popup {
+    border: 5px solid #000000;
+    border-radius: 15px;
+    padding: 20px;
+    background-color: var(--bg);
+    height: 300px;
+    margin-top: 15%;
+}
+
+/* #endregion Detailed View */

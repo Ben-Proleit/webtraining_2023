@@ -6,6 +6,15 @@ var O = "O";
 var won = false;
 var P1 = 0;
 var P2 = 0;
+var Name1 = "yun fan";
+var Name2 = "divad";
+
+//set players name
+document.getElementById("Name1").innerHTML = Name1;
+document.getElementById("Name2").innerHTML = Name2;
+//change chars
+X = Name1.charAt(0).toUpperCase();
+O = Name2.charAt(0).toUpperCase();
 
 function switcher() {
   Player = !Player;
@@ -81,10 +90,10 @@ function winCheckX() {
  * @param {string} win
  */
 function CheckCheck(win) {
-  if (win == "XXX") {
+  if (win == X + X + X) {
     P1++;
     winAusgabe(1);
-  } else if (win == "OOO") {
+  } else if (win == O + O + O) {
     P2++;
     winAusgabe(2);
   }
@@ -101,9 +110,11 @@ function winAusgabe(who) {
   let reset = trTwo.appendChild(document.createElement("button"));
   reset.appendChild(document.createElement("img"));
   if (who == 1) {
-    document.getElementById("sideOne").innerHTML = "<h3>Spieler 1</h3>" + P1;
+    document.getElementById("sideOne").innerHTML =
+      "<h3>" + Name1 + "</h3>" + P1;
   } else if (who == 2) {
-    document.getElementById("sideTwo").innerHTML = "<h3>Spieler 2</h3>" + P2;
+    document.getElementById("sideTwo").innerHTML =
+      "<h3>" + Name2 + "</h3>" + P2;
   }
 
   idk.textContent = "Spieler " + who + " hat gewonnen";

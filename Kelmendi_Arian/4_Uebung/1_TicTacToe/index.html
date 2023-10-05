@@ -16,9 +16,9 @@
         <h1>Aris wundervolles<br/>Tic Tac Toe Spiel</h1>
         <form onsubmit="startGame(); return false">
           <label for="player-1-input">Spieler 1</label>
-          <input type="text" id="player-1-input" required maxlength="32"/>
+          <input type="text" id="player-1-input" required maxlength="32" pattern="\w*"/>
           <label for="player-2-input">Spieler 2</label>
-          <input type="text" id="player-2-input" required maxlength="32"/>
+          <input type="text" id="player-2-input" required maxlength="32" pattern="\w*"/>
           <input type="submit" value="Spiel starten"/>
         </form>
         <button class="invisible-button" onclick="displayLeaderboard()">
