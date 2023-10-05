@@ -1,54 +1,63 @@
 <html>
     <head>
-        <title>TicTacToe by Lilli</title>
+        <title>ToDoList</title>
         <link rel="stylesheet" href="ToDoList.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="ToDoList.js" defer></script>
     </head>
     <body>
-        <header>ToDo</header>
+        <header>ToDo-List</header>
         <main>
             <div id="div1">
-                <div id="div2">Name of List</div>
+                <div id="div2">What I have to do</div>
                 <div id="div3">
                     <div id="divPlus">
-                        <div>
-                            <button class="btn" onclick="addEntry()"><i class="fa fa-plus"></i></button>
-                        </div>
+                        <button class="btn" onclick="addEntry()"><i class="fa fa-plus"></i></button>
                     </div>
                     <div id="divInput">
-                        <input id="inputText" type="text" placeholder="New Entry">
+                        <label for="inputText">New Entry: </label>
+                        <input id="inputText" type="text" placeholder="Type your entry here.">
                     </div>
                 </div>
                 <div id="div4">
                     <div id="divEntry">
-                        <input type="checkbox">
+                        <input id="checkDone" type="checkbox" onchange="entryDone(this)">
                         <div id="entryText">Item1</div>
                         <div>
-                            <button class="btn"><i class="fa fa-edit"></i></button>
+                            <button id="editButton" class="btn" onclick="editEntry(this)"><i class="fa fa-edit"></i></button>
                         </div>
                         <div>
-                            <button class="btn"><i class="fa fa-trash"></i></button>
+                            <button id="removeButton" class="btn" onclick="removeEntry(this)"><i class="fa fa-trash"></i></button>
                         </div>
                     </div>
                     <div id="divEntry">
-                        <input type="checkbox">
-                        <div id="entryText">Item1</div>
+                        <input id="checkDone" type="checkbox" onchange="entryDone(this)">
+                        <div id="entryText">Item2</div>
                         <div>
-                            <button class="btn"><i class="fa fa-edit"></i></button>
+                            <button id="editButton" class="btn" onclick="editEntry(this)"><i class="fa fa-edit"></i></button>
                         </div>
                         <div>
-                            <button class="btn"><i class="fa fa-trash"></i></button>
+                            <button id="removeButton" class="btn" onclick="removeEntry(this)"><i class="fa fa-trash"></i></button>
                         </div>
                     </div>
                     <div id="divEntry">
-                        <input type="checkbox">
-                        <div id="entryText">Item1</div>
+                        <input id="checkDone" type="checkbox" onchange="entryDone(this)">
+                        <div id="entryText">Item3</div>
                         <div>
-                            <button class="btn"><i class="fa fa-edit"></i></button>
+                            <button id="editButton" class="btn" onclick="editEntry(this)"><i class="fa fa-edit"></i></button>
                         </div>
                         <div>
-                            <button class="btn"><i class="fa fa-trash"></i></button>
+                            <button id="removeButton" class="btn" onclick="removeEntry(this)"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div id="div5">What I have already done</div>
+                <div id="div6">
+                    <div id="divEntry">
+                        <input id="checkDone" type="checkbox" onchange="entryDone(this)" checked>
+                        <div id="entryText">Item4</div>
+                        <div>
+                            <button id="removeButton" class="btn" onclick="removeEntry(this)"><i class="fa fa-trash"></i></button>
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,9 @@ body {
     display: grid;
     grid-template-rows: 7% 86% 7% ;
     text-align: center;
+    background-color: #bccee0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #31566f;
 }
 
 main{
@@ -18,7 +21,7 @@ header {
 
 /* Style buttons */
 .btn {
-    background-color: DodgerBlue; /* Blue background */
+    background-color: #0077ff; /*#2658ab Blue background */
     border: none; /* Remove borders */
     color: white; /* White text */
     padding: 12px 16px; /* Some padding */
@@ -28,12 +31,12 @@ header {
   
   /* Darker background on mouse-over */
   .btn:hover {
-    background-color: RoyalBlue;
+    background-color: #0063d4;
   }
 
   #div1 {
     display: grid;
-    grid-template-rows: 10% 10% 80%;
+    grid-template-rows: 10% 10% 55% 5% 20%;
     overflow: hidden;
   }
 
@@ -41,7 +44,7 @@ header {
     display: grid;
     justify-content: center;
     align-items: center;
-    font-size: large;
+    font-size: x-large;
   }
 
   #div3 {
@@ -56,18 +59,35 @@ header {
   }
 
   #divInput {
-    display: grid;
+    display: flex;
     justify-content: left;
     align-items: center;
+    flex-direction: row;
   }
 
-  input[type=text] {
-    width: 500%;
+ #inputtext,#editedText {
+    width: 70%;
     height: 50%;
+    margin: 0.5%;
+    border: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  
+  #inputtext::placeholder {
+    opacity: 0.5;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
 
-  #div4 {
+  #div5 {
+    font-size: large;
+  }
+
+  #div4,#div6 {
     overflow-y: scroll;
+  }
+
+  #divEntry:nth-of-type(even) {
+    background-color: #31566f;
   }
 
   #divEntry {
@@ -75,7 +95,8 @@ header {
     grid-template-columns: 10% 70% 10% 10%;
     margin: 0.25%;
     padding: 0.15%;
-    border: 1px solid black;
+    background-color: #55a089;
+    color: white;
   }
 
   #entryText {
@@ -84,4 +105,16 @@ header {
     align-items: center;
     font-size: medium;
     overflow-x: auto;
+  }
+
+  #divEdit {
+    display: grid;
+    grid-template-columns: 80% 20%;
+    margin: 0.25%;
+    padding: 0.15%;
+    background-color: #55a089;
+  }
+
+  #divEdit:nth-of-type(even) {
+    background-color: #31566f;
   }
