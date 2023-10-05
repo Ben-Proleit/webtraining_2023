@@ -15,6 +15,7 @@ h1 {
 
 textarea {
   height: 20px;
+  width: 100%;
   font-size: 14px;
   resize: none;
 }
@@ -47,15 +48,18 @@ h2 {
 #startpage {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
 }
 
 #input {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr 1fr;
+  justify-items: center;
 }
 
 #Start {
+  align-self: center;
   width: 30%;
   height: 40px;
   display: flex;
