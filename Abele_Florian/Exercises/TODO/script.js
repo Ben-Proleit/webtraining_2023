@@ -22,9 +22,8 @@ const taskList = document.getElementsByClassName("taskList")[0];
 
 document.addEventListener('DOMContentLoaded', () => {
   load();
+  addEmptyItemIfNeeded();
 });
-
-addEmptyItemIfNeeded();
 
 function createListItemFromTask(task) {
   listItemDiv = document.createElement("div");
