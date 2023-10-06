@@ -45,15 +45,18 @@ function switcher() {
 function insertInput(id) {
   let Button = document.getElementById(id);
   let insert;
+  let display;
   if (Player == false) {
-    insert = X;
+    insert = "X";
+    display = X;
   } else {
-    insert = O;
+    insert = "O";
+    display = O;
   }
 
   if ((newArray[id] == "" || newArray[id] == null) && won == false) {
     newArray[id] = insert;
-    Button.textContent = insert;
+    Button.textContent = display;
     roundCount++;
     if (roundCount >= 5) {
       winCheck();
@@ -108,10 +111,10 @@ function winCheckX() {
  * @param {string} win
  */
 function CheckCheck(win) {
-  if (win == X + X + X) {
+  if (win == "XXX") {
     P1++;
     winAusgabe(1);
-  } else if (win == O + O + O) {
+  } else if (win == "OOO") {
     P2++;
     winAusgabe(2);
   }
@@ -128,12 +131,20 @@ function winAusgabe(who) {
   let reset = trTwo.appendChild(document.createElement("button"));
   reset.appendChild(document.createElement("img"));
   if (who == 1) {
-    document.getElementById("sideOne").innerText =
-      "<h3>" + Name1 + "</h3>" + P1;
+    // document.getElementById("sideOne").innerText =
+    //   "<h3>" + Name1 + "</h3>" +
+    document
+      .getElementById("sideOne")
+      .getElementsByTagName("Span")
+      .item(0).innerText = P1;
     idk.textContent = Name1 + " hat gewonnen";
   } else if (who == 2) {
-    document.getElementById("sideTwo").innerText =
-      "<h3>" + Name2 + "</h3>" + P2;
+    // document.getElementById("sideTwo").innerText =
+    //   "<h3>" + Name2 + "</h3>" +
+    document
+      .getElementById("sideTwo")
+      .getElementsByTagName("Span")
+      .item(0).innerText = P2;
     idk.textContent = Name2 + " hat gewonnen";
   }
 
