@@ -13,11 +13,11 @@ h1 {
   text-align: center;
 }
 
-textarea {
-  height: 20px;
-  width: 100%;
+input {
+  width: 80%;
+  margin: 5px;
   font-size: 14px;
-  resize: none;
+  font-family: Verdana;
 }
 
 table {
@@ -65,6 +65,7 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 26px;
 }
 
 #playboard {

@@ -17,7 +17,7 @@ function setPlayernames() {
   X = Name1.charAt(0).toUpperCase();
   O = Name2.charAt(0).toUpperCase();
 }
-setPlayernames();
+// setPlayernames();
 
 function startGame() {
   let stoart = document.getElementById("startpage");
@@ -25,11 +25,13 @@ function startGame() {
 
   stoart.classList.add("hidden");
   tic.removeAttribute("class");
-  if (document.getElementById("NamePlayer1").value != "") {
-    Name1 = document.getElementById("NamePlayer1").value;
-    Name2 = document.getElementById("NamePlayer2").value;
-    setPlayernames();
+  if (document.getElementById("NameInput1").value != "") {
+    Name1 = document.getElementById("NameInput1").value;
   }
+  if (document.getElementById("NameInput2").value != "") {
+    Name2 = document.getElementById("NameInput2").value;
+  }
+  setPlayernames();
 }
 
 function switcher() {
