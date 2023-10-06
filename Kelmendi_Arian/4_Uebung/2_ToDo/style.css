@@ -2,6 +2,11 @@
     --text: #000;
     --bg: #fff;
     --mission-list-bg: #e0e0e0;
+    --mission-item-bg: #da9ee1;
+    --mission-text-completed: #444444;
+
+    --edit-icon: url(assets/editicon.svg);
+    --delete-icon: url(assets/deleteicon.svg);
 
     --schneider-green: #3DCD58;
     --schneider-dark-green: #009530;
@@ -18,6 +23,8 @@
     :root {
       --text: #fff;
       --bg: #000;
+      --mission-item-bg: #62166a;
+      --mission-text-completed: #aaaaaa;
     }
 }
 
@@ -26,6 +33,17 @@ body {
     color: var(--text);
     margin-bottom: 35px;
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0px
+}
+
+header {
+    background-color: var(--schneider-green);
+    color: white;
+    padding: 3px 0px 3px 20px;
+}
+
+main {
+    margin: 10px;
 }
 
 footer {
@@ -52,9 +70,12 @@ footer {
     padding: 5px;
     margin: 5px;
     border: 1px solid #000000;
+    border-radius: 15px;
     display: grid;
     grid-template-rows: 20px 1fr;
     grid-template-columns: 40px 1fr 160px 50px 50px;
+    background-color: var(--mission-item-bg);
+    color: var(--text);
 }
 
 .mission-completed {
@@ -80,11 +101,19 @@ footer {
 
 .mission-enddate {
     grid-area: 1 / 3 / span 2 / span 1;
+    align-self: center;
+    text-align: right;
+    margin-right: 15px;
+}
+
+.overdue {
+    color: red;
 }
 
 button, input[type=button], input[type=submit] {
     border: 1px solid #000;
     border-radius: 5px;
+    min-height: 25px;
     
     background-size: 30px;
     background-repeat: no-repeat;
@@ -100,28 +129,22 @@ button:hover, input[type=button]:hover, input[type=submit]:hover {
 
 .mission-edit-button {
     grid-area: 1 / 4 / span 2 / span 1;
-    background-image: url(assets/editicon.svg);
+    background-image: var(--edit-icon);
 
 }
 
 button.mission-delete-button {
     grid-area: 1 / 5 / span 2 / span 1;
-    background-image: url(assets/deleteicon.svg);
-    background-size: 30px;
-    background-repeat: no-repeat;
-    background-position-y: center;
-    background-position-x: center;
-    border: 1px solid #000;
-    border-radius: 5px;
+    background-image: var(--delete-icon);
 }
 
-.mission-delete-button:hover {
+.red-hover:hover, input.red-hover:hover, .mission-delete-button:hover {
     background-color: #f00;
 }
 
 #completed-list span {
     text-decoration-line: line-through;
-    color: #444444;
+    color: var(--mission-text-completed);
     font-style: italic;
 }
 
@@ -148,8 +171,26 @@ button.mission-delete-button {
     margin-top: 15%;
 }
 
-.overdue {
-    color: red;
+#detailed-mission-view form {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 20px;
+    row-gap: 7px;
+}
+
+.column-span-2 {
+    grid-column: auto / span 2;
+}
+
+.button-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+
+}
+
+#detailed-mission-view form input[type=button], #detailed-mission-view form input[type=submit] {
+    margin-top: 12px;
 }
 
 /* #endregion Detailed View */

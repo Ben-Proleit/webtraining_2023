@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Aris wundervolle ToDo-Liste</title>
     <link rel="stylesheet" href="style.css"/>
+    <!-- <script src="keypressing-listener.js"></script> -->
     <script src="todo-script.js" defer></script>
   </head>
   <body>
@@ -33,17 +34,21 @@
       </div>
       <div id="detailed-mission-view" style="display: none;">
         <div class="popup">
+          <h2>To Do bearbeiten</h2>
           <form onsubmit="try { addOrEditMission(); } catch(e) {console.error(e)}finally { return false;}">
             <input type="hidden" id="detailed-mission-id"/>
-            <label for="detailed-mission-name" required>Titel: </label>
-            <input type="text" id="detailed-mission-name"/><br/>
+            <label for="detailed-mission-name">Titel: </label>
+            <input type="text" id="detailed-mission-name" required/>
             <label for="detailed-mission-description">Beschreibung: </label>
-            <input type="text" id="detailed-mission-description"/><br/>
+            <input type="text" id="detailed-mission-description"/>
             <label for="detailed-mission-enddate">Deadline: </label>
-            <input type="date" id="detailed-mission-enddate"/><br/>
-            <input type="submit" value="Fertigstellen"/><br/>
+            <input type="date" id="detailed-mission-enddate"/>
+            <div class="button-bar column-span-2">
+              <input type="submit" value="Fertigstellen"/>
+              <input type="button" onclick="onCancelButtonClick()" value="Abbrechen" class="red-hover"/>
+            </div>
           </form>
-          <button onclick="onCancelButtonClick()">Abbrechen</button>
+          
         </div>
       </div>
     </main>

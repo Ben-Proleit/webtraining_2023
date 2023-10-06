@@ -139,7 +139,13 @@ function onEditButtonClick(e) {
 
 function onDeleteButtonClick(e) {
 
-  let confirm = window.confirm("Möchten sie dieses To-Do wirklich löschen?");
+
+  let confirm;
+
+  if(!e.shiftKey)
+    confirm = window.confirm("Möchten sie dieses To-Do wirklich löschen?");
+  else
+    confirm = true;
 
   if(!confirm)
     return;
@@ -215,6 +221,7 @@ function createMissionDiv(id) {
   newElement.type = "checkbox";
   newElement.classList.add("mission-completed");
   newElement.onchange = onCompletedCheckboxChanged;
+  newElement.title = "Aufgabe abschließen";
 
   missionDiv.appendChild(document.createElement("span")).classList.add("mission-name");
   missionDiv.appendChild(document.createElement("span")).classList.add("mission-description");
@@ -224,10 +231,12 @@ function createMissionDiv(id) {
   let buttonEdit = missionDiv.appendChild(document.createElement("button"));
   buttonEdit.classList.add("mission-edit-button");
   buttonEdit.onclick = onEditButtonClick;
+  buttonEdit.title = "Bearbeiten";
 
   let buttonDelete = missionDiv.appendChild(document.createElement("button"));
   buttonDelete.classList.add("mission-delete-button");
   buttonDelete.onclick = onDeleteButtonClick;
+  buttonDelete.title = "Löschen";
 
   return missionDiv;
 }
