@@ -11,8 +11,8 @@ var Name2 = "divad";
 
 //set players name
 function setPlayernames() {
-  document.getElementById("Name1").innerHTML = Name1;
-  document.getElementById("Name2").innerHTML = Name2;
+  document.getElementById("Name1").innerText = Name1;
+  document.getElementById("Name2").innerText = Name2;
   //change chars
   X = Name1.charAt(0).toUpperCase();
   O = Name2.charAt(0).toUpperCase();
@@ -128,11 +128,11 @@ function winAusgabe(who) {
   let reset = trTwo.appendChild(document.createElement("button"));
   reset.appendChild(document.createElement("img"));
   if (who == 1) {
-    document.getElementById("sideOne").innerHTML =
+    document.getElementById("sideOne").innerText =
       "<h3>" + Name1 + "</h3>" + P1;
     idk.textContent = Name1 + " hat gewonnen";
   } else if (who == 2) {
-    document.getElementById("sideTwo").innerHTML =
+    document.getElementById("sideTwo").innerText =
       "<h3>" + Name2 + "</h3>" + P2;
     idk.textContent = Name2 + " hat gewonnen";
   }
