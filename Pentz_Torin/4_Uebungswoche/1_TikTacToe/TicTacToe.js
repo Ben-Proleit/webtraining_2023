@@ -1,5 +1,5 @@
 var counter = 0
-var GameOver = false
+var gameOver = false
 var colorPlayer1 = "red"
 var colorPlayer2 = "skyblue"
 var resultPlayer1 = 0
@@ -87,7 +87,7 @@ function DrawSymbol(button) {
 
 //#region Gamelogic
 function ButtonClick(sender) {
-    if (GameOver) return
+    if (gameOver) return
     let button = document.getElementById(sender.target.id)
     if (button == null || button.children.length != 0)
         return;
@@ -104,7 +104,7 @@ function ButtonClick(sender) {
             resultPlayer2++
 
         assignResult()
-        GameOver = true
+        gameOver = true
         return
     }
 
@@ -116,7 +116,7 @@ function ButtonClick(sender) {
     counter++
     if (counter >= 9) {
         SetInfoText("It's a draw ", "gray")
-        GameOver = true
+        gameOver = true
     }
 
 }
@@ -169,7 +169,7 @@ function resetGameEvent() {
         buttons[i].innerHTML = ""
     }
     counter = 0
-    GameOver = false
+    gameOver = false
     //Change starting Player
     startingPlayer = (startingPlayer % 2) + 1
     currentPlayer = startingPlayer

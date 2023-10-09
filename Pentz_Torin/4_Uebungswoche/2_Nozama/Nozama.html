@@ -1,0 +1,58 @@
+<html>
+
+<head>
+    <script src="Nozama.js" defer></script>
+    <script src="SpecficProduct.js" defer></script>
+    <link rel="stylesheet" href="Nozama.css">
+</head>
+
+<body>
+    <header>
+        <menu>
+            <button id="save" class="MenuItem">Save for later</button>
+            <button id="share" class="MenuItem">Share this news</button>
+            <button id="ShoppingCart" class="ShoppingCartbtn" onclick="OpenShoppingCartEvent()">
+                <img src="https://cdn.icon-icons.com/icons2/1458/PNG/512/shoppingcartbutton_99694.png"
+                    class="ShoppingCartLogo ButtonContent" alt="WARENKORB">
+                <label class="ButtonContent" for="ShoppingCart">Warenkorb</label>
+            </button>
+        </menu>
+
+    </header>
+
+    <section class="MainBody">
+        <section id="ProductPictureSection">
+
+            <img id="ProductPicture" src="" alt="BILD">
+            <span id="ProductPictureDescription">Bild Unterschrift</span>
+            <section class="RandomText">
+                <button id="DecreaseAmount" onclick="DecreaseAmount()">-</button>
+                <input type="number" id="ArticelAmount" max="9" min="1" value="1">
+                <button id="IncreaseAmount" onclick="IncreaseAmount()">+</button>
+            </section>
+            <section>
+                <button id="AddToShoppingCart" class="ShoppingCartbtn" onclick="AddToShoppingCardEvent()">
+                    <img src="https://cdn.icon-icons.com/icons2/1458/PNG/512/shoppingcartbutton_99694.png"
+                        class="ShoppingCartLogo ButtonContent" alt="WARENKORB">
+                    <label class="ButtonContent" for="AddToShoppingCart">Zum Warenkorb hinzufügen</label>
+                </button>
+            </section>
+        </section>
+        <section id="ProductGeneral">
+            <div id="ProductName" class="PrimaryHeadline">
+
+                CONTENT
+            </div>
+            <div id="ProductHint" class="SecondaryHeadline">
+
+            </div>
+            <div id="Price" class="SecondaryHeadline"></div>
+            <div id="Description" class="RandomText"></div>
+        </section>
+    </section>
+    <footer>
+
+    </footer>
+</body>
+
+</html>
