@@ -34,6 +34,48 @@ h1 {
   text-align: center;
 }
 
+h2 {
+  text-align: center;
+}
+
+.center-helper {
+  display: flex;
+  columns: 1fr;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+}
+
+/* #region Table & Leaderboard */
+
+table {
+  background-color: black;
+} 
+
+/* Header */
+thead > tr {
+  background-color: var(--schneider-green);
+}
+
+th, td {
+  padding: 8px 5px 8px 5px;
+  margin: 0px;
+  border-width: 0px;
+  outline-width: 0px;
+}
+
+tbody > tr:nth-child(2n+1) {
+  background-color: #d0dbe1;
+}
+
+tbody > tr:nth-child(2n) {
+  background-color: #9bdcd8;
+}
+
+/* #endregion */
+
+/* #region inputting */
+
 form {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -44,7 +86,6 @@ input {
   min-height: 25px;
   border: 2px solid black;
   border-radius: 10px;
-  transition: 0.3s;
 }
 
 
@@ -56,13 +97,14 @@ button, input[type="button"], input[type="submit"] {
   color: white;
   font-weight: bolder;
   min-height: 27px;
+  transition: 0.3s;
 }
 
 button:hover, input[type="button"]:hover, input[type="submit"]:hover {
   background-color: var(--schneider-dark-green);
-  animation-name: schneider-green-to-darkgreen;
-  animation-duration: 500ms;
-}
+  /* animation-name: schneider-green-to-darkgreen;
+  animation-duration: 500ms; */
+}   
 
 form input[type="submit"] {
   grid-column: 1 / span 2;
@@ -70,13 +112,20 @@ form input[type="submit"] {
   margin-right: 20px;
 }
 
-.center-helper {
-  display: flex;
-  columns: 1fr;
-  justify-content: center;
-  align-items: center;
-  height: 80%;
+.invisible-button    {
+  border: 0px none transparent;
+  background-color: transparent;
 }
+
+/* #endregion */
+
+
+
+.invisible-button:hover {
+  background-color: #e0e0e0aa;
+}
+
+/* #region Game Area */
 
 #game-area {
   display: grid;
@@ -118,6 +167,12 @@ form input[type="submit"] {
 }
 
 #register-user-screen {
+  padding: 30px;
+  border: 5px solid black;
+  border-radius: 20px;
+}
+
+#leaderboard-screen {
   padding: 30px;
   border: 5px solid black;
   border-radius: 20px;
@@ -181,6 +236,16 @@ form input[type="submit"] {
   font-family: arial;
 }
 
+.button-bar-div {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 7px;
+}
+
+.button-bar-div > button:last-of-type {
+  margin-top: 20px;
+}
+
 #player-x-win, #player-o-win {
   color: #00dd00;
 }
@@ -191,4 +256,13 @@ form input[type="submit"] {
 
 #player-x-draw, #player-o-draw {
   color: #aaaaaa;
+}
+
+/* #endregion */
+
+@media only screen and (max-width: 600px) {
+  body {
+    background-color: lightblue;
+    background-image: none;
+  }
 }

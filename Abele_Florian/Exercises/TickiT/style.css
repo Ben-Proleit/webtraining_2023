@@ -1,0 +1,37 @@
+.viewport{
+  display: flex;
+  flex-direction: row;
+}
+.GameArea{
+  width: 700px;
+  height: 700px;
+  display: grid;
+  grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
+  grid-gap: 2%;
+  align-items: center;
+  justify-items: center;
+  font-size: 55px;
+}
+.controlPanel{
+  margin-left: 50px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+.Tile{
+  background-color: hotpink;
+  width: 100%;
+  min-width: 150px;
+  height: 100%;
+  min-height: 50px;
+  border: none;
+}
+#specialTile{
+  height: 75px;
+}
+
+.Tile p{
+  position: fixed;
+  top: 0px;
+  font-size: 37px;
+}

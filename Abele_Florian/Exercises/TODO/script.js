@@ -7,14 +7,23 @@ class task {
 }
 
 let tasks = [];
+
+const styles = ['style', 'style_dark' ];
+const styleDirectory = './stylisch/';
+const styleEnding = '.css';
+let currentStyle = localStorage.getItem('currentStyle');
+
+removeCss()
+var style = styleDirectory + styles[currentStyle % styles.length] + styleEnding;
+addCss(style);
+
 const listItemIdHead = "listItem_";
 const taskList = document.getElementsByClassName("taskList")[0];
 
 document.addEventListener('DOMContentLoaded', () => {
   load();
+  addEmptyItemIfNeeded();
 });
-
-addEmptyItemIfNeeded();
 
 function createListItemFromTask(task) {
   listItemDiv = document.createElement("div");
@@ -147,4 +156,37 @@ function load(){
     taskList.appendChild(createListItemFromTask(task))
   })
 
+}
+
+function toggleTheme(){
+  currentStyle++;
+  var styleIdx = currentStyle % styles.length;
+  var style = styleDirectory + styles[styleIdx] + styleEnding;
+  console.log(style)
+  console.log(styleIdx)
+
+  removeCss();
+  addCss(style);
+  localStorage.setItem('currentStyle', currentStyle % styles.length)
+}
+
+function removeCss(){
+  let head = document.head;
+  var linkElements = Array.from(head.getElementsByTagName('link'));
+                          // .find(element => element.type == 'text/css');
+  console.debug(linkElements);
+
+  linkElements.forEach(element =>{
+    if(element.type == 'text/css')
+      head.removeChild(element);
+  }) 
+}
+
+function addCss(fileName) {
+  let head = document.head;
+  let link = document.createElement("link");
+  link.type = "text/css";
+  link.rel = "stylesheet";
+  link.href = fileName;
+  head.appendChild(link);
 }

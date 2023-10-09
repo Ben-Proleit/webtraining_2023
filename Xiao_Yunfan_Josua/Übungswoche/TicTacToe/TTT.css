@@ -1,0 +1,93 @@
+:root {
+  --background: #222;
+  --contrast: #ffa500;
+}
+/* #region tagname */
+body {
+  background-color: var(--background);
+  color: whitesmoke;
+  font-family: Verdana;
+}
+
+h1 {
+  text-align: center;
+}
+
+input {
+  width: 80%;
+  margin: 5px;
+  font-size: 14px;
+  font-family: Verdana;
+}
+
+table {
+  text-align: center;
+  height: 100%;
+}
+
+td {
+  height: 222px;
+  width: 150px;
+}
+
+button {
+  width: 150px;
+  height: 150px;
+  font-size: xx-large;
+  font-family: "Brush Script MT", cursive;
+}
+
+h2 {
+  align-content: center;
+  text-align: center;
+  align-items: center;
+  align-self: center;
+}
+/* #endregion */
+/* #region id */
+#startpage {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+}
+
+#input {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  justify-items: center;
+}
+
+#Start {
+  align-self: center;
+  width: 30%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+}
+
+#playboard {
+  display: grid;
+  grid-template-columns: 1fr 35% 1fr;
+  grid-template-rows: auto;
+}
+
+#sideOne,
+#sideTwo {
+  text-align: center;
+  font-size: xx-large;
+}
+/* #endregion */
+
+button.resett > img {
+  content: url("Reset.png");
+}
+button:hover {
+  background-color: var(--contrast);
+}
+
+.hidden {
+  display: none !important;
+}

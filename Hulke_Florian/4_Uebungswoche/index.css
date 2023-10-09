@@ -1,0 +1,38 @@
+@import url("https://css.gg/css");
+@import url("./utilities/theme.css");
+
+.centeredContent {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.webAppLink {
+  width: 300px;
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+
+  background: var(--themePrimaryGray);
+  border-radius: 10px;
+}
+
+.webAppIcon {
+  min-width: 30px;
+  min-height: 20px;
+  margin: 10px;
+}
+
+.webAppName {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}

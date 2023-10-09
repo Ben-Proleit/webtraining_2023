@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="todo-list.css" />
+    <script src="todo-list.js" defer></script>
+    <title>ToDo List</title>
+  </head>
+  <body>
+    <!--  -->
+    <div id="head">
+      <button id="todoButtonAdd" class="icon-btn">
+        <i class="gg-add"></i>
+      </button>
+      <h1>ToDo List</h1>
+      <button id="optionsButton" class="icon-btn">
+        <i class="gg-options"></i>
+      </button>
+    </div>
+    <!--  -->
+    <div id="todosSection">
+      <h2>Todos</h2>
+      <table id="todosTable">
+        <thead>
+          <tr>
+            <th width="100px">Action</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody id="todosTableBody"></tbody>
+      </table>
+    </div>
+    <!--  -->
+    <div id="doneTodosSection">
+      <h2>Done Todos</h2>
+      <table id="doneTodoTable">
+        <thead>
+          <tr>
+            <th width="100px">Action</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody id="doneTodoTableBody"></tbody>
+      </table>
+    </div>
+    <!--  -->
+    <h3 id="noTodosSection">Looks like there's nothing to do</h3>
+    <!--  -->
+    <div id="todoContextMenu" class="context-menu" style="display: none">
+      <div>
+        <button id="todoButtonEdit" class="icon-btn">
+          <i class="gg-pen"></i>
+        </button>
+        <button id="todoButtonDelete" class="icon-btn">
+          <i class="gg-trash"></i>
+        </button>
+      </div>
+    </div>
+    <!--  -->
+    <dialog id="todoDialog">
+      <form name="todoForm">
+        <div id="todoDialogHead" class="dialog-head">Add / Edit ToDo</div>
+        <div class="dialog-body">
+          <label for="description">Description:</label>
+          <input
+            name="description"
+            id="description"
+            type="text"
+            oninput="this.setCustomValidity('')"
+          />
+        </div>
+        <div class="dialog-actions">
+          <button type="submit">Save</button>
+          <button type="button" id="todoButtonDiscard">Discard</button>
+        </div>
+      </form>
+    </dialog>
+    <!--  -->
+    <dialog id="optionsDialog">
+      <form id="optionsForm">
+        <div class="dialog-head">Options</div>
+        <div class="dialog-body">
+          <span>
+            <label for="canEdit"> Enable editing of done ToDo's: </label>
+            <input name="canEdit" id="canEdit" type="checkbox" />
+          </span>
+          <span>
+            <label for="autoDelete"> Delete done ToTo's automaticaly: </label>
+            <input name="autoDelete" id="autoDelete" type="checkbox" />
+          </span>
+        </div>
+        <div class="dialog-actions">
+          <button type="submit">Save</button>
+          <button type="button" id="optionsButtonDiscard">Discard</button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>

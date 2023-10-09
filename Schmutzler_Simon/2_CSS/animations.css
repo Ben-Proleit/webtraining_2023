@@ -1,23 +1,24 @@
 @keyframes test {
     0%{
-        background-color: aqua;
+        background-color: black;
         transform: scale(0.5,0.5);
     }
     12.5%{
-        background-color: red;
+        background-color: white;
 
     }
     25%{
-        background-color: green;
+        background-color: black;
     }
     37.5%
     {
-        background: yellow;
+        background: white;
         transform: rotate(60deg);
     }
     50%
     {
-        background-color: hotpink;
+        background-color: black;
+        
         transform: scale(2,2);
     }
     62.5%
@@ -26,16 +27,16 @@
     }
     75%
     {
-        background-color: blueviolet;
+        background-color: black;
     }
     87.5%
     {
-        background-color: brown;
+        background-color: white;
         transform: rotate(315deg);
     }
     100%
     {
-        background-color: orange;
+        background-color: black;
         transform: rotate(360deg);
     }
     
@@ -54,9 +55,15 @@ body{
 }
 
 .grid{
+    animation-name: test;
+    animation-duration: 30s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    row-gap: 30px;
+    grid-template-rows: repeat(3,1fr);
+    row-gap: 100px;
     column-gap: 100px;
 }
 
@@ -64,9 +71,9 @@ body{
 #grid1{
     height: 200px;
     width: 200px;
-    background-color: aquamarine;
+    background-color: white;
     animation-name: test;
-    animation-duration: 10s;
+    animation-duration: 13s;
     animation-delay: 1s ;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
@@ -77,9 +84,9 @@ body{
 #grid2{
     height: 200px;
     width: 200px;
-    background-color: aquamarine;
+    background-color: white;
     animation-name: test;
-    animation-duration: 10s;
+    animation-duration: 16s;
     animation-delay: 2s ;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
@@ -89,9 +96,9 @@ body{
 #grid3{
     height: 200px;
     width: 200px;
-    background-color: aquamarine;
+    background-color: white;
     animation-name: test;
-    animation-duration: 10s;
+    animation-duration: 17s;
     animation-delay: 3s ;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
@@ -102,9 +109,9 @@ body{
 #grid4{
     height: 200px;
     width: 200px;
-    background-color: aquamarine;
+    background-color: white;
     animation-name: test;
-    animation-duration: 10s;
+    animation-duration: 18s;
     animation-delay: 4s ;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
@@ -115,9 +122,9 @@ body{
 #grid5{
     height: 200px;
     width: 200px;
-    background-color: aquamarine;
+    background-color: white;
     animation-name: test;
-    animation-duration: 10s;
+    animation-duration: 18s;
     animation-delay: 5s ;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
@@ -128,9 +135,9 @@ body{
 #grid6{
     height: 200px;
     width: 200px;
-    background-color: aquamarine;
+    background-color: white;
     animation-name: test;
-    animation-duration: 10s;
+    animation-duration: 18s;
     animation-delay: 6s ;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
@@ -141,9 +148,9 @@ body{
 #grid7{
     height: 200px;
     width: 200px;
-    background-color: aquamarine;
+    background-color: white;
     animation-name: test;
-    animation-duration: 10s;
+    animation-duration: 17s;
     animation-delay: 7s ;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
@@ -154,9 +161,9 @@ body{
 #grid8{
     height: 200px;
     width: 200px;
-    background-color: aquamarine;
+    background-color: white;
     animation-name: test;
-    animation-duration: 10s;
+    animation-duration: 16s;
     animation-delay: 8s ;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
@@ -167,9 +174,9 @@ body{
 #grid9{
     height: 200px;
     width: 200px;
-    background-color: aquamarine;
+    background-color: white;
     animation-name: test;
-    animation-duration: 10s;
+    animation-duration: 15s;
     animation-delay: 9s ;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;

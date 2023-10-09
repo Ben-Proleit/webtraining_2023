@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tick iT</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div class="viewport">
+      <div class="GameArea">
+        <button class="Tile" id="tile_0" onclick="tileClicked(this)"></button>
+        <button class="Tile" id="tile_1" onclick="tileClicked(this)"></button>
+        <button class="Tile" id="tile_2" onclick="tileClicked(this)"></button>
+        <button class="Tile" id="tile_3" onclick="tileClicked(this)"></button>
+        <button class="Tile" id="tile_4" onclick="tileClicked(this)"></button>
+        <button class="Tile" id="tile_5" onclick="tileClicked(this)"></button>
+        <button class="Tile" id="tile_6" onclick="tileClicked(this)"></button>
+        <button class="Tile" id="tile_7" onclick="tileClicked(this)"></button>
+        <button class="Tile" id="tile_8" onclick="tileClicked(this)"></button>
+      </div>
+      <div class="controlPanel">
+        <div class="Tile" id="specialTile"></div>
+        <div> <!--stats-->
+          <p id="score_p0">Player &#9930;: 0</p>
+          <p id="score_p1">Player &#9929;: 0</p>
+        </div>
+        <input type="text" id="name_p0" placeholder="name player &#9930;"/>
+        <input type="text" id="name_p1" placeholder="name player &#9929;"/>
+        <button onclick="reset()">reset</button>
+      </div>
+    </div>
+  </body>
+</html>

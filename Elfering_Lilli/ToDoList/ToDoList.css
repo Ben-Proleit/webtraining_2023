@@ -1,0 +1,120 @@
+body {
+    display: grid;
+    grid-template-rows: 7% 86% 7% ;
+    text-align: center;
+    background-color: #bccee0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #31566f;
+}
+
+main{
+    grid-row: 2 ;
+    display: grid;
+}
+
+header {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
+}
+
+/* Style buttons */
+.btn {
+    background-color: #0077ff; /*#2658ab Blue background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 12px 16px; /* Some padding */
+    font-size: 16px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+  }
+  
+  /* Darker background on mouse-over */
+  .btn:hover {
+    background-color: #0063d4;
+  }
+
+  #div1 {
+    display: grid;
+    grid-template-rows: 10% 10% 55% 5% 20%;
+    overflow: hidden;
+  }
+
+  #div2 {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-size: x-large;
+  }
+
+  #div3 {
+    display: grid;
+    grid-template-columns: 10% 90%;
+  }
+
+  #divPlus {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #divInput {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-direction: row;
+  }
+
+ #inputtext,#editedText {
+    width: 70%;
+    height: 50%;
+    margin: 0.5%;
+    border: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  
+  #inputtext::placeholder {
+    opacity: 0.5;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+
+  #div5 {
+    font-size: large;
+  }
+
+  #div4,#div6 {
+    overflow-y: scroll;
+  }
+
+  #divEntry:nth-of-type(even) {
+    background-color: #31566f;
+  }
+
+  #divEntry {
+    display: grid;
+    grid-template-columns: 10% 70% 10% 10%;
+    margin: 0.25%;
+    padding: 0.15%;
+    background-color: #55a089;
+    color: white;
+  }
+
+  #entryText {
+    display: grid;
+    justify-content: left;
+    align-items: center;
+    font-size: medium;
+    overflow-x: auto;
+  }
+
+  #divEdit {
+    display: grid;
+    grid-template-columns: 80% 20%;
+    margin: 0.25%;
+    padding: 0.15%;
+    background-color: #55a089;
+  }
+
+  #divEdit:nth-of-type(even) {
+    background-color: #31566f;
+  }

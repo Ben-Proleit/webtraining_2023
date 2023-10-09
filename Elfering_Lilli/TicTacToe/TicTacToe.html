@@ -10,23 +10,25 @@
             <div id="div1">
                 <div id="div2">
                     <div>Enter your names</div>
-                    <input type="text" id="nameOne" placeholder="Player One">
-                    <input type="text" id="nameTwo" placeholder="Player Two" oninput="enableButton()">
+                    <input type="text" id="nameOne" placeholder="Player One" maxlength="10">
+                    <input type="text" id="nameTwo" placeholder="Player Two" maxlength="10" oninput="enableButton()">
                     <button type="button" id="submitBtn" onclick="getPlayerNames()" disabled>SUBMIT</button>
                 </div>
                 <div class="grid" id="div3">
-                    <button class="field A eins" id="fieldA1" onclick="fillField(this.id)"></button>
-                    <button class="field A zwei" id="fieldA2" onclick="fillField(this.id)"></button>
-                    <button class="field A drei" id="fieldA3" onclick="fillField(this.id)"></button>
-                    <button class="field B eins" id="fieldB1" onclick="fillField(this.id)"></button>
-                    <button class="field B zwei" id="fieldB2" onclick="fillField(this.id)"></button>
-                    <button class="field B drei" id="fieldB3" onclick="fillField(this.id)"></button>
-                    <button class="field C eins" id="fieldC1" onclick="fillField(this.id)"></button>
-                    <button class="field C zwei" id="fieldC2" onclick="fillField(this.id)"></button>
-                    <button class="field C drei" id="fieldC3" onclick="fillField(this.id)"></button>
+                    <button class="field" id="fieldA1" onclick="fillField(this.id)"></button>
+                    <button class="field" id="fieldA2" onclick="fillField(this.id)"></button>
+                    <button class="field" id="fieldA3" onclick="fillField(this.id)"></button>
+                    <button class="field" id="fieldB1" onclick="fillField(this.id)"></button>
+                    <button class="field" id="fieldB2" onclick="fillField(this.id)"></button>
+                    <button class="field" id="fieldB3" onclick="fillField(this.id)"></button>
+                    <button class="field" id="fieldC1" onclick="fillField(this.id)"></button>
+                    <button class="field" id="fieldC2" onclick="fillField(this.id)"></button>
+                    <button class="field" id="fieldC3" onclick="fillField(this.id)"></button>
                 </div>
-                <div id="div4"></div>
-                <div id="div5"></div>
+                <div id="div4">Life is more fun if you play games. -Roald Dahl</div>
+                <div id="div5">
+                    <button type="button" id="top10Btn" onclick="displayTop10()">TOP 10 LIST</button>
+                </div>
                 <div id="div6">
                     <button type="button" id="startOverBtn" onclick="startOver()">START OVER</button>
                     <button type="button" id="newPlayersBtn" onclick="newPlayers()">NEW PLAYERS</button>

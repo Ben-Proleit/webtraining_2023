@@ -4,7 +4,12 @@
     <link rel="stylesheet" href="todolist-header.css">
     <link rel="stylesheet" href="ToDoItem/ToDoGroup.css">
     <link rel="stylesheet" href="ToDoItem/ToDoItem.css">
-    <script src="todolist.js"></script>
+    <link rel="stylesheet" href="AddDialog/adddialog.css">
+    <link rel="stylesheet" href="DeleteDialog/deletedialog.css">
+    <script src="globals.js" type="module"></script>
+    <script src="AddDialog/adddialog.js" type="module" defer></script>
+    <script src="ToDoItem/ToDoItem.js" type="module" defer></script>
+    <script src="todolist.js" type="module" defer></script>
   </head>
   <body>
     <header>
@@ -18,87 +23,49 @@
         </select>
       </div>
       <div class="buttons">
-        <button>
+        <button id="headeradd">
           <img src="images/add.png" alt="add">
         </button>
-        <button>
+        <button id="headerdelete">
           <img src="images/delete.png" alt="delete">
         </button>
-        <button>
+        <button id="headeredit">
           <img src="images/edit.png" alt="edit">
         </button>
       </div>
     </header>
     <main>
-      <div class="todogroup" id="{group}" >
-        <details>
-          <summary class="groupsummary">
-            <span class="groupname">Daily Todos</span>
-            <div class="groupselector"></div>
-            <select class="grouppages">
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="-1">all</option>
-            </select>
-          </summary>
-          <details class="todoitem">
-            <summary class="itemsummary">
-              <span class="itemname">First todo</span>
-              <input type="checkbox" class="itemcheck" id="c{id}">
-            </summary>
-            <div class="itemcontent">
-              <p class="itemdetails">Here could be some details</p>
-              <span class="itemdate">27.09.2023</span>
-            </div>
-          </details>
-          <details class="todoitem">
-            <summary class="itemsummary">
-              <span class="itemname">First todo</span>
-              <input type="checkbox" class="itemcheck" id="c{id1}">
-            </summary>
-            <div class="itemcontent">
-              <p class="itemdetails">Here could be some details</p>
-              <span class="itemdate">27.09.2023</span>
-            </div>
-          </details>
-          <details class="todoitem">
-            <summary class="itemsummary">
-              <span class="itemname">First todo</span>
-              <input type="checkbox" class="itemcheck" id="c{id2}">
-            </summary>
-            <div class="itemcontent">
-              <p class="itemdetails">Here could be some details</p>
-              <span class="itemdate">27.09.2023</span>
-            </div>
-          </details>
-        </details>
-      </div>
-
-      <div class="todogroup" id="{group1}" >
-        <details>
-          <summary class="groupsummary">
-            <span class="groupname">Daily Todos</span>
-            <div class="groupselector"></div>
-            <select class="grouppages">
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="-1">all</option>
-            </select>
-          </summary>
-          <details class="todoitem">
-            <summary class="itemsummary">
-              <span class="itemname">First todo</span>
-              <input type="checkbox" class="itemcheck" id="c{id3}">
-            </summary>
-            <div class="itemcontent">
-              <p class="itemdetails">Here could be some details</p>
-              <span class="itemdate">27.09.2023</span>
-            </div>
-          </details>
-        </details>
-      </div>
     </main>
+    <div class="hide" id="edit">
+      <div class="editdialog">
+        <label><span>Name</span>
+          <input type="text" id="addname">
+        </label>
+        <label><span>Details</span>
+          <input type="text" id="adddetails">
+        </label>
+        <label><span>Deadline</span>
+          <input type="date" id="adddate">
+        </label>
+        <label><span>Group</span>
+          <input list="groupnames" id="addgroup"/>
+        </label>
+        <datalist id="groupnames">
+        </datalist>
+        <div>
+          <button id="editsavebutton">save</button>
+          <button id="editcancelbutton">cancel</button>
+        </div>
+      </div>
+    </div>
+    <div class="hide" id="delete">
+      <div class="deletedialog">
+        Do you want to delete this Item?
+        <div class="deletebuttons">
+          <button id="deleteokbutton">Ok</button>
+          <button id="deletecancelbutton">Cancel</button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

@@ -22,12 +22,8 @@ div > div:focus-within {
   border-style: solid;
 }
 
-/* textarea:read-only {
-  background-color: gray;
-} */
-
 #Button > button {
-  font-size: 15px;
+  width: 5%;
 }
 
 #Button > button:hover {
@@ -51,16 +47,21 @@ div > div:focus-within {
 }
 
 /* Add Images to Buttons */
+
 button.edit > img {
-  content: url("Pencil.png");
+  content: url("../Pics/Pencil.png");
 }
 
 button.kill > img {
-  content: url("TrashBin.png");
+  content: url("../Pics/TrashBin.png");
 }
 
 button.completed > img {
-  content: url("CheckMark.png");
+  content: url("../Pics/CheckMark.png");
+}
+
+#Done button.completed > img {
+  content: url("../Pics/Reload.png");
 }
 
 /* Add Hover changes */

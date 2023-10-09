@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="TTT.js" defer></script>
+    <link rel="stylesheet" href="TTT.css" />
+    <meta charset="UTF-8" />
+    <link rel="icon" type="images/x-icon" href="TicPic.png" />
+    <title>TicTacTic</title>
+  </head>
+  <body>
+    <header><h1>Das coole TicTacToe</h1></header>
+    <br />
+    <hr />
+    <br />
+    <div id="startpage">
+      <div></div>
+      <div id="input">
+        <input type="text" id="NameInput1"></input>
+        <input id="NameInput2"></input>
+        <button id="Start" onclick="startGame()">Start</button>
+      </div>
+      <div></div>
+    </div>
+    <!--  -->
+    <div id="playboard" class="hidden">
+      <div id="sideOne">
+        <h3 id="Name1"></h3>
+        <span>0</span>
+      </div>
+      <table>
+        <tr>
+          <td><button id="1" onclick="insertInput(1);"></button></td>
+          <td><button id="2" onclick="insertInput(2);"></button></td>
+          <td><button id="3" onclick="insertInput(3);"></button></td>
+        </tr>
+        <tr>
+          <td><button id="4" onclick="insertInput(4);"></button></td>
+          <td><button id="5" onclick="insertInput(5);"></button></td>
+          <td><button id="6" onclick="insertInput(6);"></button></td>
+        </tr>
+        <tr>
+          <td><button id="7" onclick="insertInput(7);"></button></td>
+          <td><button id="8" onclick="insertInput(8);"></button></td>
+          <td><button id="9" onclick="insertInput(9);"></button></td>
+        </tr>
+      </table>
+      <div id="sideTwo">
+        <h3 id="Name2"></h3>
+        <span>0</span>
+      </div>
+    </div>
+  </body>
+</html>
