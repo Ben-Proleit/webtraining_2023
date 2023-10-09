@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+ </head>
+<body>
+
+<h2>JavaScript const</h2>
+
+<p>Die Deklaration eines konstanten Objekts macht die Objekteigenschaften NICHT unveränderlich:</p>
+
+<p id="demo"></p>
+
+<script>
+const beer = {hopfen: 50, gerste: 20, malz: 30}
+beer.hopfen = 40;
+echoBeer(beer);
+
+function echoBeer(product){
+  document.getElementById("demo").innerHTML = "Hopfen: " + product.hopfen + "%, Gerste: " + product.gerste + "%, Malz: " + product.malz + "%";
+}
+</script>
+
+</body>
+</html>
+

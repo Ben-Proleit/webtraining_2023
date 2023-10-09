@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+ </head>
+<body>
+
+<h2>JavaScript const</h2>
+
+<p>Die Deklaration eines konstantes Arrays bedeutet nicht, dass Sie Elemente nicht ändern können:</p>
+
+<p id="demo"></p>
+
+<script>
+const beers = ["Spaten", "Zirndorfer", "Hacker-Pschorr"];
+beers[0] = "Mönchshof";
+document.getElementById("demo").innerHTML += beers.toString();
+</script>
+
+</body>
+</html>
+
