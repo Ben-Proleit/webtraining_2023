@@ -4,10 +4,10 @@ var field = [['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
 ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
 [0, 0, 0, 0, 0, 0, 0, 0],
 [0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 'q', 0, 0, 0],
 [0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0],
-['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
-['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']]
+['P', 'P', 'P', 'P', 'P', 'P', 0, 'P'],
+['R', 'N', 'B', 'Q', 'K', 0, 0, 'R']]
 
 
 var colorTileLight = '#A3'
@@ -195,6 +195,7 @@ function ButtonClick(sender) {
         lastMove.push(origin)
 
         if (destination == possibleRochadeRookL || destination == possibleRochadeRookR) {
+            updateRochade(origin.id[0], origin.id[2])
             resolveRochade(destination == possibleRochadeRookL ? 'l' : 'r')
         } else {
             destination.innerHTML = origin.innerHTML
@@ -657,6 +658,7 @@ function rochade() {
             possibleRochadeRookR = document.getElementById('0_7')
         }
     }
+
 }
 
 function resolveRochade(direction) {
@@ -680,7 +682,8 @@ function resolveRochade(direction) {
     field[rookTo.id[0]][rookTo.id[2]] = turn == 'w' ? 'R' : 'r'
     field[kingFrom.id[0]][kingFrom.id[2]] = 0
     field[kingTo.id[0]][kingTo.id[2]] = turn == 'w' ? 'K' : 'k'
-
+    possibleRochadeRookL = '9_9'
+    possibleRochadeRookR = '9_9'
     updateKingPosition(kingTo.id[0], kingTo.id[2])
 
 }
