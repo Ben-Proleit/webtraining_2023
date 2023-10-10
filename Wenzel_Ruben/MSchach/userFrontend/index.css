@@ -1,0 +1,70 @@
+body {
+  align-items: center;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#base {
+  display: grid;
+  grid-template-columns: repeat(8, 70px);
+  grid-template-rows: repeat(8, 70px);
+}
+
+#sun {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  height: 50px;
+  width: 50px;
+  background-color: #fc0;
+  border-radius: 50%;
+}
+
+button {
+  font-size: 52;
+}
+
+.black {
+  font-size: 52;
+  color: #073a73;
+}
+
+.white {
+  font-size: 52;
+  color: #7b092c;
+}
+
+@keyframes promotion {
+  from {
+    background-color: #fc0;
+  }
+
+  to {
+    background-color: #c03;
+  }
+}
+
+#promote-dialog {
+  height: 100px;
+  width: 100%;
+  padding: 10px;
+  justify-content: space-around;
+  align-items: center;
+  display: none;
+  position: fixed;
+  bottom: 0;
+  animation: promotion;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#turn {
+  position: fixed;
+  top: 0;
+  height: 100px;
+  width: 100px;
+  font-size: 100px;
+}
