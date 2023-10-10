@@ -1,3 +1,4 @@
+//#region ini
 const environment = require("./environments/environment");
 const express = require("express");
 const http = require("http");
@@ -24,13 +25,10 @@ const field = [
 ];
 
 const matches = {
-  black: undefined,
-  white: undefined,
-  field: field,
-  gameId: undefined,
 };
 
 const backEndPlayers = {};
+//#endregion ini
 
 server.listen(environment.port, () => {
   console.log("Listen on Port: " + environment.port);
@@ -43,8 +41,13 @@ app.get("/", (req, res) => {
 io.on("connection", (socket) => {
   console.log("a user connected");
 
-  backEndPlayers[socket] = { socket };
-  let isMatched = false;
+  setNewMatch()
+
+  //Setup Lobby
+  io.emit("transmitLobby", matches)
+
+  // backEndPlayers[socket] = { socket };
+  // let isMatched = false;
   //   for (let match in matches) {
   //     if (match.white == undefined) {
   //       match.white = backEndPlayers[socket];
@@ -55,13 +58,13 @@ io.on("connection", (socket) => {
   //     }
   //   }
   //   if (!isMatched) {
-  matches[socket] = {
-    black: undefined,
-    white: backEndPlayers[socket],
-    field: field,
-    gameId: undefined,
+  // matches[socket] = {
+  //   black: undefined,
+  //   white: backEndPlayers[socket],
+  //   field: field,
+  //   gameId: undefined,
     // };
-  };
+  // };
 
   //TODO Add matches, can_interact
   socket.on("click", ({ sender, frontEndField }) => {
@@ -78,5 +81,17 @@ io.on("connection", (socket) => {
     }
   });
 });
+
+var matchNum = 0;
+function setNewMatch(){
+  matches[0] = {
+  black: 'p1',
+  white: undefined,
+  field: field,
+  gameId: matchNum,
+  // };
+  };
+  matchNum++;
+}
 
 console.log("Server Loaded");

@@ -65,6 +65,9 @@ var onPromotion = false;
 
 //#endregion vars
 
+const frontEndMatches = {}
+
+
 createField();
 document.getElementById("turn").className = "white";
 
@@ -186,6 +189,16 @@ function ButtonClick(e) {
   socket.emit("click", { sender, frontEndField: field });
 }
 
+//On connection get loby
+socket.on("transmitLobby", (backEndMatches) => {
+  
+  deleteMatches(backEndMatches)
+
+  createNewGame(backEndMatches)
+
+
+})
+
 socket.on("update", ({ sender, backEndField }) => {
   field = backEndField;
   console.log("update" + sender.target.id);
@@ -278,6 +291,36 @@ socket.on("update", ({ sender, backEndField }) => {
   }
 });
 
+//Removes existing buttons for updates
+function deleteMatches(backEndMatches){
+  for (let id in frontEndMatches){
+    if (!backEndMatches[id]) {
+      delete frontEndMatches[id];
+    }
+  }
+}
+
+//Creates an new game for each match existing //TODO has to be updates on loby changed!
+function createNewGame(backEndMatches){
+  for(let id in backEndMatches){
+    console.log(backEndMatches[id].white)
+    let newMatch = document.createElement("button");
+    newMatch.classList.add('match');
+    newMatch.setAttribute("id",backEndMatches[id].gameId)
+    //set playercount of specific match
+    let playercount = 0
+    if(backEndMatches[id].white != undefined) playercount +=1
+    if(backEndMatches[id].black != undefined) playercount +=1
+    newMatch.innerText = 'Game id: ' + backEndMatches[id].gameId + '  Players: '+ playercount + '/2'
+    document.getElementById('Loby').appendChild(newMatch);
+  }
+}
+
+
+
+
+
+//#region gamefunctions
 function checkEnpassant(destination, sender) {
   if (destination.id == possibleEnPassant.id) {
     enPassant = possibleEnPassant;
@@ -901,3 +944,4 @@ function switchTarget() {
   });
   possibleMovement = [];
 }
+//#endregion gamefunctions
