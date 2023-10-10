@@ -13,7 +13,13 @@
 <p id="demo"></p>
 
 <script>
+var beers = ["Hacker-Pschorr", "Augustiner", "Mönchshof"];
+document.getElementById("demo").innerText = beers.toString();
 
+function myFunction(){
+  beers.unshift("Zirndorfer");
+  document.getElementById("demo").innerText = beers.toString();
+}
 </script>
 
 </body>

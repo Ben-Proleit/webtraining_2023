@@ -11,12 +11,16 @@
 
 <button onclick="myFunction()">Splice</button>
 
-<p id="demo1"></p>
-<p id="demo2"></p>
-<p id="demo3"></p>
+<p id="demo"></p>
 
 <script>
+var beers = ["Hacker-Pschorr", "Augustiner", "Mönchshof"];
+document.getElementById("demo").innerText = beers.toString();
 
+function myFunction(){
+  beers.splice(0, 2, "Zirndorfer", "Spalter");
+  document.getElementById("demo").innerText = beers.toString();
+}
 </script>
 
 </body>

@@ -14,7 +14,11 @@
 <p id="demo">Please visit Microsoft!</p>
 
 <script>
-
+function myFunction(){
+  var text = document.getElementById("demo").innerText;
+  text = text.replace("Microsoft", "Schneider Electric");
+  document.getElementById("demo").innerText = text;
+}
 </script>
 
 </body>

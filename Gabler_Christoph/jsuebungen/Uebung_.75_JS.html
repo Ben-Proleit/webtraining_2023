@@ -12,7 +12,11 @@
 <p id="demo"></p>
 
 <script>
-
+try{
+  throw String("Kabutt!");
+}catch(exception){
+  document.getElementById("demo").innerText = exception;
+}
 </script>
 
 </body>

@@ -6,13 +6,26 @@
 <body>
 
 <h2>JavaScript Objekt Array Sortierung</h2>
-<p>Klicken Sie auf die Schaltflächen, um Autoobjekte nach Alter zu sortieren.</p>
+<p>Klicken Sie auf die Schaltflächen, um Bierobjekte nach Alter zu sortieren.</p>
 
 <button onclick="myFunction()">Sort</button>
 <p id="demo"></p>
 
 <script>
+var beers = [{name: "Hacker-Pschorr", age: 0.2}, {name: "Augustiner", age: 0.1}, {name: "Mönchshof", age: 1}, {name: "Zirndorfer", age: 0.5}, {name: "Spalter", age: 0}, {name: "Spaten", age: 0.6}, {name: "König Ludwig", age: 0.4}];
+echoBeers();
 
+function myFunction(){
+  beers.sort((a, b) => {return a.age > b.age;});
+  echoBeers();
+}
+
+function echoBeers(){
+  document.getElementById("demo").innerText = "";
+  beers.forEach((item) => {
+    document.getElementById("demo").innerText += item.name + " " + item.age + ",";
+  });
+}
 </script>
 
 </body>

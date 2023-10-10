@@ -9,7 +9,14 @@
 <p>Der höchste Wert ist <span id="demo"></span>.</p>
 
 <script>
-
+var numbers = [0,1,2,3,4,5,6,7,8,9];
+var max = Number.MIN_VALUE;
+for(let i = 0; i < numbers.length; i++){
+  if(i > max){
+    max = i;
+  }
+}
+document.getElementById("demo").innerText = max;
 </script>
 
 </body>

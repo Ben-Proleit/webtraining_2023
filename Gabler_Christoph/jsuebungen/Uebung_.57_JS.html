@@ -15,7 +15,9 @@
 <p id="demo"></p>
 
 <script>
-
+var beers = ["Hacker-Pschorr", "Augustiner", "Mönchshof"];
+beers = beers.concat(["Zirndorfer", "Spalter"], ["Ammerndorfer", "König Ludwig"]);
+document.getElementById("demo").innerText = beers.toString();
 </script>
 
 </body>

@@ -12,7 +12,20 @@
 <p id="demo"></p>
 
 <script>
+var beers = [{name: "Hacker-Pschorr", age: 0.2}, {name: "Augustiner", age: 0.1}, {name: "Mönchshof", age: 1}, {name: "Zirndorfer", age: 0.5}, {name: "Spalter", age: 0}, {name: "Spaten", age: 0.6}, {name: "König Ludwig", age: 0.4}];
+echoBeers();
 
+function myFunction(){
+  beers.sort((a, b) => {return a.name > b.name;});
+  echoBeers();
+}
+
+function echoBeers(){
+  document.getElementById("demo").innerText = "";
+  beers.forEach((item) => {
+    document.getElementById("demo").innerText += item.name + " " + item.age + ",";
+  });
+}
 </script>
 
 </body>

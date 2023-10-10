@@ -11,7 +11,20 @@
 <p id="demo"></p>
 
 <script>
+var beers = ["Hacker-Pschorr", "Augustiner", "Mönchshof", "Zirndorfer", "Spalter", "Spaten", "König Ludwig"];
 
+for(let item of beers){
+  switch(item){
+    case "Hacker-Pschorr":
+    case "Augustiner":
+    case "Spaten":
+      document.getElementById("demo").innerHTML += item + " ist ein Wiesen Bier.<br>";
+      break;
+    default:
+      document.getElementById("demo").innerHTML += item + " ist kein Wiesen Bier.<br>";
+      break;
+  }
+}
 </script>
 
 </body>

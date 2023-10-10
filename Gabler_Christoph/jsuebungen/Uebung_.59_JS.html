@@ -15,7 +15,18 @@
 <p id="demo"></p>
 
 <script>
+var beers = ["Hacker-Pschorr", "Augustiner", "Mönchshof", "Zirndorfer", "Spalter", "Spaten", "König Ludwig"];
+document.getElementById("demo").innerText = beers.toString();
 
+function myFunction1(){
+  beers = beers.sort((a, b) => {return a > b;});
+  document.getElementById("demo").innerText = beers.toString();
+}
+
+function myFunction2(){
+  beers = beers.sort((a, b) => {return a - b;});
+  document.getElementById("demo").innerText = beers.toString();
+}
 </script>
 
 </body>
