@@ -200,7 +200,7 @@ function ButtonClick(sender) {
             destination.innerHTML = origin.innerHTML
 
             //EnPassant
-            checkEnpassant(destination, sender)
+            checkEnpassant(destination, field[origin.id[0]][origin.id[2]])
 
             field[row][column] = field[origin.id[0]][origin.id[2]]
 
@@ -243,19 +243,20 @@ function ButtonClick(sender) {
                 rochade()
             }
 
-            colorPossibleMovement()
+            colorPossibleMovement(field[row][column])
 
         }
     }
 }
 
-function checkEnpassant(destination, sender) {
+function checkEnpassant(destination, piece) {
+    console.log('piece: ' + piece)
     if (destination.id == possibleEnPassant.id) {
         enPassant = possibleEnPassant
         hitEnPassant = possibleHitEnPassant
     }
-    else if (hitEnPassant != '9_9' && destination.id == hitEnPassant.id && field[sender.id[0]][sender.id[2]].toUpperCase() == 'P') {
-
+    else if (hitEnPassant != '9_9' && destination.id == hitEnPassant.id && piece.toUpperCase() == 'P') {
+        console.log('Hit EnPassent')
         enPassant.innerHTML = ''
         field[enPassant.id[0]][enPassant.id[2]] = 0
     }
@@ -270,7 +271,6 @@ function checkEnpassant(destination, sender) {
 function checkCheck() {
     wKingCheck = isThreatened(wKingPosition[0], wKingPosition[2], 'w')
     bKingCheck = isThreatened(bKingPosition[0], bKingPosition[2], 'b')
-    console.log(wKingCheck)
     if (wKingCheck) {
         document.getElementById(wKingPosition).style.backgroundColor = '#FC0'
     } else {
@@ -369,9 +369,11 @@ function inBound(row, column) {
 }
 
 //Colors all tiles in possibleMovement
-function colorPossibleMovement() {
+function colorPossibleMovement(piece) {
     possibleMovement.forEach(tile => {
-        if (field[tile.id[0]][tile.id[2]] == 0)
+        if (tile.id == hitEnPassant.id && piece.toUpperCase() == 'P')
+            tile.style.backgroundColor = colorRed
+        else if (field[tile.id[0]][tile.id[2]] == 0)
             tile.style.backgroundColor = colorBlue
         else if (blackTurnPiece(tile.id[0], tile.id[2]) || whiteTurnPiece(tile.id[0], tile.id[2]))
             tile.style.backgroundColor = colorBlue
