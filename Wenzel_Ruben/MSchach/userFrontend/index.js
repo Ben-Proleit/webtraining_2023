@@ -196,6 +196,10 @@ socket.on("transmitLobby", (backEndMatches) => {
 
   createNewGame(backEndMatches)
 
+  //TODO Create Lobby button functionallity
+  //TODO Create Lobby create Button
+  //TODO Set frontendPlayer Match on Back end Player match, on connection
+  //TODO Hide Game, if is in lobby somehow
 
 })
 

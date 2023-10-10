@@ -41,30 +41,18 @@ app.get("/", (req, res) => {
 io.on("connection", (socket) => {
   console.log("a user connected");
 
-  setNewMatch()
-
   //Setup Lobby
   io.emit("transmitLobby", matches)
 
-  // backEndPlayers[socket] = { socket };
-  // let isMatched = false;
-  //   for (let match in matches) {
-  //     if (match.white == undefined) {
-  //       match.white = backEndPlayers[socket];
-  //       isMatched = true;
-  //     } else if (match.black == undefined) {
-  //       match.black = backEndPlayers[socket];
-  //       isMatched = true;
-  //     }
-  //   }
-  //   if (!isMatched) {
-  // matches[socket] = {
-  //   black: undefined,
-  //   white: backEndPlayers[socket],
-  //   field: field,
-  //   gameId: undefined,
-    // };
-  // };
+  //TODO: Socket joins a specific lobby
+  socket.on("joinLobby", () => {
+
+  })
+
+  //TODO Creates new lobby if the socket chooses to
+  socket.on("createNewLoby", () => {
+    setNewMatch()
+  })
 
   //TODO Add matches, can_interact
   socket.on("click", ({ sender, frontEndField }) => {
