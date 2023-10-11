@@ -1,3 +1,19 @@
 .lobbyWrapper{
   width: 200px;
 }
+
+#matchDisplay{
+  visibility: hidden;
+}
+
+.grid{
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.gridItem{
+  width: 150px;
+  height: 150px;
+}

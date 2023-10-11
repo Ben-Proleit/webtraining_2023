@@ -37,7 +37,7 @@
 <div class="w-100 h-100 ps-5 bg-body-dark d-flex flex-nowrap flex-column justify-content-start home-content-wrap">
   <!-- chat header -->
   <div class="w-100 bg-body d-flex flex-row flex-nowrap justify-content-between py-2 ps-4 pe-2 home-content">
-    <p id="page-name" class="my-auto text-dark">Chatroom</p>
+    <p id="page-name" class="my-auto text-dark">Tic Tac Toe</p>
     <div class="d-flex flex-row flex-nowrap justify-content-end">
       <!-- quick settings -->
       <button class="btn me-1" onclick="toggleTheme();" data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -55,9 +55,27 @@
     </div>
   </div>
   <!-- content wrapper -->
-  <div class="flex-grow-1 home-content bg-body w-100 d-flex flex-row flex-nowrap justify-content-end mt-3 p-3 overflow-auto text-dark">
+  <div
+    class="flex-grow-1 home-content bg-body w-100 d-flex flex-row flex-nowrap justify-content-end mt-3 p-3 overflow-auto text-dark">
     <!-- game board -->
-    <div class="flex-grow-1"></div>
+    <div class="flex-grow-1 d-flex flex-column align-items-center justify-content-center rounded">
+      <label id="matchDisplay" class="mb-4 fs-4">
+        <span id="player1">Player1</span>
+        <span>vs</span>
+        <span id="player2">Player2</span>
+      </label>
+      <div class="grid">
+        <div id="field0" class="gridItem bg-body-dark"></div>
+        <div id="field1" class="gridItem bg-body-dark"></div>
+        <div id="field2" class="gridItem bg-body-dark"></div>
+        <div id="field3" class="gridItem bg-body-dark"></div>
+        <div id="field4" class="gridItem bg-body-dark"></div>
+        <div id="field5" class="gridItem bg-body-dark"></div>
+        <div id="field6" class="gridItem bg-body-dark"></div>
+        <div id="field7" class="gridItem bg-body-dark"></div>
+        <div id="field8" class="gridItem bg-body-dark"></div>
+      </div>
+    </div>
     <!-- lobby board -->
     <div class="lobbyWrapper d-flex flex-column justify-content-start">
       <span class="pb-3">Lobby</span>
@@ -66,21 +84,24 @@
     <!-- implement invited modal -->
     <div id="invitedModal" class="modal" tabindex="-1">
       <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title">Pending invitation</h5>
-                  <button id="invitedModalClose" type="button" class="btn-close svg-background" data-bs-dismiss="modal" aria-label="Close" onclick="acceptInvite(false);"></button>
-              </div>
-              <div class="modal-body">
-                  <label class="form-label"><span id="invitedModalName"></span> has invited you to a match. Do you accept?</label>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary text-light" onclick="acceptInvite(true);">Yes</button>
-                <button type="button" class="btn btn-primary text-light" onclick="acceptInvite(false);" data-bs-dismiss="modal">No</button>
-              </div>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Pending invitation</h5>
+            <button id="invitedModalClose" type="button" class="btn-close svg-background" data-bs-dismiss="modal"
+              aria-label="Close" onclick="acceptInvite(false);"></button>
           </div>
+          <div class="modal-body">
+            <label class="form-label"><span id="invitedModalName"></span> has invited you to a match. Do you
+              accept?</label>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary text-light" onclick="acceptInvite(true);">Yes</button>
+            <button type="button" class="btn btn-primary text-light" onclick="acceptInvite(false);"
+              data-bs-dismiss="modal">No</button>
+          </div>
+        </div>
       </div>
-  </div>
+    </div>
   </div>
 </div>
 <!-- new message toast -->
@@ -131,7 +152,7 @@
       //check if the data is a command
       if (data["command"] !== undefined) {
         //process each command
-        switch(data["command"]){
+        switch (data["command"]) {
           case "chatit new message":
             //show the notifiction
             showNotification(data["arguments"][2], data["arguments"][1], data["arguments"][0]);
@@ -145,6 +166,9 @@
           case "chatit invited":
             onInvited(data["arguments"][0]);
             break;
+          case "chatit accepted":
+            onAccepted(data["arguments"][0], data["arguments"][1]);
+            break;
         }
       }
     };
@@ -152,24 +176,28 @@
     socket.connect();
   });
 
-  function reloadLobby(){
+  function reloadLobby() {
     //clear the lobby list
     let lobby = document.getElementById("lobby");
     lobby.innerHTML = "";
     //request all users
     socket.requestCommand("chatit lobby", null, (data) => {
-      if(Array.isArray(data)){
+      if (Array.isArray(data)) {
         //get the player entry template
         fetchHTML("playerEntry.html", (html) => {
           //add each item
-          for(let i = 0; i < data.length; i++){
+          for (let i = 0; i < data.length; i++) {
             let entry = html.replaceAll("@USERNAME", data[i]);
             lobby.innerHTML += entry;
+            //do not display the own invite button
+            if (data[i] == sessionStorage.getItem("username")) {
+              document.getElementById("lobbyuser-" + data[i]).querySelector("button").style.display = "none";
+            }
           }
         }, (status) => {
           console.log("Could not fetch message template. Code: " + status);
         });
-      }else{
+      } else {
         console.log("The server sent an invalid response.");
       }
     }, (code) => {
@@ -179,11 +207,11 @@
     });
   }
 
-  function joinLobby(){
+  function joinLobby() {
     socket.requestCommand("chatit lobby join", null, (data) => {
-      if(typeof data == "boolean" && data){
+      if (typeof data == "boolean" && data) {
         reloadLobby();
-      }else{
+      } else {
         console.log("The server responded with invalid data when joining the lobby.");
       }
     }, (code) => {
@@ -193,13 +221,13 @@
     });
   }
 
-  function onPlayerLeft(username){
+  function onPlayerLeft(username) {
     //implement lobby leaving
     document.getElementById("lobbyuser-" + username).remove();
     //TODO: what if the player is the competitor in the current match?
   }
 
-  function onPlayerJoined(username){
+  function onPlayerJoined(username) {
     //get the player entry template
     fetchHTML("playerEntry.html", (html) => {
       //add the player to the lobby
@@ -210,16 +238,16 @@
     });
   }
 
-  function invitePlayer(username){
+  function invitePlayer(username) {
     socket.requestCommand("chatit invite", [username], (data) => {
-      if(typeof data == "boolean" && data){
+      if (typeof data == "boolean" && data) {
         //get the lobby display
         let lobby = document.getElementById("lobby");
         //disable all invite buttons
-        lobby.children.forEach(element => {
+        for (let element of lobby.children) {
           element.querySelector("button").disabled = true;
-        });
-      }else{
+        }
+      } else {
         console.log("The server respondend with invalid data when inviting other player.");
       }
     }, (code) => {
@@ -229,20 +257,20 @@
     });
   }
 
-  function onInvited(username){
+  function onInvited(username) {
     //set the username for the invitation
     document.getElementById("invitedModalName").innerText = username;
     //open the modal
     new bootstrap.Modal("#invitedModal").toggle();
   }
 
-  function acceptInvite(accepted){
+  function acceptInvite(accepted) {
     let invitor = document.getElementById("invitedModalName").innerText;
     socket.requestCommand("chatit accept", [invitor, accepted], (data) => {
-      if(typeof data == "boolean" && data){
+      if (typeof data == "boolean" && data) {
         //close the modal
         document.getElementById("invitedModalClose").click();
-      }else{
+      } else {
         console.log("The server responded with invalid data when accepting an invitation.");
       }
     }, (code) => {
@@ -250,6 +278,24 @@
     }, () => {
       console.log("Timeout on accepting the invitation.");
     });
+  }
+
+  function onAccepted(username, accepted) {
+    //enable all invite buttons again
+    for (let element of lobby.children) {
+      element.querySelector("button").disabled = false;
+    }
+    //close the modal, if still open
+    document.getElementById("invitedModalClose").click();
+  }
+
+  function onStartMatch() {
+    //disable all invite buttons
+    for (let element of lobby.children) {
+      element.querySelector("button").disabled = true;
+    }
+    //TODO: show the match display
+    //TODO: enable all match buttons again
   }
 
   function showConnected() {
