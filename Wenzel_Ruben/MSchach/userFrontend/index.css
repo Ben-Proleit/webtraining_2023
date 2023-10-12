@@ -68,3 +68,9 @@ button {
   width: 100px;
   font-size: 100px;
 }
+
+#Lobby {
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+}

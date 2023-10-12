@@ -1,3 +1,5 @@
+//#region Setup
+
 //#region vars
 
 //#region serverini
@@ -65,13 +67,12 @@ var onPromotion = false;
 
 //#endregion vars
 
-const frontEndMatches = {}
+const frontEndMatches = {};
 
+let currentMatchId = undefined;
 
 createField();
 document.getElementById("turn").className = "white";
-
-//#region Setup
 
 function createField() {
   let base = document.getElementById("base");
@@ -174,37 +175,90 @@ function assignImage(content, button) {
 
 //#endregion Setup
 
+//TODO Create Lobby button functionallity
+//TODO Create Lobby create Button
+//TODO Set frontendPlayer Match on Back end Player match, on connection
+//TODO Hide Game, if is in lobby somehow
+
+//On connection get lobby
+// socket.on("transmitLobby", (backEndMatches) => {
+// deleteMatches(backEndMatches);
+
+// createNewGame(backEndMatches);
+
+// });
+
+//#region updateMatches
+socket.on("updateMatches", (backEndMatches) => {
+  deleteMatch(backEndMatches);
+  for (let id in backEndMatches) {
+    if (frontEndMatches[id] != undefined) {
+      updateMatch(backEndMatches[id], id);
+    } else {
+      createMatch(backEndMatches[id], id);
+    }
+  }
+});
+
+//Removes existing buttons for updates
+function deleteMatch(backEndMatches) {
+  for (let id in frontEndMatches) {
+    if (!backEndMatches[id]) {
+      delete frontEndMatches[id];
+    }
+  }
+}
+
+//Creates an new game for each match existing //TODO has to be updates on lobby changed!
+function createMatch(backEndMatches, id) {
+  let newMatch = document.createElement("button");
+  newMatch.classList.add("match");
+  newMatch.onclick = joinLobby;
+  console.log(backEndMatches[id]);
+  newMatch.setAttribute("id", backEndMatches[id].gameId);
+  newMatch.innerText =
+    "Game id: " + backEndMatches[id].gameId + "  Players: " + 0 + "/2";
+  document.getElementById("Lobby").appendChild(newMatch);
+}
+
+function updateMatch(backEndMatches, id) {
+  frontEndMatches[id] = backEndMatches[id];
+  //set playercount of specific match
+  let playercount = 0;
+  if (backEndMatches[id].white != undefined) playercount += 1;
+  if (backEndMatches[id].black != undefined) playercount += 1;
+  document.getElementById(id).innerText =
+    "Game id: " +
+    backEndMatches[id].gameId +
+    "  Players: " +
+    playercount +
+    "/2";
+}
+//#endregion updateMatches
+
+//#region button inputs
+function createNewMatch() {
+  socket.emit("createNewLobby");
+}
+
+function joinLobby(e) {
+  socket.emit("joinLobby", e.srcElement.id);
+}
+//#endregion button inputs
+
+//GameButtons
 function ButtonClick(e) {
-  //     sender.target.id +
-  //       " " +
-  //       sender.innerHTML +
-  //       " "[sender.id[0]] +
-  //       " " +
-  //       [sender.id[2]]
-  //   );
   var sender = {};
   sender.target = {};
   sender.target.id = e.target.id;
   console.log(sender.target.id);
-  socket.emit("click", { sender, frontEndField: field });
+  socket.emit("chessInput", { sender, frontEndField: field });
 }
 
-//On connection get loby
-socket.on("transmitLobby", (backEndMatches) => {
-  
-  deleteMatches(backEndMatches)
-
-  createNewGame(backEndMatches)
-
-  //TODO Create Lobby button functionallity
-  //TODO Create Lobby create Button
-  //TODO Set frontendPlayer Match on Back end Player match, on connection
-  //TODO Hide Game, if is in lobby somehow
-
-})
-
-socket.on("update", ({ sender, backEndField }) => {
-  field = backEndField;
+//Game Function
+socket.on("update", (sender) => {
+  //TODO get the current field
+  // field = backEndField;
   console.log("update" + sender.target.id);
 
   if (onPromotion) {
@@ -294,35 +348,6 @@ socket.on("update", ({ sender, backEndField }) => {
     }
   }
 });
-
-//Removes existing buttons for updates
-function deleteMatches(backEndMatches){
-  for (let id in frontEndMatches){
-    if (!backEndMatches[id]) {
-      delete frontEndMatches[id];
-    }
-  }
-}
-
-//Creates an new game for each match existing //TODO has to be updates on loby changed!
-function createNewGame(backEndMatches){
-  for(let id in backEndMatches){
-    console.log(backEndMatches[id].white)
-    let newMatch = document.createElement("button");
-    newMatch.classList.add('match');
-    newMatch.setAttribute("id",backEndMatches[id].gameId)
-    //set playercount of specific match
-    let playercount = 0
-    if(backEndMatches[id].white != undefined) playercount +=1
-    if(backEndMatches[id].black != undefined) playercount +=1
-    newMatch.innerText = 'Game id: ' + backEndMatches[id].gameId + '  Players: '+ playercount + '/2'
-    document.getElementById('Loby').appendChild(newMatch);
-  }
-}
-
-
-
-
 
 //#region gamefunctions
 function checkEnpassant(destination, sender) {
